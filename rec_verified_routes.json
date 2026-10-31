@@ -1,0 +1,1031 @@
+[
+  {
+    "sno": "1",
+    "routeNumber": "1",
+    "routeName": "Ennore",
+    "startTime": "5.40 am",
+    "boardingPointsUrl": "../routes/n01.php"
+  },
+  {
+    "sno": "2",
+    "routeNumber": "1B",
+    "routeName": "Beach Station",
+    "startTime": "6.18 am",
+    "boardingPointsUrl": "../routes/n01b.php"
+  },
+  {
+    "sno": "3",
+    "routeNumber": "1C",
+    "routeName": "Tondiarpet (RTO Office)",
+    "startTime": "6.05 am",
+    "boardingPointsUrl": "../routes/n01c.php"
+  },
+  {
+    "sno": "4",
+    "routeNumber": "2",
+    "routeName": "Tondiarpet",
+    "startTime": "6.10 am",
+    "boardingPointsUrl": "../routes/n02.php"
+  },
+  {
+    "sno": "5",
+    "routeNumber": "2B",
+    "routeName": "Ajax",
+    "startTime": "5.50 am",
+    "boardingPointsUrl": "../routes/n02b.php"
+  },
+  {
+    "sno": "6",
+    "routeNumber": "2C",
+    "routeName": "Mint",
+    "startTime": "6.10 am",
+    "boardingPointsUrl": "../routes/n02c.php"
+  },
+  {
+    "sno": "7",
+    "routeNumber": "3",
+    "routeName": "Choolai",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n03.php"
+  },
+  {
+    "sno": "8",
+    "routeNumber": "3B",
+    "routeName": "Kilpauk Kallarai",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n03b.php"
+  },
+  {
+    "sno": "9",
+    "routeNumber": "3C",
+    "routeName": "Doveton Bridge",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n03c.php"
+  },
+  {
+    "sno": "10",
+    "routeNumber": "4",
+    "routeName": "Chintadripet",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n04.php"
+  },
+  {
+    "sno": "11",
+    "routeNumber": "4C",
+    "routeName": "Loyola College",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n04c.php"
+  },
+  {
+    "sno": "12",
+    "routeNumber": "5",
+    "routeName": "Chintamani",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n05.php"
+  },
+  {
+    "sno": "13",
+    "routeNumber": "5A",
+    "routeName": "Arumbakkam",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n05a.php"
+  },
+  {
+    "sno": "14",
+    "routeNumber": "5B",
+    "routeName": "Maduravoyal Erikarai",
+    "startTime": "7.00 am",
+    "boardingPointsUrl": "../routes/n05b.php"
+  },
+  {
+    "sno": "15",
+    "routeNumber": "5C",
+    "routeName": "Thirunagar (Ambica Empire Hotel)",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n05c.php"
+  },
+  {
+    "sno": "16",
+    "routeNumber": "5D",
+    "routeName": "Toyota Showroom",
+    "startTime": "6.50 am",
+    "boardingPointsUrl": "../routes/n05d.php"
+  },
+  {
+    "sno": "17",
+    "routeNumber": "6",
+    "routeName": "New Avadi Road Water Tank",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n06.php"
+  },
+  {
+    "sno": "18",
+    "routeNumber": "6A",
+    "routeName": "Krishna Nagar (Vellammal School)",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n06a.php"
+  },
+  {
+    "sno": "19",
+    "routeNumber": "7",
+    "routeName": "Anna Nagar East",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n07.php"
+  },
+  {
+    "sno": "20",
+    "routeNumber": "7C",
+    "routeName": "Collector nagar",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n07c.php"
+  },
+  {
+    "sno": "21",
+    "routeNumber": "8",
+    "routeName": "Anna nagar West Depot",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n08.php"
+  },
+  {
+    "sno": "22",
+    "routeNumber": "8C",
+    "routeName": "Waves",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n08c.php"
+  },
+  {
+    "sno": "23",
+    "routeNumber": "9",
+    "routeName": "Mogappair East",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n09.php"
+  },
+  {
+    "sno": "24",
+    "routeNumber": "9A",
+    "routeName": "Mogappair (Golden Flat)",
+    "startTime": "6.55 am",
+    "boardingPointsUrl": "../routes/n09a.php"
+  },
+  {
+    "sno": "25",
+    "routeNumber": "9B",
+    "routeName": "Mogappair",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n09b.php"
+  },
+  {
+    "sno": "26",
+    "routeNumber": "9C",
+    "routeName": "Mogappair west",
+    "startTime": "6.50 am",
+    "boardingPointsUrl": "../routes/n09c.php"
+  },
+  {
+    "sno": "27",
+    "routeNumber": "10",
+    "routeName": "Vyasarpadi (Erikarai)",
+    "startTime": "6.10 am",
+    "boardingPointsUrl": "../routes/n10.php"
+  },
+  {
+    "sno": "28",
+    "routeNumber": "10B",
+    "routeName": "ICF",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n10b.php"
+  },
+  {
+    "sno": "29",
+    "routeNumber": "10C",
+    "routeName": "Binny Mill Church",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n10c.php"
+  },
+  {
+    "sno": "30",
+    "routeNumber": "11",
+    "routeName": "Moolakadai",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n11.php"
+  },
+  {
+    "sno": "31",
+    "routeNumber": "11A",
+    "routeName": "Retteri (RTO Office)",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n11a.php"
+  },
+  {
+    "sno": "32",
+    "routeNumber": "11C",
+    "routeName": "Korattur",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n11c.php"
+  },
+  {
+    "sno": "33",
+    "routeNumber": "12",
+    "routeName": "MKB Nagar",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n12.php"
+  },
+  {
+    "sno": "34",
+    "routeNumber": "12A",
+    "routeName": "Venus",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n12a.php"
+  },
+  {
+    "sno": "35",
+    "routeNumber": "12B",
+    "routeName": "Kolathur",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n12b.php"
+  },
+  {
+    "sno": "36",
+    "routeNumber": "12C",
+    "routeName": "Perambur",
+    "startTime": "6.10 am",
+    "boardingPointsUrl": "../routes/n12c.php"
+  },
+  {
+    "sno": "37",
+    "routeNumber": "13",
+    "routeName": "Peravallur",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n13.php"
+  },
+  {
+    "sno": "38",
+    "routeNumber": "13A",
+    "routeName": "Kolathur (Don Bosco School)",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n13a.php"
+  },
+  {
+    "sno": "39",
+    "routeNumber": "13B",
+    "routeName": "T.V.K Nagar",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n13b.php"
+  },
+  {
+    "sno": "40",
+    "routeNumber": "13C",
+    "routeName": "Poombukar Nagar",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n13c.php"
+  },
+  {
+    "sno": "41",
+    "routeNumber": "13D",
+    "routeName": "Temple School",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n13d.php"
+  },
+  {
+    "sno": "42",
+    "routeNumber": "14",
+    "routeName": "Manali",
+    "startTime": "6.10 am",
+    "boardingPointsUrl": "../routes/n14.php"
+  },
+  {
+    "sno": "43",
+    "routeNumber": "14C",
+    "routeName": "Veterinary college (mathur)",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n14c.php"
+  },
+  {
+    "sno": "44",
+    "routeNumber": "15",
+    "routeName": "Ayappakkam",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n15.php"
+  },
+  {
+    "sno": "45",
+    "routeNumber": "15A",
+    "routeName": "Ayappakkam Water Tank",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n15a.php"
+  },
+  {
+    "sno": "46",
+    "routeNumber": "15B",
+    "routeName": "Thirumullaivoyal",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n15b.php"
+  },
+  {
+    "sno": "47",
+    "routeNumber": "15C",
+    "routeName": "Ambattur OT",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n15c.php"
+  },
+  {
+    "sno": "48",
+    "routeNumber": "15D",
+    "routeName": "Ayappakkam  (Pillaiyar kovil)",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n15d.php"
+  },
+  {
+    "sno": "49",
+    "routeNumber": "15E",
+    "routeName": "Vinayagapuram",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n15e.php"
+  },
+  {
+    "sno": "50",
+    "routeNumber": "15F",
+    "routeName": "Dunlop",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n15f.php"
+  },
+  {
+    "sno": "51",
+    "routeNumber": "16",
+    "routeName": "Redhills",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n16.php"
+  },
+  {
+    "sno": "52",
+    "routeNumber": "16A",
+    "routeName": "Kallikuppam",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n16a.php"
+  },
+  {
+    "sno": "53",
+    "routeNumber": "16B",
+    "routeName": "Puzhal",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n16b.php"
+  },
+  {
+    "sno": "54",
+    "routeNumber": "16C",
+    "routeName": "Puzhal Bypass",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n16c.php"
+  },
+  {
+    "sno": "55",
+    "routeNumber": "16D",
+    "routeName": "Gandhinagar Police Booth (Redhills)",
+    "startTime": "6.00 am",
+    "boardingPointsUrl": "../routes/n16d.php"
+  },
+  {
+    "sno": "56",
+    "routeNumber": "16E",
+    "routeName": "Oragadam (Ambattur)",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n16e.php"
+  },
+  {
+    "sno": "57",
+    "routeNumber": "17",
+    "routeName": "Thiruvallur",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n17.php"
+  },
+  {
+    "sno": "58",
+    "routeNumber": "17A",
+    "routeName": "Veppampattu (Kandhan Kollai)",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n17a.php"
+  },
+  {
+    "sno": "59",
+    "routeNumber": "17B",
+    "routeName": "Thiruvallur (Vasantha Bhavan)",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n17b.php"
+  },
+  {
+    "sno": "60",
+    "routeNumber": "17C",
+    "routeName": "Sevvapet",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n17c.php"
+  },
+  {
+    "sno": "61",
+    "routeNumber": "17D",
+    "routeName": "Veppampattu",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n17d.php"
+  },
+  {
+    "sno": "62",
+    "routeNumber": "17E",
+    "routeName": "Nemilichery Roundana",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n17e.php"
+  },
+  {
+    "sno": "63",
+    "routeNumber": "17F",
+    "routeName": "Thiruvallur (New Bus Stand)",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n17f.php"
+  },
+  {
+    "sno": "64",
+    "routeNumber": "17G",
+    "routeName": "Thiruvallur (Oil Mill)",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n17g.php"
+  },
+  {
+    "sno": "65",
+    "routeNumber": "18",
+    "routeName": "Avadi",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n18.php"
+  },
+  {
+    "sno": "66",
+    "routeNumber": "18A",
+    "routeName": "Ambattur Stedford Hospital",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n18a.php"
+  },
+  {
+    "sno": "67",
+    "routeNumber": "18B",
+    "routeName": "Avadi (GRT)",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n18b.php"
+  },
+  {
+    "sno": "68",
+    "routeNumber": "18C",
+    "routeName": "Avadi Market",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n18c.php"
+  },
+  {
+    "sno": "69",
+    "routeNumber": "18D",
+    "routeName": "Kollumedu (GH)",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n18d.php"
+  },
+  {
+    "sno": "70",
+    "routeNumber": "18E",
+    "routeName": "Vel Tech junction",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n18e.php"
+  },
+  {
+    "sno": "71",
+    "routeNumber": "18F",
+    "routeName": "Avadi Check Post",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n18f.php"
+  },
+  {
+    "sno": "72",
+    "routeNumber": "19",
+    "routeName": "SP Kovil",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n19.php"
+  },
+  {
+    "sno": "73",
+    "routeNumber": "19A",
+    "routeName": "Perungalathur",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n19a.php"
+  },
+  {
+    "sno": "74",
+    "routeNumber": "19B",
+    "routeName": "Varatharaja Theatre",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n19b.php"
+  },
+  {
+    "sno": "75",
+    "routeNumber": "19C",
+    "routeName": "Hasthinapuram",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n19c.php"
+  },
+  {
+    "sno": "76",
+    "routeNumber": "19D",
+    "routeName": "Urapakkam",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n19d.php"
+  },
+  {
+    "sno": "77",
+    "routeNumber": "19E",
+    "routeName": "Tambaram (MCC)",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n19e.php"
+  },
+  {
+    "sno": "78",
+    "routeNumber": "19F",
+    "routeName": "Maraimalai Nagar",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n19f.php"
+  },
+  {
+    "sno": "79",
+    "routeNumber": "20",
+    "routeName": "Kamatchi Hospital (Pallikaranai)",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n20.php"
+  },
+  {
+    "sno": "80",
+    "routeNumber": "20A",
+    "routeName": "Sembakkam",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n20a.php"
+  },
+  {
+    "sno": "81",
+    "routeNumber": "20B",
+    "routeName": "Mambakkam",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n20b.php"
+  },
+  {
+    "sno": "82",
+    "routeNumber": "20C",
+    "routeName": "Madipakkam",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n20c.php"
+  },
+  {
+    "sno": "83",
+    "routeNumber": "20D",
+    "routeName": "Nanmangalam",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n20d.php"
+  },
+  {
+    "sno": "84",
+    "routeNumber": "20E",
+    "routeName": "Chrompet",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n20e.php"
+  },
+  {
+    "sno": "85",
+    "routeNumber": "20F",
+    "routeName": "Bharath University",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n20f.php"
+  },
+  {
+    "sno": "86",
+    "routeNumber": "20G",
+    "routeName": "Sembakkam",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n20g.php"
+  },
+  {
+    "sno": "87",
+    "routeNumber": "20H",
+    "routeName": "Sanatorium",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n20h.php"
+  },
+  {
+    "sno": "88",
+    "routeNumber": "21",
+    "routeName": "NGO Colony",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n21.php"
+  },
+  {
+    "sno": "89",
+    "routeNumber": "21A",
+    "routeName": "Velachery",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n21a.php"
+  },
+  {
+    "sno": "90",
+    "routeNumber": "21C",
+    "routeName": "Adambakkam",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n21c.php"
+  },
+  {
+    "sno": "91",
+    "routeNumber": "22",
+    "routeName": "Sholinganallur (OMR)",
+    "startTime": "5.50 am",
+    "boardingPointsUrl": "../routes/n22.php"
+  },
+  {
+    "sno": "92",
+    "routeNumber": "23",
+    "routeName": "Kovilampakkam",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n23.php"
+  },
+  {
+    "sno": "93",
+    "routeNumber": "23C",
+    "routeName": "Keelkatalai",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n23c.php"
+  },
+  {
+    "sno": "94",
+    "routeNumber": "24",
+    "routeName": "Nanganallur",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n24.php"
+  },
+  {
+    "sno": "95",
+    "routeNumber": "24C",
+    "routeName": "Pallavaram Bus stand",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n24c.php"
+  },
+  {
+    "sno": "96",
+    "routeNumber": "25",
+    "routeName": "VGP (ECR)",
+    "startTime": "6.00 am",
+    "boardingPointsUrl": "../routes/n25.php"
+  },
+  {
+    "sno": "97",
+    "routeNumber": "25C",
+    "routeName": "Adyar",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n25c.php"
+  },
+  {
+    "sno": "98",
+    "routeNumber": "26",
+    "routeName": "Triplicane",
+    "startTime": "6.05 am",
+    "boardingPointsUrl": "../routes/n26.php"
+  },
+  {
+    "sno": "99",
+    "routeNumber": "26C",
+    "routeName": "Teynampet",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n26c.php"
+  },
+  {
+    "sno": "100",
+    "routeNumber": "27",
+    "routeName": "Pattinapakkam (Metro work)",
+    "startTime": "6.00 am",
+    "boardingPointsUrl": "../routes/n27.php"
+  },
+  {
+    "sno": "101",
+    "routeNumber": "27C",
+    "routeName": "Santhome (Light house)(Metro work)",
+    "startTime": "6.05 am",
+    "boardingPointsUrl": "../routes/n27c.php"
+  },
+  {
+    "sno": "102",
+    "routeNumber": "28",
+    "routeName": "Nungambakkam",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n28.php"
+  },
+  {
+    "sno": "103",
+    "routeNumber": "28B",
+    "routeName": "Power House",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n28b.php"
+  },
+  {
+    "sno": "104",
+    "routeNumber": "28C",
+    "routeName": "Lakshman Sruthi",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n28c.php"
+  },
+  {
+    "sno": "105",
+    "routeNumber": "29",
+    "routeName": "Saligramam",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n29.php"
+  },
+  {
+    "sno": "106",
+    "routeNumber": "29C",
+    "routeName": "Alwarthirunagar",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n29c.php"
+  },
+  {
+    "sno": "107",
+    "routeNumber": "30",
+    "routeName": "Chinmaya Nagar",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n30.php"
+  },
+  {
+    "sno": "108",
+    "routeNumber": "30C",
+    "routeName": "Elango Nagar",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n30c.php"
+  },
+  {
+    "sno": "109",
+    "routeNumber": "31",
+    "routeName": "Valluvarkottam",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n31.php"
+  },
+  {
+    "sno": "110",
+    "routeNumber": "32",
+    "routeName": "CIT.Nagar",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n32.php"
+  },
+  {
+    "sno": "111",
+    "routeNumber": "32C",
+    "routeName": "Ashok Pillar",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n32c.php"
+  },
+  {
+    "sno": "112",
+    "routeNumber": "33",
+    "routeName": "K.K.Nagar (Sivan park)",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n33.php"
+  },
+  {
+    "sno": "113",
+    "routeNumber": "33C",
+    "routeName": "Nesapakkam",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n33c.php"
+  },
+  {
+    "sno": "114",
+    "routeNumber": "34",
+    "routeName": "Porur Ramachandra",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n34.php"
+  },
+  {
+    "sno": "115",
+    "routeNumber": "34B",
+    "routeName": "Iyyappanthangal Depot",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n34b.php"
+  },
+  {
+    "sno": "116",
+    "routeNumber": "34C",
+    "routeName": "Iyyappanthangal",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n34c.php"
+  },
+  {
+    "sno": "117",
+    "routeNumber": "35",
+    "routeName": "Pammal (Therasa School)",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n35.php"
+  },
+  {
+    "sno": "118",
+    "routeNumber": "35A",
+    "routeName": "Mangadu",
+    "startTime": "6.50 am",
+    "boardingPointsUrl": "../routes/n35a.php"
+  },
+  {
+    "sno": "119",
+    "routeNumber": "35B",
+    "routeName": "Karima Nagar",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n35b.php"
+  },
+  {
+    "sno": "120",
+    "routeNumber": "35C",
+    "routeName": "Kundrathur",
+    "startTime": "6.38 am",
+    "boardingPointsUrl": "../routes/n35c.php"
+  },
+  {
+    "sno": "121",
+    "routeNumber": "35D",
+    "routeName": "Pammal",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n35d.php"
+  },
+  {
+    "sno": "122",
+    "routeNumber": "35E",
+    "routeName": "Kundrathur",
+    "startTime": "6.40 am",
+    "boardingPointsUrl": "../routes/n35e.php"
+  },
+  {
+    "sno": "123",
+    "routeNumber": "36",
+    "routeName": "Kovur",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n36.php"
+  },
+  {
+    "sno": "124",
+    "routeNumber": "36C",
+    "routeName": "Madhanandapuram",
+    "startTime": "6.35 am",
+    "boardingPointsUrl": "../routes/n36c.php"
+  },
+  {
+    "sno": "125",
+    "routeNumber": "37",
+    "routeName": "DLF",
+    "startTime": "6.45 am",
+    "boardingPointsUrl": "../routes/n37.php"
+  },
+  {
+    "sno": "126",
+    "routeNumber": "37A",
+    "routeName": "Iyyappanthangal (Reliance Mart)",
+    "startTime": "6.50 am",
+    "boardingPointsUrl": "../routes/n37a.php"
+  },
+  {
+    "sno": "127",
+    "routeNumber": "37B",
+    "routeName": "Karayanchavadi",
+    "startTime": "7.05 am",
+    "boardingPointsUrl": "../routes/n37b.php"
+  },
+  {
+    "sno": "128",
+    "routeNumber": "37C",
+    "routeName": "Poonamallee Bus Stand",
+    "startTime": "7.05 am",
+    "boardingPointsUrl": "../routes/n37c.php"
+  },
+  {
+    "sno": "129",
+    "routeNumber": "37D",
+    "routeName": "Poonamallee Ambedkar statue",
+    "startTime": "7.00 am",
+    "boardingPointsUrl": "../routes/n37d.php"
+  },
+  {
+    "sno": "130",
+    "routeNumber": "37E",
+    "routeName": "Poonamallee",
+    "startTime": "7.00 am",
+    "boardingPointsUrl": "../routes/n37e.php"
+  },
+  {
+    "sno": "130",
+    "routeNumber": "38",
+    "routeName": "Housing Board",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n38.php"
+  },
+  {
+    "sno": "131",
+    "routeNumber": "38B",
+    "routeName": "Kancheepuram Bus Stand",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n38b.php"
+  },
+  {
+    "sno": "132",
+    "routeNumber": "38C",
+    "routeName": "Kancheepuram collectorate",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n38c.php"
+  },
+  {
+    "sno": "133",
+    "routeNumber": "39",
+    "routeName": "Orikkai",
+    "startTime": "6.10 am",
+    "boardingPointsUrl": "../routes/n39.php"
+  },
+  {
+    "sno": "134",
+    "routeNumber": "39C",
+    "routeName": "Kancheepuram",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n39c.php"
+  },
+  {
+    "sno": "135",
+    "routeNumber": "40",
+    "routeName": "Walajabad",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n40.php"
+  },
+  {
+    "sno": "136",
+    "routeNumber": "40A",
+    "routeName": "Muthiyalpettai",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n40a.php"
+  },
+  {
+    "sno": "137",
+    "routeNumber": "40B",
+    "routeName": "Rangasamy Kulam",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n40b.php"
+  },
+  {
+    "sno": "138",
+    "routeNumber": "40C",
+    "routeName": "Kancheepuram Bus Stand",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n40c.php"
+  },
+  {
+    "sno": "139",
+    "routeNumber": "40D",
+    "routeName": "Kancheepuram",
+    "startTime": "6.20 am",
+    "boardingPointsUrl": "../routes/n40d.php"
+  },
+  {
+    "sno": "140",
+    "routeNumber": "41C",
+    "routeName": "Vellore (Faculty & Staff only)",
+    "startTime": "5.10 am",
+    "boardingPointsUrl": "../routes/n41c.php"
+  },
+  {
+    "sno": "141",
+    "routeNumber": "42",
+    "routeName": "Arakkonam",
+    "startTime": "6.08 am",
+    "boardingPointsUrl": "../routes/n42.php"
+  },
+  {
+    "sno": "142",
+    "routeNumber": "42A",
+    "routeName": "S R Gate",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n42a.php"
+  },
+  {
+    "sno": "143",
+    "routeNumber": "42C",
+    "routeName": "Arakkonam",
+    "startTime": "6.15 am",
+    "boardingPointsUrl": "../routes/n42c.php"
+  },
+  {
+    "sno": "144",
+    "routeNumber": "42D",
+    "routeName": "Suvalpet",
+    "startTime": "6.10 am",
+    "boardingPointsUrl": "../routes/n42d.php"
+  },
+  {
+    "sno": "145",
+    "routeNumber": "44",
+    "routeName": "Meenakshi College (KPM)",
+    "startTime": "6.30 am",
+    "boardingPointsUrl": "../routes/n44.php"
+  },
+  {
+    "sno": "146",
+    "routeNumber": "45",
+    "routeName": "Padappai",
+    "startTime": "6.25 am",
+    "boardingPointsUrl": "../routes/n45.php"
+  }
+]

@@ -1,0 +1,2376 @@
+{
+  "campus_info": {
+    "id": "rajalakshmi_engineering_college",
+    "name": "Rajalakshmi Engineering College",
+    "abbreviation": "REC",
+    "address": "Rajalakshmi Nagar, Thandalam, Chennai, Tamil Nadu 602105, India",
+    "official_website": "https://www.rajalakshmi.org/",
+    "phone": "+91 44 67181111",
+    "email": "admin@rajalakshmi.edu.in",
+    "center": {
+      "latitude": 13.008351,
+      "longitude": 80.003351
+    },
+    "bounding_box": {
+      "north": 13.0135,
+      "south": 13.0065,
+      "east": 80.0065,
+      "west": 80.0000
+    },
+    "default_zoom": 17.5,
+    "data_source": "OpenStreetMap Surveyed GeoData & REC Official Records"
+  },
+  "categories": [
+    "All",
+    "Academic",
+    "Student Facilities",
+    "Food & Canteen",
+    "Hostels",
+    "Sports",
+    "Transport",
+    "Administration"
+  ],
+  "locations": [
+    {
+      "id": "rec_admin_block",
+      "name": "Admin Block",
+      "category": "Administration",
+      "building_code": "ADM-01",
+      "description": "Main Administrative Building housing Principal, Deans, Registrar, and Admissions Office",
+      "latitude": 13.0095884,
+      "longitude": 80.0042578,
+      "entrance": {
+        "latitude": 13.0097374,
+        "longitude": 80.0042462,
+        "walkway_node_id": "node_14166151891",
+        "connector_distance_m": 16.6
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557573758",
+      "polygon": [
+        [
+          13.0095887,
+          80.0038231
+        ],
+        [
+          13.009598,
+          80.0042058
+        ],
+        [
+          13.0097246,
+          80.0042129
+        ],
+        [
+          13.0097176,
+          80.0043631
+        ],
+        [
+          13.0096177,
+          80.0043726
+        ],
+        [
+          13.0096177,
+          80.0047482
+        ],
+        [
+          13.00967,
+          80.004797
+        ],
+        [
+          13.0096235,
+          80.0048435
+        ],
+        [
+          13.0095701,
+          80.0047791
+        ],
+        [
+          13.0095713,
+          80.0048268
+        ],
+        [
+          13.0094354,
+          80.0048209
+        ],
+        [
+          13.0094075,
+          80.0037587
+        ],
+        [
+          13.0095248,
+          80.0037504
+        ],
+        [
+          13.0095294,
+          80.0037837
+        ],
+        [
+          13.0095887,
+          80.0037134
+        ],
+        [
+          13.0096293,
+          80.0037599
+        ],
+        [
+          13.0095887,
+          80.0038231
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 12.0
+    },
+    {
+      "id": "rec_main_gate",
+      "name": "Main Campus Entrance Gate (NH 48)",
+      "category": "Transport",
+      "building_code": "GATE-01",
+      "description": "The sole Main Entrance Gate & Arch into Rajalakshmi Engineering College from NH 48 (Chennai - Bangalore National Highway) Service Road",
+      "latitude": 13.0124751,
+      "longitude": 80.0003439,
+      "entrance": {
+        "latitude": 13.0124751,
+        "longitude": 80.0003439,
+        "walkway_node_id": "node_3881789997",
+        "connector_distance_m": 0.0
+      },
+      "verified": true,
+      "source": "Verified ground survey: NH 48 Highway Entrance Arch & Security Gate (node/3881789997, way/384824290)",
+      "polygon": [],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T07:55:00.000000+00:00",
+      "height": 10.0
+    },
+    {
+      "id": "rec_academic_block",
+      "name": "Academic Block",
+      "category": "Academic",
+      "building_code": "ACAD-01",
+      "description": "Primary Academic Block with multidisciplinary lecture theatres, faculty halls, and departments",
+      "latitude": 13.0079197,
+      "longitude": 80.0024037,
+      "entrance": {
+        "latitude": 13.0082888,
+        "longitude": 80.0026136,
+        "walkway_node_id": "node_7782896387",
+        "connector_distance_m": 46.9
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578235",
+      "polygon": [
+        [
+          13.0080679,
+          80.0025159
+        ],
+        [
+          13.0076995,
+          80.0025415
+        ],
+        [
+          13.0076968,
+          80.0022262
+        ],
+        [
+          13.0080665,
+          80.0022191
+        ],
+        [
+          13.0080679,
+          80.0025159
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 14.0
+    },
+    {
+      "id": "rec_c_block",
+      "name": "C Block",
+      "category": "Academic",
+      "building_code": "C-BLK",
+      "description": "Engineering department classrooms, faculty cabins, and undergraduate seminar halls",
+      "latitude": 13.0077952,
+      "longitude": 80.0027992,
+      "entrance": {
+        "latitude": 13.0082885,
+        "longitude": 80.0026524,
+        "walkway_node_id": "node_10277778623",
+        "connector_distance_m": 57.1
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578236",
+      "polygon": [
+        [
+          13.0079776,
+          80.0028454
+        ],
+        [
+          13.0079803,
+          80.0027028
+        ],
+        [
+          13.0075216,
+          80.0027313
+        ],
+        [
+          13.0075188,
+          80.0028711
+        ],
+        [
+          13.0079776,
+          80.0028454
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 14.0
+    },
+    {
+      "id": "rec_tech_lounge",
+      "name": "Tech Lounge",
+      "category": "Academic",
+      "building_code": "TECH-01",
+      "description": "Technology lounge, collaborative innovation pods, incubator space, and project labs",
+      "latitude": 13.0095892,
+      "longitude": 80.0050039,
+      "entrance": {
+        "latitude": 13.0097251,
+        "longitude": 80.0052832,
+        "walkway_node_id": "node_7782889576",
+        "connector_distance_m": 33.8
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557574472",
+      "polygon": [
+        [
+          13.0096928,
+          80.004861
+        ],
+        [
+          13.0097033,
+          80.0052145
+        ],
+        [
+          13.009428,
+          80.0052216
+        ],
+        [
+          13.0094292,
+          80.0048616
+        ],
+        [
+          13.0096928,
+          80.004861
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 14.0
+    },
+    {
+      "id": "rec_workshop_block",
+      "name": "Workshop Block",
+      "category": "Academic",
+      "building_code": "WS-01",
+      "description": "Central engineering workshops, manufacturing science laboratories, and machine shop",
+      "latitude": 13.0090401,
+      "longitude": 80.0032137,
+      "entrance": {
+        "latitude": 13.0093044,
+        "longitude": 80.0031252,
+        "walkway_node_id": "node_14166251858",
+        "connector_distance_m": 30.9
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557574473",
+      "polygon": [
+        [
+          13.0086796,
+          80.0028463
+        ],
+        [
+          13.0086748,
+          80.0026939
+        ],
+        [
+          13.0090047,
+          80.002673
+        ],
+        [
+          13.0090096,
+          80.0027706
+        ],
+        [
+          13.0090416,
+          80.0027597
+        ],
+        [
+          13.0090368,
+          80.002673
+        ],
+        [
+          13.0091008,
+          80.002673
+        ],
+        [
+          13.009093,
+          80.0027407
+        ],
+        [
+          13.0091493,
+          80.002666
+        ],
+        [
+          13.0092134,
+          80.0027437
+        ],
+        [
+          13.0091571,
+          80.0027965
+        ],
+        [
+          13.0091784,
+          80.0031551
+        ],
+        [
+          13.009325,
+          80.0031541
+        ],
+        [
+          13.0093279,
+          80.0032965
+        ],
+        [
+          13.0091794,
+          80.0033035
+        ],
+        [
+          13.0091911,
+          80.0036332
+        ],
+        [
+          13.0092609,
+          80.0037128
+        ],
+        [
+          13.0092105,
+          80.0037706
+        ],
+        [
+          13.0091348,
+          80.0036889
+        ],
+        [
+          13.0091435,
+          80.0037756
+        ],
+        [
+          13.0090775,
+          80.0037587
+        ],
+        [
+          13.0090659,
+          80.003669
+        ],
+        [
+          13.0090474,
+          80.003668
+        ],
+        [
+          13.0090513,
+          80.0037646
+        ],
+        [
+          13.0087175,
+          80.0037696
+        ],
+        [
+          13.0087165,
+          80.0036172
+        ],
+        [
+          13.0090426,
+          80.0036152
+        ],
+        [
+          13.009029,
+          80.0033144
+        ],
+        [
+          13.0090038,
+          80.0033124
+        ],
+        [
+          13.0090076,
+          80.0032686
+        ],
+        [
+          13.008963,
+          80.0032666
+        ],
+        [
+          13.0089591,
+          80.0031869
+        ],
+        [
+          13.008995,
+          80.0031859
+        ],
+        [
+          13.008995,
+          80.0031491
+        ],
+        [
+          13.0090174,
+          80.0031481
+        ],
+        [
+          13.0090047,
+          80.0028383
+        ],
+        [
+          13.0086796,
+          80.0028463
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 9.0
+    },
+    {
+      "id": "rec_civil_mech_ws",
+      "name": "Civil / Mechanical Workshop",
+      "category": "Academic",
+      "building_code": "WS-02",
+      "description": "Civil structural testing, concrete lab, fluid dynamics, and mechanical thermal engineering labs",
+      "latitude": 13.0080376,
+      "longitude": 80.0030249,
+      "entrance": {
+        "latitude": 13.0082885,
+        "longitude": 80.0026524,
+        "walkway_node_id": "node_10277778623",
+        "connector_distance_m": 49.1
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578237",
+      "polygon": [
+        [
+          13.0081972,
+          80.0028754
+        ],
+        [
+          13.0077996,
+          80.0029039
+        ],
+        [
+          13.0077968,
+          80.0032464
+        ],
+        [
+          13.0081972,
+          80.0032235
+        ],
+        [
+          13.0081972,
+          80.0028754
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 9.0
+    },
+    {
+      "id": "rec_eee_ece_ws",
+      "name": "Electrical & Electronics Workshop",
+      "category": "Academic",
+      "building_code": "WS-03",
+      "description": "Electrical machinery lab, power electronics, embedded systems, and VLSI circuit prototyping",
+      "latitude": 13.007697,
+      "longitude": 80.003046,
+      "entrance": {
+        "latitude": 13.0082885,
+        "longitude": 80.0026524,
+        "walkway_node_id": "node_10277778623",
+        "connector_distance_m": 78.4
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578238",
+      "polygon": [
+        [
+          13.0077996,
+          80.0029039
+        ],
+        [
+          13.0075466,
+          80.0029182
+        ],
+        [
+          13.0075424,
+          80.0032578
+        ],
+        [
+          13.0077968,
+          80.0032464
+        ],
+        [
+          13.0077996,
+          80.0029039
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 9.0
+    },
+    {
+      "id": "rec_automobile_block",
+      "name": "Automobile Block",
+      "category": "Academic",
+      "building_code": "AUTO-01",
+      "description": "Automotive engineering workshop, IC engine test rigs, chassis dynamics, and EV lab",
+      "latitude": 13.0078668,
+      "longitude": 80.0017725,
+      "entrance": {
+        "latitude": 13.0082888,
+        "longitude": 80.0026136,
+        "walkway_node_id": "node_7782896387",
+        "connector_distance_m": 102.5
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578242",
+      "polygon": [
+        [
+          13.0079956,
+          80.0019629
+        ],
+        [
+          13.0079815,
+          80.001518
+        ],
+        [
+          13.0078351,
+          80.0015266
+        ],
+        [
+          13.0078367,
+          80.0016649
+        ],
+        [
+          13.0078051,
+          80.0016666
+        ],
+        [
+          13.0078076,
+          80.0018382
+        ],
+        [
+          13.0077702,
+          80.0018408
+        ],
+        [
+          13.0077735,
+          80.0019714
+        ],
+        [
+          13.0079956,
+          80.0019629
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 9.0
+    },
+    {
+      "id": "rec_tifac_core",
+      "name": "TIFAC CORE",
+      "category": "Academic",
+      "building_code": "TIFAC",
+      "description": "Centre of Relevance and Excellence in Industrial Safety & Advanced Engineering Research",
+      "latitude": 13.0081599,
+      "longitude": 80.0016319,
+      "entrance": {
+        "latitude": 13.0082888,
+        "longitude": 80.0026136,
+        "walkway_node_id": "node_7782896387",
+        "connector_distance_m": 107.3
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578239",
+      "polygon": [
+        [
+          13.0079817,
+          80.001296
+        ],
+        [
+          13.0081388,
+          80.00146
+        ],
+        [
+          13.0081611,
+          80.0015956
+        ],
+        [
+          13.0081096,
+          80.0015942
+        ],
+        [
+          13.0081069,
+          80.0015514
+        ],
+        [
+          13.0080679,
+          80.0015514
+        ],
+        [
+          13.0080679,
+          80.0016013
+        ],
+        [
+          13.0080401,
+          80.0016013
+        ],
+        [
+          13.0080457,
+          80.001684
+        ],
+        [
+          13.0080721,
+          80.0016826
+        ],
+        [
+          13.0080707,
+          80.0017297
+        ],
+        [
+          13.0081152,
+          80.0017326
+        ],
+        [
+          13.0081152,
+          80.0017069
+        ],
+        [
+          13.0081625,
+          80.0017054
+        ],
+        [
+          13.0081722,
+          80.0018239
+        ],
+        [
+          13.0080026,
+          80.0020093
+        ],
+        [
+          13.008086,
+          80.0020864
+        ],
+        [
+          13.0082598,
+          80.0018795
+        ],
+        [
+          13.0082917,
+          80.0018795
+        ],
+        [
+          13.0082904,
+          80.0018453
+        ],
+        [
+          13.0082639,
+          80.0018424
+        ],
+        [
+          13.0082612,
+          80.001694
+        ],
+        [
+          13.0083779,
+          80.001694
+        ],
+        [
+          13.0083738,
+          80.0015899
+        ],
+        [
+          13.0082584,
+          80.0015913
+        ],
+        [
+          13.0082542,
+          80.0014401
+        ],
+        [
+          13.008282,
+          80.0014287
+        ],
+        [
+          13.0082653,
+          80.0013873
+        ],
+        [
+          13.0082292,
+          80.0013958
+        ],
+        [
+          13.0080526,
+          80.0012118
+        ],
+        [
+          13.0079817,
+          80.001296
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 9.0
+    },
+    {
+      "id": "rec_m_block",
+      "name": "M Block",
+      "category": "Academic",
+      "building_code": "M-BLK",
+      "description": "M Block academic facilities, departmental labs, and campus infrastructure power division",
+      "latitude": 13.0093076,
+      "longitude": 80.0055113,
+      "entrance": {
+        "latitude": 13.0094126,
+        "longitude": 80.0053005,
+        "walkway_node_id": "node_7782889575",
+        "connector_distance_m": 25.7
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582684",
+      "polygon": [
+        [
+          13.009382,
+          80.0055715
+        ],
+        [
+          13.009375,
+          80.0054082
+        ],
+        [
+          13.0092039,
+          80.0054077
+        ],
+        [
+          13.009195,
+          80.0055977
+        ],
+        [
+          13.009382,
+          80.0055715
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 14.0
+    },
+    {
+      "id": "rec_central_library",
+      "name": "Central Library / J Block",
+      "category": "Student Facilities",
+      "building_code": "LIB-01",
+      "description": "Central automated library with extensive reference stacks, digital research center, reading halls",
+      "latitude": 13.0088743,
+      "longitude": 80.005524,
+      "entrance": {
+        "latitude": 13.0094126,
+        "longitude": 80.0053005,
+        "walkway_node_id": "node_7782889575",
+        "connector_distance_m": 64.6
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582685",
+      "polygon": [
+        [
+          13.0087132,
+          80.0057056
+        ],
+        [
+          13.0088153,
+          80.0057042
+        ],
+        [
+          13.0088167,
+          80.0056464
+        ],
+        [
+          13.0090176,
+          80.0056393
+        ],
+        [
+          13.0090266,
+          80.0055451
+        ],
+        [
+          13.0090113,
+          80.0054787
+        ],
+        [
+          13.0090134,
+          80.0054388
+        ],
+        [
+          13.0089655,
+          80.0054317
+        ],
+        [
+          13.0089627,
+          80.0054474
+        ],
+        [
+          13.0089036,
+          80.0054488
+        ],
+        [
+          13.0089001,
+          80.0053924
+        ],
+        [
+          13.0087674,
+          80.0053889
+        ],
+        [
+          13.0087736,
+          80.0054424
+        ],
+        [
+          13.0087139,
+          80.0054445
+        ],
+        [
+          13.0087132,
+          80.0057056
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 12.0
+    },
+    {
+      "id": "rec_indoor_auditorium",
+      "name": "Indoor Auditorium",
+      "category": "Student Facilities",
+      "building_code": "AUD-01",
+      "description": "Air-conditioned main auditorium for college symposiums, cultural fests, convocations, and guest lectures",
+      "latitude": 13.0083057,
+      "longitude": 80.0056001,
+      "entrance": {
+        "latitude": 13.0078376,
+        "longitude": 80.0053892,
+        "walkway_node_id": "node_7782889579",
+        "connector_distance_m": 56.8
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582686",
+      "polygon": [
+        [
+          13.0081684,
+          80.0054904
+        ],
+        [
+          13.0081719,
+          80.0057789
+        ],
+        [
+          13.0085227,
+          80.0057538
+        ],
+        [
+          13.0084971,
+          80.0054868
+        ],
+        [
+          13.0081684,
+          80.0054904
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 12.0
+    },
+    {
+      "id": "rec_white_stairs",
+      "name": "White Stairs (Open Amphitheatre)",
+      "category": "Student Facilities",
+      "building_code": "W-STRS",
+      "description": "Iconic campus landmark with terraced white steps for open-air student gatherings and performances",
+      "latitude": 13.008445,
+      "longitude": 80.0040745,
+      "entrance": {
+        "latitude": 13.0082783,
+        "longitude": 80.0038367,
+        "walkway_node_id": "node_7782889581",
+        "connector_distance_m": 31.7
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582693",
+      "polygon": [
+        [
+          13.0085891,
+          80.0041092
+        ],
+        [
+          13.0086228,
+          80.0040687
+        ],
+        [
+          13.0085404,
+          80.0040043
+        ],
+        [
+          13.0083197,
+          80.004015
+        ],
+        [
+          13.0082395,
+          80.004083
+        ],
+        [
+          13.0082721,
+          80.0041295
+        ],
+        [
+          13.0083603,
+          80.004071
+        ],
+        [
+          13.0084219,
+          80.0040877
+        ],
+        [
+          13.0084951,
+          80.0040675
+        ],
+        [
+          13.0085891,
+          80.0041092
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 0.5
+    },
+    {
+      "id": "rec_cafe",
+      "name": "REC Cafe (Main Food Court)",
+      "category": "Food & Canteen",
+      "building_code": "CAFE-01",
+      "description": "Spacious multi-cuisine food court serving breakfast, lunch, fresh juices, and baked goods",
+      "latitude": 13.0084486,
+      "longitude": 80.0024827,
+      "entrance": {
+        "latitude": 13.0085849,
+        "longitude": 80.002631,
+        "walkway_node_id": "node_10277778624",
+        "connector_distance_m": 22.1
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578240",
+      "polygon": [
+        [
+          13.0083126,
+          80.0025843
+        ],
+        [
+          13.0082973,
+          80.0023432
+        ],
+        [
+          13.0086546,
+          80.0023304
+        ],
+        [
+          13.0086657,
+          80.0025715
+        ],
+        [
+          13.0083126,
+          80.0025843
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 6.0
+    },
+    {
+      "id": "rec_hut_cafe",
+      "name": "HUT Cafe",
+      "category": "Food & Canteen",
+      "building_code": "CAFE-02",
+      "description": "Open-air thatched kiosk for tea, coffee, quick refreshments, and light snacks between classes",
+      "latitude": 13.0080396,
+      "longitude": 80.0034564,
+      "entrance": {
+        "latitude": 13.0079961,
+        "longitude": 80.0038635,
+        "walkway_node_id": "node_7782896385",
+        "connector_distance_m": 44.4
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578241",
+      "polygon": [
+        [
+          13.0081972,
+          80.0032235
+        ],
+        [
+          13.0077968,
+          80.0032464
+        ],
+        [
+          13.007808,
+          80.0038085
+        ],
+        [
+          13.0081986,
+          80.00378
+        ],
+        [
+          13.0081972,
+          80.0032235
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 6.0
+    },
+    {
+      "id": "rec_girls_hostel_1",
+      "name": "Girl's Hostel 1",
+      "category": "Hostels",
+      "building_code": "GH-01",
+      "description": "Residential quarters for female students with dining hall, recreational room, and 24/7 security",
+      "latitude": 13.0072731,
+      "longitude": 80.0055663,
+      "entrance": {
+        "latitude": 13.0076167,
+        "longitude": 80.0053275,
+        "walkway_node_id": "node_7782889572",
+        "connector_distance_m": 46.1
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582687",
+      "polygon": [
+        [
+          13.0074477,
+          80.0054005
+        ],
+        [
+          13.0074582,
+          80.0054363
+        ],
+        [
+          13.0074883,
+          80.0054352
+        ],
+        [
+          13.0074973,
+          80.0057013
+        ],
+        [
+          13.0074637,
+          80.0057025
+        ],
+        [
+          13.0074647,
+          80.005732
+        ],
+        [
+          13.0071028,
+          80.005745
+        ],
+        [
+          13.0070168,
+          80.0056759
+        ],
+        [
+          13.0070101,
+          80.0055644
+        ],
+        [
+          13.006944,
+          80.0055686
+        ],
+        [
+          13.0069358,
+          80.005433
+        ],
+        [
+          13.0074477,
+          80.0054005
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 16.0
+    },
+    {
+      "id": "rec_girls_hostel_2",
+      "name": "Girl's Hostel 2",
+      "category": "Hostels",
+      "building_code": "GH-02",
+      "description": "Secondary women residential complex with study lounge, solar water heaters, and gym facilities",
+      "latitude": 13.0072593,
+      "longitude": 80.005212,
+      "entrance": {
+        "latitude": 13.007588,
+        "longitude": 80.0052443,
+        "walkway_node_id": "node_7782889573",
+        "connector_distance_m": 36.7
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582688",
+      "polygon": [
+        [
+          13.0074718,
+          80.005385
+        ],
+        [
+          13.007456,
+          80.0049336
+        ],
+        [
+          13.0069405,
+          80.0049525
+        ],
+        [
+          13.0069563,
+          80.0054039
+        ],
+        [
+          13.0074718,
+          80.005385
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 16.0
+    },
+    {
+      "id": "rec_boys_hostel_1",
+      "name": "Boy's Hostel 1",
+      "category": "Hostels",
+      "building_code": "BH-01",
+      "description": "Men residential hostel with furnished dorm rooms, cafeteria, indoor games, and high-speed Wi-Fi",
+      "latitude": 13.0072866,
+      "longitude": 80.0043488,
+      "entrance": {
+        "latitude": 13.0075518,
+        "longitude": 80.0039976,
+        "walkway_node_id": "node_7782889580",
+        "connector_distance_m": 48.1
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582689",
+      "polygon": [
+        [
+          13.0071544,
+          80.0046517
+        ],
+        [
+          13.0072209,
+          80.004649
+        ],
+        [
+          13.0072175,
+          80.0045576
+        ],
+        [
+          13.0074165,
+          80.0045497
+        ],
+        [
+          13.007409,
+          80.004349
+        ],
+        [
+          13.0074312,
+          80.0043481
+        ],
+        [
+          13.007429,
+          80.0042879
+        ],
+        [
+          13.0073972,
+          80.0042891
+        ],
+        [
+          13.0073896,
+          80.0040866
+        ],
+        [
+          13.0071896,
+          80.0040945
+        ],
+        [
+          13.0071864,
+          80.0040088
+        ],
+        [
+          13.0071303,
+          80.004011
+        ],
+        [
+          13.0071544,
+          80.0046517
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 16.0
+    },
+    {
+      "id": "rec_boys_hostel_2",
+      "name": "Boy's Hostel 2",
+      "category": "Hostels",
+      "building_code": "BH-02",
+      "description": "Junior and senior men hostel block with dedicated study zones and sports recreation areas",
+      "latitude": 13.0072407,
+      "longitude": 80.0038045,
+      "entrance": {
+        "latitude": 13.0075675,
+        "longitude": 80.0039547,
+        "walkway_node_id": "node_7782889578",
+        "connector_distance_m": 39.8
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582690",
+      "polygon": [
+        [
+          13.0071089,
+          80.0039846
+        ],
+        [
+          13.0074296,
+          80.0039753
+        ],
+        [
+          13.0074213,
+          80.0036754
+        ],
+        [
+          13.0073255,
+          80.0036782
+        ],
+        [
+          13.007214,
+          80.0036814
+        ],
+        [
+          13.0072152,
+          80.0037265
+        ],
+        [
+          13.0071019,
+          80.0037298
+        ],
+        [
+          13.0071089,
+          80.0039846
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 16.0
+    },
+    {
+      "id": "rec_nri_boys_hostel",
+      "name": "NRI Boy's Hostel",
+      "category": "Hostels",
+      "building_code": "NRI-BH",
+      "description": "Premium residential accommodation for international and NRI students with attached amenities",
+      "latitude": 13.0073388,
+      "longitude": 80.0034005,
+      "entrance": {
+        "latitude": 13.0075988,
+        "longitude": 80.0039225,
+        "walkway_node_id": "node_7782889584",
+        "connector_distance_m": 63.5
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582691",
+      "polygon": [
+        [
+          13.0074683,
+          80.0032208
+        ],
+        [
+          13.0074717,
+          80.0036446
+        ],
+        [
+          13.0071395,
+          80.0036703
+        ],
+        [
+          13.0071464,
+          80.0032458
+        ],
+        [
+          13.0074683,
+          80.0032208
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 16.0
+    },
+    {
+      "id": "rec_soccer_ground",
+      "name": "Football & Athletic Ground",
+      "category": "Sports",
+      "building_code": "SPT-FB",
+      "description": "Standard outdoor sports field for football, cricket practice, track events, and annual sports meets",
+      "latitude": 13.0090303,
+      "longitude": 80.0043252,
+      "entrance": {
+        "latitude": 13.0093365,
+        "longitude": 80.0038262,
+        "walkway_node_id": "node_7782889583",
+        "connector_distance_m": 63.9
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578234",
+      "polygon": [
+        [
+          13.0088421,
+          80.0044088
+        ],
+        [
+          13.0093217,
+          80.0043831
+        ],
+        [
+          13.0093119,
+          80.0042005
+        ],
+        [
+          13.0088337,
+          80.0042247
+        ],
+        [
+          13.0088421,
+          80.0044088
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 0.5
+    },
+    {
+      "id": "rec_basketball_court",
+      "name": "Basketball Court",
+      "category": "Sports",
+      "building_code": "SPT-BB",
+      "description": "Floodlit outdoor basketball court with asphalt surfacing and spectator gallery",
+      "latitude": 13.0090841,
+      "longitude": 80.004106,
+      "entrance": {
+        "latitude": 13.0093365,
+        "longitude": 80.0038262,
+        "walkway_node_id": "node_7782889583",
+        "connector_distance_m": 41.3
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557578231",
+      "polygon": [
+        [
+          13.0089269,
+          80.0041676
+        ],
+        [
+          13.0089213,
+          80.0040093
+        ],
+        [
+          13.0092619,
+          80.0039893
+        ],
+        [
+          13.0092702,
+          80.0041491
+        ],
+        [
+          13.0091976,
+          80.004153
+        ],
+        [
+          13.0089269,
+          80.0041676
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 0.5
+    },
+    {
+      "id": "rec_pickleball_court",
+      "name": "Pickle Ball Court",
+      "category": "Sports",
+      "building_code": "SPT-PB",
+      "description": "Dedicated outdoor pickleball and recreational racket sports court",
+      "latitude": 13.0079656,
+      "longitude": 80.0041042,
+      "entrance": {
+        "latitude": 13.0079961,
+        "longitude": 80.0038635,
+        "walkway_node_id": "node_7782896385",
+        "connector_distance_m": 26.3
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1557582692",
+      "polygon": [
+        [
+          13.008207,
+          80.0041557
+        ],
+        [
+          13.0082047,
+          80.0039936
+        ],
+        [
+          13.0075972,
+          80.0040329
+        ],
+        [
+          13.0076123,
+          80.0041831
+        ],
+        [
+          13.008207,
+          80.0041557
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 0.5
+    },
+    {
+      "id": "rec_parkwiz_1",
+      "name": "PARKWIZ 1 Parking Zone",
+      "category": "Transport",
+      "building_code": "PKG-01",
+      "description": "Designated campus parking area for faculty, staff, and authorized visitors near college entrance",
+      "latitude": 13.0118251,
+      "longitude": 80.0009674,
+      "entrance": {
+        "latitude": 13.0112322,
+        "longitude": 80.0010702,
+        "walkway_node_id": "node_3881789998",
+        "connector_distance_m": 66.9
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1302317539",
+      "polygon": [
+        [
+          13.012002,
+          80.000775
+        ],
+        [
+          13.012056,
+          80.0008831
+        ],
+        [
+          13.0121257,
+          80.0010226
+        ],
+        [
+          13.0115607,
+          80.00123
+        ],
+        [
+          13.0115235,
+          80.0011528
+        ],
+        [
+          13.0114741,
+          80.0010501
+        ],
+        [
+          13.0118571,
+          80.0008505
+        ],
+        [
+          13.012002,
+          80.000775
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 8.0
+    },
+    {
+      "id": "rec_parkwiz_2",
+      "name": "PARKWIZ 2 Parking Zone",
+      "category": "Transport",
+      "building_code": "PKG-02",
+      "description": "Designated student two-wheeler parking bay and college transit shuttle waiting terminal",
+      "latitude": 13.0108162,
+      "longitude": 80.0009731,
+      "entrance": {
+        "latitude": 13.011205,
+        "longitude": 80.0011243,
+        "walkway_node_id": "node_12071943790",
+        "connector_distance_m": 46.2
+      },
+      "verified": true,
+      "source": "OpenStreetMap ground survey way/1303520025",
+      "polygon": [
+        [
+          13.0108503,
+          80.0008768
+        ],
+        [
+          13.0109108,
+          80.0009615
+        ],
+        [
+          13.0108657,
+          80.001003
+        ],
+        [
+          13.0107513,
+          80.0011083
+        ],
+        [
+          13.0106688,
+          80.0010123
+        ],
+        [
+          13.0108503,
+          80.0008768
+        ]
+      ],
+      "created_at": "2026-10-06T05:23:09.785579+00:00",
+      "updated_at": "2026-10-06T05:23:09.785579+00:00",
+      "height": 8.0
+    }
+  ],
+  "walkway_network": {
+    "nodes": [
+      {
+        "id": "node_3881789997",
+        "osm_id": 3881789997,
+        "lat": 13.0124751,
+        "lon": 80.0003439
+      },
+      {
+        "id": "node_12063346492",
+        "osm_id": 12063346492,
+        "lat": 13.0122339,
+        "lon": 80.0004849
+      },
+      {
+        "id": "node_3881789998",
+        "osm_id": 3881789998,
+        "lat": 13.0112322,
+        "lon": 80.0010702
+      },
+      {
+        "id": "node_12071943790",
+        "osm_id": 12071943790,
+        "lat": 13.011205,
+        "lon": 80.0011243
+      },
+      {
+        "id": "node_3881789999",
+        "osm_id": 3881789999,
+        "lat": 13.0105976,
+        "lon": 80.0023301
+      },
+      {
+        "id": "node_3881790000",
+        "osm_id": 3881790000,
+        "lat": 13.0097945,
+        "lon": 80.0032187
+      },
+      {
+        "id": "node_10277778628",
+        "osm_id": 10277778628,
+        "lat": 13.0097805,
+        "lon": 80.0032197
+      },
+      {
+        "id": "node_3881790001",
+        "osm_id": 3881790001,
+        "lat": 13.0094777,
+        "lon": 80.0032232
+      },
+      {
+        "id": "node_7782889583",
+        "osm_id": 7782889583,
+        "lat": 13.0093365,
+        "lon": 80.0038262
+      },
+      {
+        "id": "node_7782889581",
+        "osm_id": 7782889581,
+        "lat": 13.0082783,
+        "lon": 80.0038367
+      },
+      {
+        "id": "node_7782896385",
+        "osm_id": 7782896385,
+        "lat": 13.0079961,
+        "lon": 80.0038635
+      },
+      {
+        "id": "node_7782889582",
+        "osm_id": 7782889582,
+        "lat": 13.0077138,
+        "lon": 80.0038903
+      },
+      {
+        "id": "node_7782889584",
+        "osm_id": 7782889584,
+        "lat": 13.0075988,
+        "lon": 80.0039225
+      },
+      {
+        "id": "node_7782889578",
+        "osm_id": 7782889578,
+        "lat": 13.0075675,
+        "lon": 80.0039547
+      },
+      {
+        "id": "node_7782889580",
+        "osm_id": 7782889580,
+        "lat": 13.0075518,
+        "lon": 80.0039976
+      },
+      {
+        "id": "node_7782889573",
+        "osm_id": 7782889573,
+        "lat": 13.007588,
+        "lon": 80.0052443
+      },
+      {
+        "id": "node_7782889572",
+        "osm_id": 7782889572,
+        "lat": 13.0076167,
+        "lon": 80.0053275
+      },
+      {
+        "id": "node_7782889571",
+        "osm_id": 7782889571,
+        "lat": 13.007669,
+        "lon": 80.005361
+      },
+      {
+        "id": "node_7782889570",
+        "osm_id": 7782889570,
+        "lat": 13.0077383,
+        "lon": 80.0053798
+      },
+      {
+        "id": "node_7782889579",
+        "osm_id": 7782889579,
+        "lat": 13.0078376,
+        "lon": 80.0053892
+      },
+      {
+        "id": "node_7782889575",
+        "osm_id": 7782889575,
+        "lat": 13.0094126,
+        "lon": 80.0053005
+      },
+      {
+        "id": "node_7782889576",
+        "osm_id": 7782889576,
+        "lat": 13.0097251,
+        "lon": 80.0052832
+      },
+      {
+        "id": "node_7782889577",
+        "osm_id": 7782889577,
+        "lat": 13.0098198,
+        "lon": 80.0052939
+      },
+      {
+        "id": "node_10277778640",
+        "osm_id": 10277778640,
+        "lat": 13.0098423,
+        "lon": 80.0053031
+      },
+      {
+        "id": "node_7782868153",
+        "osm_id": 7782868153,
+        "lat": 13.0099675,
+        "lon": 80.0053543
+      },
+      {
+        "id": "node_7782868158",
+        "osm_id": 7782868158,
+        "lat": 13.0103856,
+        "lon": 80.0056922
+      },
+      {
+        "id": "node_7782868152",
+        "osm_id": 7782868152,
+        "lat": 13.0115041,
+        "lon": 80.00669
+      },
+      {
+        "id": "node_7782868151",
+        "osm_id": 7782868151,
+        "lat": 13.01164,
+        "lon": 80.0068617
+      },
+      {
+        "id": "node_7782868150",
+        "osm_id": 7782868150,
+        "lat": 13.0117367,
+        "lon": 80.0070628
+      },
+      {
+        "id": "node_7782868149",
+        "osm_id": 7782868149,
+        "lat": 13.0118595,
+        "lon": 80.0074947
+      },
+      {
+        "id": "node_3940209777",
+        "osm_id": 3940209777,
+        "lat": 13.0120641,
+        "lon": 80.0085504
+      },
+      {
+        "id": "node_14166251862",
+        "osm_id": 14166251862,
+        "lat": 13.0093081,
+        "lon": 80.0033321
+      },
+      {
+        "id": "node_14166251861",
+        "osm_id": 14166251861,
+        "lat": 13.0093796,
+        "lon": 80.0033255
+      },
+      {
+        "id": "node_14166251859",
+        "osm_id": 14166251859,
+        "lat": 13.0094501,
+        "lon": 80.0032967
+      },
+      {
+        "id": "node_14166251857",
+        "osm_id": 14166251857,
+        "lat": 13.0094433,
+        "lon": 80.0031707
+      },
+      {
+        "id": "node_14166251860",
+        "osm_id": 14166251860,
+        "lat": 13.0093831,
+        "lon": 80.0031349
+      },
+      {
+        "id": "node_14166251858",
+        "osm_id": 14166251858,
+        "lat": 13.0093044,
+        "lon": 80.0031252
+      },
+      {
+        "id": "node_7782889574",
+        "osm_id": 7782889574,
+        "lat": 13.0092828,
+        "lon": 80.0027847
+      },
+      {
+        "id": "node_10277778623",
+        "osm_id": 10277778623,
+        "lat": 13.0082885,
+        "lon": 80.0026524
+      },
+      {
+        "id": "node_7782896387",
+        "osm_id": 7782896387,
+        "lat": 13.0082888,
+        "lon": 80.0026136
+      },
+      {
+        "id": "node_10277778624",
+        "osm_id": 10277778624,
+        "lat": 13.0085849,
+        "lon": 80.002631
+      },
+      {
+        "id": "node_10277778625",
+        "osm_id": 10277778625,
+        "lat": 13.0096877,
+        "lon": 80.0025961
+      },
+      {
+        "id": "node_10277778626",
+        "osm_id": 10277778626,
+        "lat": 13.0097583,
+        "lon": 80.0026149
+      },
+      {
+        "id": "node_10277778627",
+        "osm_id": 10277778627,
+        "lat": 13.0097766,
+        "lon": 80.0027115
+      },
+      {
+        "id": "node_10277778629",
+        "osm_id": 10277778629,
+        "lat": 13.0098007,
+        "lon": 80.004095
+      },
+      {
+        "id": "node_10277778630",
+        "osm_id": 10277778630,
+        "lat": 13.0098084,
+        "lon": 80.0041586
+      },
+      {
+        "id": "node_10277778631",
+        "osm_id": 10277778631,
+        "lat": 13.0098378,
+        "lon": 80.0042103
+      },
+      {
+        "id": "node_10277778634",
+        "osm_id": 10277778634,
+        "lat": 13.0098602,
+        "lon": 80.0043008
+      },
+      {
+        "id": "node_10277778635",
+        "osm_id": 10277778635,
+        "lat": 13.0098511,
+        "lon": 80.0043826
+      },
+      {
+        "id": "node_10277778636",
+        "osm_id": 10277778636,
+        "lat": 13.0098134,
+        "lon": 80.0044474
+      },
+      {
+        "id": "node_10277778638",
+        "osm_id": 10277778638,
+        "lat": 13.0098176,
+        "lon": 80.0046462
+      },
+      {
+        "id": "node_10277778639",
+        "osm_id": 10277778639,
+        "lat": 13.0098477,
+        "lon": 80.0051733
+      },
+      {
+        "id": "node_14166151890",
+        "osm_id": 14166151890,
+        "lat": 13.0097641,
+        "lon": 80.0041806
+      },
+      {
+        "id": "node_14166151891",
+        "osm_id": 14166151891,
+        "lat": 13.0097374,
+        "lon": 80.0042462
+      },
+      {
+        "id": "node_14166151892",
+        "osm_id": 14166151892,
+        "lat": 13.0097339,
+        "lon": 80.0043332
+      },
+      {
+        "id": "node_14166151893",
+        "osm_id": 14166151893,
+        "lat": 13.0097455,
+        "lon": 80.0044119
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_384824290_3881789997_12063346492",
+        "from": "node_3881789997",
+        "to": "node_12063346492",
+        "distance": 30.87,
+        "way_id": 384824290,
+        "walkable": true
+      },
+      {
+        "id": "edge_384824290_12063346492_3881789998",
+        "from": "node_12063346492",
+        "to": "node_3881789998",
+        "distance": 128.17,
+        "way_id": 384824290,
+        "walkable": true
+      },
+      {
+        "id": "edge_384824290_3881789998_12071943790",
+        "from": "node_3881789998",
+        "to": "node_12071943790",
+        "distance": 6.6,
+        "way_id": 384824290,
+        "walkable": true
+      },
+      {
+        "id": "edge_384824290_12071943790_3881789999",
+        "from": "node_12071943790",
+        "to": "node_3881789999",
+        "distance": 147.06,
+        "way_id": 384824290,
+        "walkable": true
+      },
+      {
+        "id": "edge_384824290_3881789999_3881790000",
+        "from": "node_3881789999",
+        "to": "node_3881790000",
+        "distance": 131.31,
+        "way_id": 384824290,
+        "walkable": true
+      },
+      {
+        "id": "edge_384824290_3881790000_10277778628",
+        "from": "node_3881790000",
+        "to": "node_10277778628",
+        "distance": 1.56,
+        "way_id": 384824290,
+        "walkable": true
+      },
+      {
+        "id": "edge_384824290_10277778628_3881790001",
+        "from": "node_10277778628",
+        "to": "node_3881790001",
+        "distance": 33.67,
+        "way_id": 384824290,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889583_7782889581",
+        "from": "node_7782889583",
+        "to": "node_7782889581",
+        "distance": 117.67,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889581_7782896385",
+        "from": "node_7782889581",
+        "to": "node_7782896385",
+        "distance": 31.51,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782896385_7782889582",
+        "from": "node_7782896385",
+        "to": "node_7782889582",
+        "distance": 31.52,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889582_7782889584",
+        "from": "node_7782889582",
+        "to": "node_7782889584",
+        "distance": 13.25,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889584_7782889578",
+        "from": "node_7782889584",
+        "to": "node_7782889578",
+        "distance": 4.93,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889578_7782889580",
+        "from": "node_7782889578",
+        "to": "node_7782889580",
+        "distance": 4.96,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889580_7782889573",
+        "from": "node_7782889580",
+        "to": "node_7782889573",
+        "distance": 135.13,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889573_7782889572",
+        "from": "node_7782889573",
+        "to": "node_7782889572",
+        "distance": 9.56,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889572_7782889571",
+        "from": "node_7782889572",
+        "to": "node_7782889571",
+        "distance": 6.86,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889571_7782889570",
+        "from": "node_7782889571",
+        "to": "node_7782889570",
+        "distance": 7.97,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889570_7782889579",
+        "from": "node_7782889570",
+        "to": "node_7782889579",
+        "distance": 11.09,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889579_7782889575",
+        "from": "node_7782889579",
+        "to": "node_7782889575",
+        "distance": 175.4,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889575_7782889576",
+        "from": "node_7782889575",
+        "to": "node_7782889576",
+        "distance": 34.8,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889576_7782889577",
+        "from": "node_7782889576",
+        "to": "node_7782889577",
+        "distance": 10.59,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782889577_10277778640",
+        "from": "node_7782889577",
+        "to": "node_10277778640",
+        "distance": 2.69,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_10277778640_7782868153",
+        "from": "node_10277778640",
+        "to": "node_7782868153",
+        "distance": 14.99,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782868153_7782868158",
+        "from": "node_7782868153",
+        "to": "node_7782868158",
+        "distance": 59.17,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782868158_7782868152",
+        "from": "node_7782868158",
+        "to": "node_7782868152",
+        "distance": 164.79,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782868152_7782868151",
+        "from": "node_7782868152",
+        "to": "node_7782868151",
+        "distance": 23.97,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782868151_7782868150",
+        "from": "node_7782868151",
+        "to": "node_7782868150",
+        "distance": 24.3,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782868150_7782868149",
+        "from": "node_7782868150",
+        "to": "node_7782868149",
+        "distance": 48.74,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833739275_7782868149_3940209777",
+        "from": "node_7782868149",
+        "to": "node_3940209777",
+        "distance": 116.62,
+        "way_id": 833739275,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_7782889575_7782889583",
+        "from": "node_7782889575",
+        "to": "node_7782889583",
+        "distance": 159.95,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_7782889583_14166251862",
+        "from": "node_7782889583",
+        "to": "node_14166251862",
+        "distance": 53.62,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_14166251862_14166251861",
+        "from": "node_14166251862",
+        "to": "node_14166251861",
+        "distance": 7.98,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_14166251861_14166251859",
+        "from": "node_14166251861",
+        "to": "node_14166251859",
+        "distance": 8.44,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_14166251859_3881790001",
+        "from": "node_14166251859",
+        "to": "node_3881790001",
+        "distance": 8.53,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_3881790001_14166251857",
+        "from": "node_3881790001",
+        "to": "node_14166251857",
+        "distance": 6.85,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_14166251857_14166251860",
+        "from": "node_14166251857",
+        "to": "node_14166251860",
+        "distance": 7.74,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_14166251860_14166251858",
+        "from": "node_14166251860",
+        "to": "node_14166251858",
+        "distance": 8.81,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740494_14166251858_7782889574",
+        "from": "node_14166251858",
+        "to": "node_7782889574",
+        "distance": 36.97,
+        "way_id": 833740494,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740496_7782889581_10277778623",
+        "from": "node_7782889581",
+        "to": "node_10277778623",
+        "distance": 128.31,
+        "way_id": 833740496,
+        "walkable": true
+      },
+      {
+        "id": "edge_833740496_10277778623_7782896387",
+        "from": "node_10277778623",
+        "to": "node_7782896387",
+        "distance": 4.2,
+        "way_id": 833740496,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778623_10277778624",
+        "from": "node_10277778623",
+        "to": "node_10277778624",
+        "distance": 33.04,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778624_10277778625",
+        "from": "node_10277778624",
+        "to": "node_10277778625",
+        "distance": 122.68,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778625_10277778626",
+        "from": "node_10277778625",
+        "to": "node_10277778626",
+        "distance": 8.11,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778626_10277778627",
+        "from": "node_10277778626",
+        "to": "node_10277778627",
+        "distance": 10.66,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778627_10277778628",
+        "from": "node_10277778627",
+        "to": "node_10277778628",
+        "distance": 55.06,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778628_10277778629",
+        "from": "node_10277778628",
+        "to": "node_10277778629",
+        "distance": 94.86,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778629_10277778630",
+        "from": "node_10277778629",
+        "to": "node_10277778630",
+        "distance": 6.94,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778630_10277778631",
+        "from": "node_10277778630",
+        "to": "node_10277778631",
+        "distance": 6.49,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778631_10277778634",
+        "from": "node_10277778631",
+        "to": "node_10277778634",
+        "distance": 10.12,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778634_10277778635",
+        "from": "node_10277778634",
+        "to": "node_10277778635",
+        "distance": 8.92,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778635_10277778636",
+        "from": "node_10277778635",
+        "to": "node_10277778636",
+        "distance": 8.18,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778636_10277778638",
+        "from": "node_10277778636",
+        "to": "node_10277778638",
+        "distance": 21.54,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778638_10277778639",
+        "from": "node_10277778638",
+        "to": "node_10277778639",
+        "distance": 57.2,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1123856574_10277778639_10277778640",
+        "from": "node_10277778639",
+        "to": "node_10277778640",
+        "distance": 14.08,
+        "way_id": 1123856574,
+        "walkable": true
+      },
+      {
+        "id": "edge_1557573757_10277778630_14166151890",
+        "from": "node_10277778630",
+        "to": "node_14166151890",
+        "distance": 5.47,
+        "way_id": 1557573757,
+        "walkable": true
+      },
+      {
+        "id": "edge_1557573757_14166151890_14166151891",
+        "from": "node_14166151890",
+        "to": "node_14166151891",
+        "distance": 7.7,
+        "way_id": 1557573757,
+        "walkable": true
+      },
+      {
+        "id": "edge_1557573757_14166151891_14166151892",
+        "from": "node_14166151891",
+        "to": "node_14166151892",
+        "distance": 9.43,
+        "way_id": 1557573757,
+        "walkable": true
+      },
+      {
+        "id": "edge_1557573757_14166151892_14166151893",
+        "from": "node_14166151892",
+        "to": "node_14166151893",
+        "distance": 8.62,
+        "way_id": 1557573757,
+        "walkable": true
+      },
+      {
+        "id": "edge_1557573757_14166151893_10277778636",
+        "from": "node_14166151893",
+        "to": "node_10277778636",
+        "distance": 8.47,
+        "way_id": 1557573757,
+        "walkable": true
+      },
+      {
+        "id": "edge_1557578243_14166251858_14166251862",
+        "from": "node_14166251858",
+        "to": "node_14166251862",
+        "distance": 22.42,
+        "way_id": 1557578243,
+        "walkable": true
+      }
+    ]
+  }
+}

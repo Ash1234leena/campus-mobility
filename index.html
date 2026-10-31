@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>REC Campus Mobility — Rajalakshmi Engineering College Navigation</title>
+  <meta name="description" content="Official real-time pedestrian mobility and in-campus navigation system for Rajalakshmi Engineering College (REC).">
+  <meta name="theme-color" content="#070b14">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- MapLibre GL 3D Engine CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- Background Interactive Map Canvas -->
+    <div id="map"></div>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav-bar" role="banner">
+      <div class="brand-badge" id="btn-brand-info" title="Rajalakshmi Engineering College Navigation">
+        <div class="brand-logo-icon">REC</div>
+        <div class="brand-text">
+          <span class="brand-title">Campus Mobility</span>
+          <span class="brand-subtitle">Rajalakshmi Eng. College</span>
+        </div>
+      </div>
+
+      <div class="nav-view-switcher" id="nav-view-switcher" role="tablist" aria-label="Map View Switcher">
+        <button class="view-switch-btn active" id="btn-view-campus" data-view="campus" role="tab" aria-selected="true">
+          <span>🗺️</span>
+          <span>Campus Navigation</span>
+        </button>
+        <button class="view-switch-btn" id="btn-view-transport" data-view="transport" role="tab" aria-selected="false">
+          <span>🚌</span>
+          <span>Transport Bus Map</span>
+        </button>
+      </div>
+
+      <div class="top-actions">
+        <!-- Live Connection Status Pill -->
+        <div class="conn-status-pill online" id="conn-status-pill" title="Backend Server Sync Status">
+          <span class="conn-dot"></span>
+          <span id="conn-status-label">🟢 ONLINE</span>
+        </div>
+
+        <!-- Live GPS Telemetry Status Pill -->
+        <button class="gps-status-pill" id="btn-gps-status" aria-label="Device GPS Status">
+          <span class="gps-beacon" id="gps-beacon-indicator"></span>
+          <span id="gps-status-text">Acquiring GPS...</span>
+        </button>
+
+        <!-- Map Layer Switcher Button -->
+        <div style="position: relative;" id="layer-switcher-wrapper">
+          <button class="glass-btn" id="btn-layer-toggle" title="Switch Map Layer" aria-label="Switch Map Layer">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </button>
+          <div class="layer-picker-menu" id="layer-picker-menu">
+            <button class="layer-opt-btn active" data-layer="satellite">🛰️ 3D Satellite (Google Earth Style)</button>
+            <button class="layer-opt-btn" data-layer="street">🗺️ Campus Map (Streets & Paths)</button>
+          </div>
+        </div>
+
+        <!-- College Bus Finder Button -->
+        <button class="glass-btn" id="btn-bus-modal" title="Find My College Bus & Parked Bays" aria-label="Find College Bus">
+          <span style="font-size: 15px;">🚌</span>
+        </button>
+
+        <!-- Real Twilio SMS Alerts Button -->
+        <button class="glass-btn" id="btn-sms-modal" title="SMS Approaching Alerts (Real Twilio Notification System)" aria-label="SMS Approaching Alerts">
+          <span style="font-size: 15px;">🔔</span>
+        </button>
+
+        <!-- Dedicated Driver Dashboard Button -->
+        <a href="driver.html" target="_blank" class="glass-btn" id="btn-driver-dashboard" title="Open Driver Dashboard (Live GPS & Parked Spot)" aria-label="Driver Dashboard" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 15px;">👨‍✈️</span>
+        </a>
+
+        <!-- Verified Locations Data Manager / Admin Button -->
+        <button class="glass-btn" id="btn-admin-modal" title="Manage Verified Campus Data & Transport" aria-label="Campus Data Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Floating Search & Category Selection Panel -->
+    <section class="search-floating-panel" id="search-panel" aria-label="Search Campus Destinations">
+      <div class="search-input-box">
+        <span class="search-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </span>
+        <input 
+          type="text" 
+          id="search-dest-input" 
+          class="search-input" 
+          placeholder="Search building or Bus # (e.g. 12, Tambaram)..." 
+          autocomplete="off" 
+          spellcheck="false"
+          aria-label="Search REC Campus Locations"
+        />
+        <button class="clear-search-btn" id="btn-clear-search" style="display: none;" aria-label="Clear Search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <button class="dropdown-toggle-btn" id="btn-dropdown-toggle" title="Browse all campus destinations & buses" aria-label="Toggle Dropdown">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Student Destinations & Buses Dropdown Menu -->
+      <div class="search-results-dropdown" id="search-results-dropdown" role="listbox">
+        <!-- Dynamically injected items -->
+      </div>
+    </section>
+
+    <!-- Floating Map Controls (Right) -->
+    <aside class="map-floating-controls" aria-label="Map Navigation Controls">
+      <!-- 3D Google Earth Perspective Toggle Button -->
+      <button class="ctrl-btn active" id="btn-toggle-3d" title="Toggle 3D Google Earth Perspective" aria-label="3D View">
+        <span style="font-weight: 800; font-size: 13px; font-family: var(--font-heading); color: var(--nav-light-blue-bright);">3D</span>
+      </button>
+
+      <button class="ctrl-btn" id="btn-recenter-user" title="Recenter on My Location" aria-label="My Location">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+        </svg>
+      </button>
+
+      <button class="ctrl-btn" id="btn-recenter-campus" title="Recenter Full REC Campus" aria-label="Full Campus View">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </button>
+
+      <button class="ctrl-btn" id="btn-toggle-walkways" title="Toggle Campus Walkways Layer" aria-label="Campus Walkways">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 4v16"></path>
+          <path d="M17 4v16"></path>
+          <path d="M19 4H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      </button>
+    </aside>
+
+    <!-- Off-Route Deviation Recalculation Alert Banner -->
+    <div class="off-route-banner" id="off-route-banner" role="alert">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>You have moved away from the route. Recalculating route...</span>
+    </div>
+
+    <!-- Active Navigation HUD (Top Banner during active walking navigation) -->
+    <div class="active-nav-hud" id="active-nav-hud" role="region" aria-label="Turn-by-turn Navigation HUD">
+      <div class="hud-step-row">
+        <div class="hud-maneuver-icon" id="hud-maneuver-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+        <div class="hud-step-text-col">
+          <span class="hud-next-instruction" id="hud-instruction-text">Head towards destination</span>
+          <span class="hud-target-dest" id="hud-destination-name">Target: Admin Block</span>
+        </div>
+      </div>
+      <div class="hud-bottom-stats">
+        <div class="hud-stat-pill">
+          <span id="hud-remaining-dist">0 m</span>
+          <span>remaining</span>
+        </div>
+        <div class="hud-stat-pill">
+          <span id="hud-remaining-time">0 min</span>
+          <span>walk</span>
+        </div>
+        <button class="btn-stop-nav" id="btn-stop-navigation">Exit Navigation</button>
+      </div>
+    </div>
+
+    <!-- Bottom Sheet / Destination Preview & Routing Card -->
+    <div class="bottom-sheet-panel">
+      <div class="nav-destination-card" id="destination-card">
+        <div class="dest-header-row">
+          <div class="dest-main-titles">
+            <div class="dest-category-tag">
+              <span id="card-dest-category">Academic</span>
+              <span>•</span>
+              <span id="card-dest-code">ACAD-01</span>
+              <span>•</span>
+              <span style="color: var(--accent-emerald);">✓ Verified Coordinate</span>
+            </div>
+            <h2 class="dest-name-title" id="card-dest-name">Academic Block</h2>
+            <p class="dest-desc-text" id="card-dest-desc">Classrooms, lecture halls, and department departments.</p>
+            <div class="dest-coords-badge" id="card-dest-coords">📍 13.0079197° N, 80.0024037° E</div>
+          </div>
+          <button class="close-card-btn" id="btn-close-card" aria-label="Close Destination Card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Calculated Real Walking Metrics -->
+        <div class="route-metrics-row">
+          <div class="metric-col">
+            <span class="metric-value highlight" id="metric-distance">-- m</span>
+            <span class="metric-label">Walking Distance</span>
+          </div>
+          <div class="metric-col">
+            <span class="metric-value" id="metric-duration">-- min</span>
+            <span class="metric-label">Estimated Time</span>
+          </div>
+          <div class="metric-col">
+            <span class="metric-value" style="font-size: 13px; color: var(--nav-light-blue-bright);" id="metric-provider">OSRM Foot</span>
+            <span class="metric-label">Routing Engine</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="nav-actions-grid">
+          <button class="btn-primary-nav" id="btn-start-navigation">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Start Navigation
+          </button>
+          <button class="btn-secondary-outline" id="btn-toggle-steps">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+            Steps
+          </button>
+        </div>
+
+        <!-- Expandable Turn-by-Turn Guidance -->
+        <div class="turn-directions-drawer" id="turn-directions-drawer">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         DEDICATED OFFLINE REC TRANSPORT MAP MODULE (STUDENT SCREEN)
+         Base: Bundled high-definition REC Thandalam Campus Plan (No internet required)
+         ========================================================================= -->
+    <section class="transport-map-view" id="transport-map-view" style="display: none;" aria-label="REC Transport Bus Map">
+      <!-- Top Transport Controls Bar -->
+      <div class="transport-top-bar">
+        <div class="transport-search-row">
+          <div class="t-search-box">
+            <span class="t-search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="tmap-search-input" 
+              class="t-search-input" 
+              placeholder="Search bus number or route (e.g. 10C, 15A, Tambaram)..." 
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search college buses"
+            />
+            <button class="clear-search-btn" id="tmap-btn-clear-search" style="display: none;" aria-label="Clear bus search">✕</button>
+          </div>
+
+          <!-- Connection Status Pill -->
+          <div class="t-connection-badge online" id="tmap-connection-badge" title="Transport Data Sync Status">
+            <span class="t-conn-dot"></span>
+            <span class="t-conn-text" id="tmap-connection-text">🟢 ONLINE</span>
+          </div>
+        </div>
+
+        <!-- Filter Chips Row -->
+        <div class="transport-filters-row">
+          <button class="t-filter-chip active" data-filter="ALL" id="tmap-btn-all-buses">Show All Buses (<span id="t-count-all">0</span>)</button>
+          <button class="t-filter-chip" data-filter="ACTIVE" id="tmap-filter-active">Active (<span id="t-count-active">0</span>)</button>
+          <button class="t-filter-chip" data-filter="LIVE" id="tmap-filter-live">🟢 Live (<span id="t-count-live">0</span>)</button>
+          <button class="t-filter-chip" data-filter="LAST_KNOWN" id="tmap-filter-last-known">🟡 Last Known (<span id="t-count-last-known">0</span>)</button>
+          <button class="t-filter-chip" data-filter="STATIC" id="tmap-filter-static">🔵 Static (<span id="t-count-static">0</span>)</button>
+          
+          <select class="t-route-select" id="tmap-route-filter" aria-label="Filter by Route">
+            <option value="">All Verified Routes</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Main Offline Interactive Bus Map Canvas -->
+      <div class="transport-map-canvas-container" id="transport-map-canvas-container">
+        <!-- TransportMapEngine mounts dynamically here -->
+      </div>
+
+      <!-- Student Selected Bus Detail Drawer -->
+      <div class="transport-bus-detail-card" id="transport-bus-detail-card" style="display: none;" role="region" aria-label="Bus Details">
+        <div class="tcard-header">
+          <div class="tcard-title-wrap">
+            <div class="tcard-badge-row">
+              <span class="tcard-bus-num" id="tcard-bus-number">🚌 10C</span>
+              <span class="tcard-status-badge status-static" id="tcard-status-badge">STATIC</span>
+              <span class="tcard-pos-type" id="tcard-pos-type">Verified Static Bay Position</span>
+            </div>
+            <h3 class="tcard-route-title" id="tcard-route-name">Binny Mill Church</h3>
+            <p class="tcard-bay-name" id="tcard-bay-location">🅿️ Temple Gate Bay 10C</p>
+          </div>
+          <button class="close-card-btn" id="tcard-btn-close" aria-label="Close Bus Details">✕</button>
+        </div>
+
+        <div class="tcard-details-grid">
+          <div class="tcard-detail-item">
+            <span class="tcard-d-label">Plate / Reg #</span>
+            <span class="tcard-d-value" id="tcard-plate">TN 21 AX 4810</span>
+          </div>
+          <div class="tcard-detail-item">
+            <span class="tcard-d-label">Driver Contact</span>
+            <span class="tcard-d-value" id="tcard-driver">R. Jayaraman • +91 98401 10010</span>
+          </div>
+          <div class="tcard-detail-item">
+            <span class="tcard-d-label">Trip Schedule</span>
+            <span class="tcard-d-value" id="tcard-schedule">Dep: 06:15 am • Arr: 07:45 am</span>
+          </div>
+          <div class="tcard-detail-item">
+            <span class="tcard-d-label">Last Updated</span>
+            <span class="tcard-d-value" id="tcard-last-updated">Today, 08:30 AM</span>
+          </div>
+          <div class="tcard-detail-item" style="grid-column: 1 / -1;">
+            <span class="tcard-d-label">Boarding Points</span>
+            <span class="tcard-d-value" id="tcard-boarding-points">Binny Mill Church → Toll Gate → Poonamallee → REC</span>
+          </div>
+        </div>
+
+        <!-- Student SMS Alert Quick Status -->
+        <div class="tcard-sms-box" id="tcard-sms-box">
+          <div class="tcard-sms-header">
+            <span class="tcard-sms-icon">📱</span>
+            <span class="tcard-sms-title">Twilio SMS Approaching Alerts</span>
+            <span class="tcard-sms-badge" id="tcard-sms-status-badge">ACTIVE (10m &amp; 5m)</span>
+          </div>
+          <div class="tcard-sms-desc" id="tcard-sms-desc">
+            Registered phone: <strong id="tcard-sms-phone">+91 98*** **210</strong>. Automatically triggers real SMS when this bus is 10 min &amp; 5 min away.
+          </div>
+          <div class="tcard-sms-meta" id="tcard-sms-meta" style="display: none;">
+            Last Alert: <span id="tcard-sms-last-text">—</span>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <button class="btn-secondary-outline" id="tcard-btn-manage-sms" style="flex: 1; height: 32px; font-size: 11.5px;">⚙️ Manage Student SMS</button>
+            <button class="btn-secondary-outline" id="tcard-btn-test-sms" style="flex: 1; height: 32px; font-size: 11.5px;">⚡ Test Real SMS</button>
+          </div>
+        </div>
+
+        <div class="tcard-actions">
+          <button class="btn-primary-nav" id="tcard-btn-navigate-to-bay">
+            🧭 Walk to this Bus (Campus Navigation)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arrival Celebration Modal -->
+    <div class="arrival-modal-overlay" id="arrival-modal" role="dialog" aria-labelledby="arrival-title">
+      <div class="arrival-card">
+        <div class="arrival-badge-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h2 class="arrival-title" id="arrival-title">Destination Reached!</h2>
+        <p class="arrival-subtitle">
+          You have arrived at <span class="arrival-dest-name" id="arrival-dest-name">Destination</span> based on real GPS positioning.
+        </p>
+        <button class="btn-primary-nav" id="btn-dismiss-arrival" style="width: 100%;">
+          Complete Navigation
+        </button>
+      </div>
+    </div>
+
+    <!-- Location Diagnostic & Permission Modal -->
+    <div class="modal-overlay" id="gps-diagnostic-modal" role="dialog" aria-labelledby="diag-title">
+      <div class="modal-content-card">
+        <div class="modal-header">
+          <h3 class="modal-title" id="diag-title">Device GPS Diagnostics</h3>
+          <button class="close-card-btn" id="btn-close-gps-modal">✕</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px;">
+          <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px;">
+            <p><strong>GPS Status:</strong> <span id="diag-status" style="color: var(--accent-emerald);">Active</span></p>
+            <p><strong>Current Coordinates:</strong> <span id="diag-coords" style="font-family: monospace;">Searching...</span></p>
+            <p><strong>Accuracy Radius:</strong> <span id="diag-accuracy">--</span></p>
+            <p><strong>Distance to REC Campus:</strong> <span id="diag-rec-dist">--</span></p>
+            <p><strong>Speed:</strong> <span id="diag-speed">--</span></p>
+          </div>
+          <div id="gps-permission-warning" style="display: none; background: rgba(244,63,94,0.15); border: 1px solid var(--accent-rose); padding: 12px; border-radius: 8px; color: #fecdd3;">
+            <p><strong>Location access is required for campus navigation.</strong></p>
+            <p style="font-size: 12px; margin-top: 4px;">Please enable device location permission in your browser to calculate real walking routes.</p>
+            <button class="btn-primary-nav" id="btn-retry-gps" style="margin-top: 10px; height: 36px; font-size: 13px;">
+              Request Location Permission
+            </button>
+          </div>
+          <!-- Remote Testing Helper -->
+          <div style="background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2); padding: 12px; border-radius: 8px; font-size: 12.5px;">
+            <p style="color: var(--nav-light-blue-bright); font-weight: 700;">Testing In-Campus From Gate?</p>
+            <p style="color: var(--text-secondary); margin-top: 4px;">
+              If testing remotely outside Rajalakshmi Engineering College, click below to test the in-campus walking paths starting from the verified <strong>REC Main Gate</strong>.
+            </p>
+            <button class="btn-secondary-outline" id="btn-test-main-gate" style="margin-top: 8px; width: 100%; height: 38px;">
+              🚪 Set Position to REC Main Gate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin / Verified Campus Data & Transport Management Modal -->
+    <div class="modal-overlay" id="admin-modal" role="dialog" aria-labelledby="admin-title">
+      <div class="modal-content-card" style="max-height: 88vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 20px;">⚙️</span>
+            <div>
+              <h3 class="modal-title" id="admin-title">REC Campus & Transport Management</h3>
+              <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">Verified Data Administration & Bus Positioning</p>
+            </div>
+          </div>
+          <button class="close-card-btn" id="btn-close-admin-modal">✕</button>
+        </div>
+
+        <!-- Admin Navigation Tabs -->
+        <div class="admin-tab-nav" role="tablist">
+          <button class="admin-tab-btn active" id="tab-btn-locations" data-tab="locations" role="tab" aria-selected="true">
+            🏛️ Campus Locations (<span id="admin-loc-tab-count">26</span>)
+          </button>
+          <button class="admin-tab-btn" id="tab-btn-buses" data-tab="buses" role="tab" aria-selected="false">
+            🚌 Bus Fleet (<span id="admin-bus-tab-count">0</span>)
+          </button>
+          <button class="admin-tab-btn" id="tab-btn-bus-position" data-tab="bus-position" role="tab" aria-selected="false">
+            📍 Bus Map Position
+          </button>
+          <button class="admin-tab-btn" id="tab-btn-calibration" data-tab="calibration" role="tab" aria-selected="false">
+            🗺️ Map Calibration
+          </button>
+        </div>
+
+        <!-- TAB 1: VERIFIED CAMPUS LOCATIONS -->
+        <div class="admin-tab-pane active" id="admin-pane-locations">
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">
+            View, edit, export, and maintain real Rajalakshmi Engineering College building coordinates and entrance data without touching code.
+          </p>
+
+          <!-- Action bar -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+            <button class="btn-secondary-outline" id="btn-export-data">📥 Export JSON</button>
+            <label class="btn-secondary-outline" style="cursor: pointer;">
+              📤 Import JSON
+              <input type="file" id="input-import-data" accept=".json" style="display: none;">
+            </label>
+            <button class="btn-secondary-outline" id="btn-reset-default-data">↺ Reset to Default</button>
+          </div>
+
+          <!-- API Key & Map Provider Settings -->
+          <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <strong style="font-size: 13px; color: #fff;">🔑 Map Tile Provider & API Key</strong>
+              <span style="font-size: 11px; color: var(--accent-emerald);">Active: Watermark-Free</span>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-secondary); line-height: 1.4;">
+              The app uses high-resolution, watermark-free <strong>OpenStreetMap HOT</strong> and <strong>Esri / Google Satellite</strong> by default (no API key required).
+              If you wish to use premium Carto Voyager tiles without watermarks, paste your Carto API key below:
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <input 
+                type="text" 
+                id="input-carto-api-key" 
+                class="admin-text-input" 
+                placeholder="Paste Carto / Mapbox API Key here..." 
+                style="flex: 1;"
+              />
+              <button class="btn-primary-nav" id="btn-save-api-key" style="height: 36px; padding: 0 14px; font-size: 12.5px;">
+                Save Key
+              </button>
+            </div>
+          </div>
+
+          <h4 style="font-size: 13.5px; color: #fff; margin-bottom: 8px;">Verified Locations (<span id="admin-loc-count">26</span>)</h4>
+          <div class="admin-location-list" id="admin-locations-list" style="max-height: 320px; overflow-y: auto;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- TAB 2: BUS FLEET MANAGEMENT -->
+        <div class="admin-tab-pane" id="admin-pane-buses" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h4 style="font-size: 14px; color: #fff; margin: 0;">REC Active Fleet (<span id="admin-fleet-count">0</span> Buses)</h4>
+              <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Sourced from Official Database (https://www.rectransport.com/)</p>
+            </div>
+            <button class="btn-primary-nav" id="btn-admin-add-bus-toggle" style="height: 32px; font-size: 12px; padding: 0 12px;">
+              ➕ Add Verified Bus
+            </button>
+          </div>
+
+          <!-- Add / Edit Bus Form (Collapsible) -->
+          <div id="admin-bus-form-container" style="display: none; background: rgba(0,0,0,0.4); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 12px; margin-bottom: 12px;">
+            <h5 id="admin-bus-form-title" style="font-size: 13px; color: var(--nav-light-blue-bright); margin-bottom: 8px;">Add New Verified Bus</h5>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+              <input type="text" id="form-bus-num" class="admin-text-input" placeholder="Bus Number (e.g. 10C, 15A)">
+              <input type="text" id="form-bus-plate" class="admin-text-input" placeholder="Registration (e.g. TN 21 AX 4810)">
+              <input type="text" id="form-bus-route" class="admin-text-input" placeholder="Route (e.g. Binny Mill Church)">
+              <input type="text" id="form-bus-bay" class="admin-text-input" placeholder="Parking Bay (e.g. Bay 10C)">
+              <input type="text" id="form-bus-driver" class="admin-text-input" placeholder="Driver Name">
+              <input type="text" id="form-bus-phone" class="admin-text-input" placeholder="Driver Phone">
+              <input type="text" id="form-bus-dept-time" class="admin-text-input" placeholder="Departure (e.g. 06:15 am)">
+              <input type="text" id="form-bus-arr-time" class="admin-text-input" placeholder="Arrival (e.g. 07:45 am)">
+              <input type="text" id="form-bus-stops" class="admin-text-input" style="grid-column: 1 / -1;" placeholder="Boarding Points (e.g. Stop 1 → Stop 2 → REC)">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+              <button class="btn-secondary-outline" id="btn-cancel-bus-form" style="height: 32px; font-size: 12px;">Cancel</button>
+              <button class="btn-primary-nav" id="btn-save-bus-form" style="height: 32px; font-size: 12px;">Save Bus Record</button>
+            </div>
+          </div>
+
+          <!-- Bus Fleet List -->
+          <div class="admin-bus-table-container" id="admin-bus-table-container" style="max-height: 380px; overflow-y: auto;">
+            <!-- Dynamically populated bus rows -->
+          </div>
+        </div>
+
+        <!-- TAB 3: BUS MAP POSITION (ADMIN DRAG & DROP ON CAMPUS MAP) -->
+        <div class="admin-tab-pane" id="admin-pane-bus-position" style="display: none;">
+          <div class="admin-pos-control-bar" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <label for="admin-pos-bus-select" style="font-size: 12.5px; font-weight: 700; color: #fff;">Select Bus:</label>
+              <select id="admin-pos-bus-select" class="admin-select" style="min-width: 150px; height: 34px;">
+                <!-- Populated with active buses -->
+              </select>
+              <div class="admin-pos-coords-badge" style="background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: var(--nav-light-blue-bright); font-family: monospace;">
+                Bus: <strong id="admin-pos-bus-name" style="color: #fff;">--</strong> • 
+                X: <strong id="admin-pos-val-x">0.0000</strong> • 
+                Y: <strong id="admin-pos-val-y">0.0000</strong>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <input 
+                type="text" 
+                id="admin-pos-bay-desc" 
+                class="admin-text-input" 
+                placeholder="Bay Label (e.g. Bay 10C)"
+                style="height: 34px; width: 170px; font-size: 12px;"
+              />
+              <button class="btn-primary-nav" id="btn-admin-save-bus-pos" style="height: 34px; font-size: 12.5px; padding: 0 14px;">
+                💾 Save Position
+              </button>
+            </div>
+          </div>
+
+          <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 6px;">
+            📌 <em>Instructions: Select a bus above, then drag the bus marker to its designated parking bay on the REC Thandalam campus map. The normalized coordinates (0.0 to 1.0) will be persisted directly to the database.</em>
+          </p>
+
+          <!-- Interactive Admin Campus Map Canvas Container -->
+          <div class="admin-map-position-container" id="admin-map-position-container" style="position: relative; height: 420px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-glass);">
+            <!-- Admin TransportMapEngine mounts here -->
+          </div>
+        </div>
+
+        <!-- TAB 4: TRANSPORT MAP 4-CORNER CALIBRATION -->
+        <div class="admin-tab-pane" id="admin-pane-calibration" style="display: none;">
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+            Configure persistent 4-Corner Bilinear Calibration (Top-Left, Top-Right, Bottom-Left, Bottom-Right) used to project real hardware GPS coordinates onto the official bundled REC transport map image without distortion.
+          </p>
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <strong style="font-size: 12px; color: #38bdf8;">Top-Left Corner (North-West)</strong>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                  <input type="number" step="0.000001" id="cal-tl-lat" class="admin-text-input" placeholder="Lat (13.013000)" style="width: 50%;">
+                  <input type="number" step="0.000001" id="cal-tl-lon" class="admin-text-input" placeholder="Lon (80.000000)" style="width: 50%;">
+                </div>
+              </div>
+              <div>
+                <strong style="font-size: 12px; color: #38bdf8;">Top-Right Corner (North-East)</strong>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                  <input type="number" step="0.000001" id="cal-tr-lat" class="admin-text-input" placeholder="Lat (13.013000)" style="width: 50%;">
+                  <input type="number" step="0.000001" id="cal-tr-lon" class="admin-text-input" placeholder="Lon (80.006200)" style="width: 50%;">
+                </div>
+              </div>
+              <div>
+                <strong style="font-size: 12px; color: #38bdf8;">Bottom-Left Corner (South-West)</strong>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                  <input type="number" step="0.000001" id="cal-bl-lat" class="admin-text-input" placeholder="Lat (13.006800)" style="width: 50%;">
+                  <input type="number" step="0.000001" id="cal-bl-lon" class="admin-text-input" placeholder="Lon (80.000000)" style="width: 50%;">
+                </div>
+              </div>
+              <div>
+                <strong style="font-size: 12px; color: #38bdf8;">Bottom-Right Corner (South-East)</strong>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                  <input type="number" step="0.000001" id="cal-br-lat" class="admin-text-input" placeholder="Lat (13.006800)" style="width: 50%;">
+                  <input type="number" step="0.000001" id="cal-br-lon" class="admin-text-input" placeholder="Lon (80.006200)" style="width: 50%;">
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+              <span id="cal-status-text" style="font-size: 12px; color: var(--accent-emerald);">Status: Verified Active Calibration</span>
+              <button class="btn-primary-nav" id="btn-save-calibration" style="height: 36px; font-size: 13px;">
+                💾 Save & Broadcast Calibration
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- College Bus Fleet & Parked Spot Tracker Modal -->
+    <div class="modal-overlay" id="bus-tracker-modal" role="dialog" aria-labelledby="bus-modal-title">
+      <div class="modal-content-card" style="max-height: 85vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 22px;">🚌</span>
+            <div>
+              <h3 class="modal-title" id="bus-modal-title" style="font-size: 16px;">Find My College Bus</h3>
+              <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">Stored Parked Locations in REC Parking Bays (PARKWIZ)</p>
+            </div>
+          </div>
+          <button class="close-card-btn" id="btn-close-bus-modal" aria-label="Close Bus Modal">✕</button>
+        </div>
+
+        <!-- Search input inside modal -->
+        <div style="margin-block: 8px;">
+          <input 
+            type="text" 
+            id="bus-search-input" 
+            class="admin-text-input" 
+            placeholder="Search Bus Number or Route (e.g. 12, Tambaram, Anna Nagar)..."
+            style="width: 100%; box-sizing: border-box;"
+          />
+        </div>
+
+        <!-- Direct Link to Dedicated Driver Cockpit -->
+        <div style="margin-bottom: 8px;">
+          <a href="driver.html" target="_blank" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.25) 100%); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: var(--radius-md); color: #fbbf24; font-family: var(--font-heading); font-size: 13px; font-weight: 700; transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 18px;">👨‍✈️</span>
+              <div>
+                <div>Open Separate Driver Dashboard</div>
+                <div style="font-size: 10.5px; font-weight: 400; color: #fde68a;">Start Trip • Broadcast Live GPS • Park & Save Location</div>
+              </div>
+            </div>
+            <span style="font-size: 15px;">↗</span>
+          </a>
+        </div>
+
+        <!-- Driver / Coordinator Parked Spot Save Panel -->
+        <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <strong style="font-size: 12.5px; color: #fbbf24;">📍 Driver / Rep: Save Parked Bus Spot</strong>
+            <span style="font-size: 10.5px; color: var(--text-muted);">Stored Even When GPS Is Off</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <select id="bus-select-to-save" class="admin-text-input" style="flex: 1; min-width: 140px;">
+              <!-- Dynamically populated options -->
+            </select>
+            <input 
+              type="text" 
+              id="bus-bay-name-input" 
+              class="admin-text-input" 
+              placeholder="Bay (e.g. PARKWIZ 1 — Bay A-04)"
+              style="flex: 1; min-width: 140px;"
+            />
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-primary-nav" id="btn-save-current-gps-bus" style="flex: 1; height: 36px; font-size: 12px;">
+              📡 Save at My Current GPS Spot
+            </button>
+          </div>
+        </div>
+
+        <!-- Bus List Scroll Area -->
+        <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding-right: 4px;" id="bus-fleet-list-container">
+          <!-- Dynamically populated bus cards -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- SMS Notification Center Modal (Real Twilio Provider) -->
+    <div class="modal-overlay" id="sms-modal" role="dialog" aria-labelledby="sms-modal-title">
+      <div class="modal-content-card" style="max-height: 88vh; display: flex; flex-direction: column; width: 100%; max-width: 580px;">
+        <div class="modal-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 22px;">🔔</span>
+            <div>
+              <h3 class="modal-title" id="sms-modal-title" style="font-size: 16px;">ACIMS Real SMS Notification Center</h3>
+              <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">Automated 10-Minute &amp; 5-Minute Student Approaching Alerts (Twilio Provider)</p>
+            </div>
+          </div>
+          <button class="close-card-btn" id="btn-close-sms-modal" aria-label="Close SMS Modal">✕</button>
+        </div>
+
+        <div style="overflow-y: auto; padding-right: 4px; display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+          <!-- Provider Connection Status Banner -->
+          <div id="sms-provider-banner" style="padding: 10px 14px; border-radius: var(--radius-md); font-size: 12px; display: flex; align-items: center; justify-content: space-between; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span id="sms-provider-status-dot" style="font-size: 14px;">🟢</span>
+              <div>
+                <strong id="sms-provider-status-title">Twilio SMS Gateway: Connected</strong>
+                <div id="sms-provider-status-detail" style="font-size: 11px; opacity: 0.9;">Sender: +1 (Twilio Phone Number)</div>
+              </div>
+            </div>
+            <span style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(16, 185, 129, 0.2); font-weight: 700;">PROD GATEWAY</span>
+          </div>
+
+          <!-- Section 1: Student Contact & Bus Configuration -->
+          <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <strong style="font-size: 13px; color: #fff;">👤 Student Profile &amp; Assignment</strong>
+              <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; color: #f8fafc;">
+                <input type="checkbox" id="sms-toggle-enabled" checked style="accent-color: var(--accent-emerald);" />
+                <span>SMS Alerts Enabled</span>
+              </label>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">Student Name</label>
+                <input type="text" id="sms-input-name" class="admin-text-input" placeholder="e.g. Rithvik S" style="width: 100%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">Indian Mobile Number (+91)</label>
+                <input type="tel" id="sms-input-phone" class="admin-text-input" placeholder="e.g. 9876543210 or +91..." style="width: 100%; box-sizing: border-box;" />
+                <span id="sms-phone-validation-hint" style="font-size: 10.5px; display: block; margin-top: 2px; color: var(--text-muted);">Standard 10-digit Indian number</span>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">Selected Bus</label>
+                <select id="sms-select-bus" class="admin-text-input" style="width: 100%; box-sizing: border-box;">
+                  <!-- Options injected dynamically -->
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">Selected Pickup Point</label>
+                <select id="sms-select-pickup" class="admin-text-input" style="width: 100%; box-sizing: border-box;">
+                  <!-- Options injected dynamically -->
+                </select>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 4px;">
+              <button class="btn-primary-nav" id="btn-save-sms-profile" style="height: 34px; font-size: 12.5px; padding: 0 16px;">
+                💾 Save Student Settings
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 2: Live Alert Status Panel -->
+          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <strong style="font-size: 13px; color: #fff;">📡 Live Approaching Alert Status</strong>
+              <span id="sms-status-pill" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-weight: 700;">MONITORING LIVE GPS</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px;">
+              <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+                <div style="font-size: 10.5px; color: var(--text-muted);">Last Notification</div>
+                <div id="sms-stat-last-sent" style="font-size: 12px; font-weight: 700; color: #fff; margin-top: 2px;">None yet</div>
+              </div>
+              <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+                <div style="font-size: 10.5px; color: var(--text-muted);">Trigger ETA</div>
+                <div id="sms-stat-trigger-eta" style="font-size: 12px; font-weight: 700; color: #38bdf8; margin-top: 2px;">--</div>
+              </div>
+              <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+                <div style="font-size: 10.5px; color: var(--text-muted);">Delivery Status</div>
+                <div id="sms-stat-provider-status" style="font-size: 12px; font-weight: 700; color: #a3e635; margin-top: 2px;">--</div>
+              </div>
+            </div>
+            <div id="sms-stat-sid" style="font-size: 10.5px; font-family: monospace; color: var(--text-muted); word-break: break-all;"></div>
+          </div>
+
+          <!-- Section 3: Safe Interactive Test Mode & Real Twilio SMS Trigger -->
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <strong style="font-size: 13px; color: #fbbf24;">⚡ Real Twilio SMS Test Dispatch</strong>
+              <span style="font-size: 10.5px; color: #fde68a;">Official Twilio API</span>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">
+              Enter a test Indian mobile number to trigger an actual test SMS through Twilio.
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <input type="tel" id="sms-test-phone-input" class="admin-text-input" placeholder="+91XXXXXXXXXX" style="flex: 1;" />
+              <button class="btn-primary-nav" id="btn-trigger-real-test-sms" style="height: 38px; font-size: 12px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                🚀 Send Real SMS
+              </button>
+            </div>
+            <div id="sms-test-result-box" style="display: none; padding: 10px; border-radius: 6px; font-size: 12px;"></div>
+          </div>
+
+          <!-- Section 4: ETA Deduplication Simulation Mode -->
+          <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <strong style="font-size: 13px; color: #a5b4fc;">🧪 ETA Progression &amp; Deduplication Test</strong>
+              <span style="font-size: 10.5px; color: #c7d2fe;">12m → 10m → 9m → 5m → 4m</span>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">
+              Verify duplicate suppression in real-time. Confirms that 10m triggers once, 9m is suppressed, 5m triggers once, and 4m is suppressed.
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-secondary-outline" id="btn-run-eta-simulation" style="flex: 1; height: 36px; font-size: 12px;">
+                ▶️ Run ETA Deduplication Verification
+              </button>
+              <button class="btn-secondary-outline" id="btn-reset-dedup-state" style="height: 36px; font-size: 12px;">
+                ↺ Reset State
+              </button>
+            </div>
+            <!-- Simulation Results Output Table -->
+            <div id="sms-simulation-output" style="display: none; background: rgba(0, 0, 0, 0.4); border-radius: 6px; padding: 10px; font-size: 11.5px; max-height: 200px; overflow-y: auto;">
+            </div>
+          </div>
+
+          <!-- Section 5: Recent Audit History -->
+          <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <strong style="font-size: 13px; color: #fff;">📋 Recent SMS Activity Log</strong>
+              <button class="btn-secondary-outline" id="btn-refresh-sms-logs" style="height: 24px; font-size: 10.5px; padding: 0 8px;">Refresh</button>
+            </div>
+            <div id="sms-audit-log-container" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 11px;">
+              <div style="color: var(--text-muted); text-align: center; padding: 10px;">No SMS logs recorded yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MapLibre GL 3D JavaScript Engine -->
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <!-- Application Entry Point -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

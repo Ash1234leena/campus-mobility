@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>REC Driver Cockpit — Real In-Campus Bus Tracking & Parked Spot</title>
+  
+  <!-- MapLibre GL CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Shared Style System -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Driver Cockpit Specialized Layout */
+    body {
+      background-color: #090d16;
+      color: #f1f5f9;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    .cockpit-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .cockpit-header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border-glass);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      z-index: 100;
+    }
+
+    .cockpit-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cockpit-brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+    }
+
+    .cockpit-title-text h1 {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 800;
+      margin: 0;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .cockpit-title-text p {
+      margin: 0;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .cockpit-main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .cockpit-main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        overflow-y: auto;
+      }
+    }
+
+    .cockpit-sidebar {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border-glass);
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .driver-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .driver-card.highlight {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(245, 158, 11, 0.05);
+    }
+
+    .driver-card.live-active {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.06);
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.15);
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .driver-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-idle {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .status-broadcasting {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      animation: pulse-ring 1.8s infinite;
+    }
+
+    .status-parked {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .big-toggle-btn {
+      width: 100%;
+      height: 54px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-start-broadcast {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-start-broadcast:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(16, 185, 129, 0.6);
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+    }
+
+    .btn-stop-broadcast {
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-stop-broadcast:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(239, 68, 68, 0.6);
+      background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+    }
+
+    .btn-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .telemetry-item {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .telemetry-label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .telemetry-val {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      word-break: break-all;
+    }
+
+    .telemetry-val.accent-green {
+      color: #34d399;
+    }
+
+    .telemetry-val.accent-blue {
+      color: #38bdf8;
+    }
+
+    .telemetry-val.accent-amber {
+      color: #fbbf24;
+    }
+
+    .telemetry-val.accent-muted {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .parking-presets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .preset-bay-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .preset-bay-btn:hover, .preset-bay-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #ffffff;
+    }
+
+    .map-container-col {
+      position: relative;
+      height: 100%;
+      min-height: 400px;
+    }
+
+    #driver-map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .map-status-overlay {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffffff;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .toast-overlay {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-glass);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+      z-index: 10000;
+      pointer-events: none;
+      animation: slide-down 0.25s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="cockpit-container">
+    <!-- Top Header -->
+    <header class="cockpit-header">
+      <div class="cockpit-brand">
+        <div class="cockpit-brand-icon">🚌</div>
+        <div class="cockpit-title-text">
+          <h1>REC Driver Cockpit — Real-Time Bus GPS</h1>
+          <p>Rajalakshmi Engineering College • In-Campus Transit Operations</p>
+        </div>
+      </div>
+      
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="driver-status-badge status-idle" id="hdr-status-badge">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fbbf24;" id="hdr-status-dot"></span>
+          <span id="hdr-status-text">STANDBY</span>
+        </span>
+        <a href="index.html" class="btn-secondary-outline" style="text-decoration: none; padding: 6px 14px; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+          <span>🚶 Switch to Student View</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="cockpit-main">
+      <!-- Left Driver Controls & Telemetry -->
+      <aside class="cockpit-sidebar">
+        <!-- 1. Bus Assignment Card -->
+        <div class="driver-card highlight">
+          <div class="card-title-row">
+            <span>🚍 My Assigned College Bus</span>
+            <span style="font-size: 11px; color: var(--accent-emerald);">Authoritative Database</span>
+          </div>
+          
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">SELECT BUS ROUTE</label>
+            <select id="driver-bus-select" class="admin-text-input" style="width: 100%; box-sizing: border-box; font-size: 13px;">
+              <option value="">Loading buses from database...</option>
+            </select>
+          </div>
+
+          <div style="font-size: 11.5px; color: var(--text-secondary); line-height: 1.5;" id="driver-bus-info">
+            Connecting to fleet database...
+          </div>
+        </div>
+
+        <!-- 2. Master Action Button -->
+        <div class="driver-card" id="action-card">
+          <div class="card-title-row">
+            <span>📡 Live Broadcast Control</span>
+            <span id="gps-feed-status" style="font-size: 11px; color: var(--text-muted);">GPS: Standby</span>
+          </div>
+
+          <button id="btn-toggle-broadcast" class="big-toggle-btn btn-start-broadcast" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>Start Trip / Broadcast GPS</span>
+          </button>
+
+          <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;" id="broadcast-subtext">
+            Transmits real device hardware GPS to backend. Connected students receive live updates via real-time stream.
+          </p>
+        </div>
+
+        <!-- 3. Real Telemetry Gauges -->
+        <div class="driver-card">
+          <div class="card-title-row">
+            <span>📊 Live Telemetry Stream</span>
+            <span id="ping-count-badge" style="font-size: 11px; color: var(--accent-emerald);">0 Pings</span>
+          </div>
+
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">GPS Latitude</span>
+              <span class="telemetry-val accent-muted" id="val-lat">Waiting for device GPS...</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">GPS Longitude</span>
+              <span class="telemetry-val accent-muted" id="val-lon">Waiting for device GPS...</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Speed</span>
+              <span class="telemetry-val" id="val-speed">--</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Accuracy</span>
+              <span class="telemetry-val" id="val-acc">--</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Heading</span>
+              <span class="telemetry-val" id="val-heading">--</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Transmission State</span>
+              <span class="telemetry-val" style="font-size: 12px;" id="val-last-ping">IDLE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Parking Bay Assignment & Save Spot -->
+        <div class="driver-card">
+          <div class="card-title-row">
+            <span>🅿️ Parked Bay Location</span>
+            <span style="font-size: 10.5px; color: var(--accent-cyan);">Stored In Database</span>
+          </div>
+
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">PARKING BAY NAME / DESCRIPTION</label>
+            <input type="text" id="input-parking-bay" class="admin-text-input" placeholder="e.g. PARKWIZ 1 — Bay A-04" style="width: 100%; box-sizing: border-box;">
+          </div>
+
+          <label style="font-size: 11px; color: var(--text-muted); display: block;">QUICK PRESET BAY NAMES</label>
+          <div class="parking-presets-grid">
+            <button type="button" class="preset-bay-btn" data-bay="PARKWIZ 1 — Bay A-04">🅿️ PARKWIZ 1 (North)</button>
+            <button type="button" class="preset-bay-btn" data-bay="PARKWIZ 2 — Bay C-01">🅿️ PARKWIZ 2 (South)</button>
+            <button type="button" class="preset-bay-btn" data-bay="REC Main Gate Drop-off">📍 REC Main Gate</button>
+            <button type="button" class="preset-bay-btn" data-bay="Mechanical Bay">📍 Mechanical Bay</button>
+          </div>
+
+          <button id="btn-save-parked-now" class="btn-primary-nav" style="height: 42px; font-size: 13px; margin-top: 4px;" disabled>
+            💾 Snap & Save Current Parked Spot
+          </button>
+          
+          <p style="font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4;">
+            When engine stops, this real location remains stored in the database for students with status LAST KNOWN.
+          </p>
+        </div>
+      </aside>
+
+      <!-- Right 3D Map View -->
+      <main class="map-container-col">
+        <div class="map-status-overlay" id="map-status-overlay">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fbbf24;" id="map-dot"></span>
+          <span id="map-status-msg">Waiting for device GPS...</span>
+        </div>
+        <div id="driver-map"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MapLibre GL JS -->
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+  <!-- Driver Cockpit Logic -->
+  <script type="module">
+    import { BusFleetManager } from './bus_manager.js';
+
+    class DriverCockpitApp {
+      constructor() {
+        this.busManager = new BusFleetManager();
+        this.currentBus = null;
+        this.driverSession = null;
+        this.isBroadcasting = false;
+        this.watchId = null;
+        this.heartbeatTimer = null;
+        this.pingCount = 0;
+        this.map = null;
+        this.busMarker = null;
+
+        // Current real coordinates (null until genuine device GPS acquired)
+        this.currentLat = null;
+        this.currentLon = null;
+        this.currentSpeed = 0;
+        this.currentHeading = 0;
+        this.currentAccuracy = null;
+        this.lastGpsTimestamp = null;
+
+        // DOM Elements
+        this.dom = {
+          busSelect: document.getElementById('driver-bus-select'),
+          busInfo: document.getElementById('driver-bus-info'),
+          hdrBadge: document.getElementById('hdr-status-badge'),
+          hdrText: document.getElementById('hdr-status-text'),
+          hdrDot: document.getElementById('hdr-status-dot'),
+          btnToggle: document.getElementById('btn-toggle-broadcast'),
+          actionCard: document.getElementById('action-card'),
+          gpsFeedStatus: document.getElementById('gps-feed-status'),
+          pingBadge: document.getElementById('ping-count-badge'),
+          valLat: document.getElementById('val-lat'),
+          valLon: document.getElementById('val-lon'),
+          valSpeed: document.getElementById('val-speed'),
+          valAcc: document.getElementById('val-acc'),
+          valHeading: document.getElementById('val-heading'),
+          valLastPing: document.getElementById('val-last-ping'),
+          inputBay: document.getElementById('input-parking-bay'),
+          btnSaveParked: document.getElementById('btn-save-parked-now'),
+          mapStatusOverlay: document.getElementById('map-status-overlay'),
+          mapDot: document.getElementById('map-dot'),
+          mapStatusMsg: document.getElementById('map-status-msg')
+        };
+      }
+
+      async init() {
+        this.initMap();
+        this.setupListeners();
+
+        // Asynchronous initialization: wait for backend buses to load
+        try {
+          await this.busManager.initLoadPromise;
+          this.populateBusList();
+        } catch (err) {
+          console.error('[DriverCockpit] Error during bus fleet initialization:', err);
+          this.dom.busSelect.innerHTML = '<option value="">Error connecting to fleet database</option>';
+        }
+      }
+
+      populateBusList() {
+        this.dom.busSelect.innerHTML = '';
+        const buses = this.busManager.getBuses().filter(b => b.isActive !== false);
+
+        if (!buses || buses.length === 0) {
+          const opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = 'No buses have been added yet.';
+          this.dom.busSelect.appendChild(opt);
+          this.dom.busSelect.disabled = true;
+          this.dom.btnToggle.disabled = true;
+          this.dom.btnSaveParked.disabled = true;
+          this.dom.busInfo.textContent = 'No active buses found in the database. Add buses via the Admin Portal.';
+          return;
+        }
+
+        this.dom.busSelect.disabled = false;
+        
+        // Populate options with canonical busId
+        const placeholderOpt = document.createElement('option');
+        placeholderOpt.value = '';
+        placeholderOpt.textContent = '-- Select Your Assigned Bus --';
+        this.dom.busSelect.appendChild(placeholderOpt);
+
+        buses.forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b.busId;
+          const routeLabel = b.routeName || b.route || 'REC Transit';
+          opt.textContent = `Bus #${b.busNumber} — ${routeLabel.split('(')[0].trim()}`;
+          this.dom.busSelect.appendChild(opt);
+        });
+
+        // Select first available bus by default
+        this.dom.busSelect.value = buses[0].busId;
+        this.selectBus(buses[0]);
+      }
+
+      selectBus(bus) {
+        if (!bus) return;
+        this.currentBus = bus;
+        this.dom.btnToggle.disabled = false;
+        this.dom.btnSaveParked.disabled = false;
+
+        const route = bus.routeName || bus.route || 'Not configured';
+        const plate = bus.registrationNumber || bus.plateNumber || 'Not configured';
+        const driver = bus.driver || bus.driverName || 'Not configured';
+        const phone = bus.driverContact || bus.driverPhone || 'Not configured';
+        const bay = bus.parkingBay || 'Campus Bay';
+        const status = bus.status || 'STATIC';
+
+        this.dom.inputBay.value = bus.parkingBay || '';
+
+        this.dom.busInfo.innerHTML = `
+          <div><strong>Route:</strong> ${this.escapeHtml(route)}</div>
+          <div><strong>Reg Number:</strong> ${this.escapeHtml(plate)} • <strong>Driver:</strong> ${this.escapeHtml(driver)} (${this.escapeHtml(phone)})</div>
+          <div><strong>Current Bay:</strong> ${this.escapeHtml(bay)} • <strong>Status:</strong> <span style="font-weight:700;">${status}</span></div>
+        `;
+
+        // If the bus already has a last known GPS position, display it as prior position on map
+        if (bus.lastLatitude !== null && bus.lastLongitude !== null) {
+          this.updateMapMarker(bus.lastLatitude, bus.lastLongitude, bus.status === 'LIVE');
+          if (this.map && !this.currentLat) {
+            this.map.flyTo({ center: [bus.lastLongitude, bus.lastLatitude], zoom: 17.5 });
+          }
+        }
+      }
+
+      initMap() {
+        // REC Thandalam campus center overview
+        const recCenterLon = 80.0014;
+        const recCenterLat = 13.0115;
+
+        this.map = new maplibregl.Map({
+          container: 'driver-map',
+          style: {
+            version: 8,
+            sources: {
+              'satellite-tiles': {
+                type: 'raster',
+                tiles: [
+                  'https://mt0.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2&hl=en',
+                  'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2&hl=en',
+                  'https://mt2.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2&hl=en',
+                  'https://mt3.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&scale=2&hl=en'
+                ],
+                tileSize: 256,
+                maxzoom: 20
+              }
+            },
+            layers: [
+              {
+                id: 'sat-layer',
+                type: 'raster',
+                source: 'satellite-tiles',
+                minzoom: 0,
+                maxzoom: 22
+              }
+            ]
+          },
+          center: [recCenterLon, recCenterLat],
+          zoom: 17,
+          pitch: 35,
+          bearing: 0
+        });
+
+        this.map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
+      }
+
+      updateMapMarker(lat, lon, isLive) {
+        if (!lat || !lon) return;
+
+        if (this.busMarker) {
+          this.busMarker.remove();
+        }
+
+        const busNum = this.currentBus ? this.currentBus.busNumber : '';
+        const busRoute = this.currentBus ? (this.currentBus.routeName || this.currentBus.route || `Bus #${busNum}`) : '';
+
+        const el = document.createElement('div');
+        el.className = 'rec-bus-pin-container' + (isLive ? ' is-live' : '');
+        el.innerHTML = `
+          <div class="bus-pin-beacon ${isLive ? 'beacon-live' : 'beacon-parked'}"></div>
+          <div class="bus-pin-body ${isLive ? 'body-live' : 'body-parked'}">
+            <span class="bus-pin-emoji">🚌</span>
+            <span class="bus-pin-number">#${busNum}</span>
+            ${isLive ? '<span class="bus-live-badge-pulse">LIVE</span>' : '<span class="bus-parked-badge-tag">LAST KNOWN</span>'}
+          </div>
+          <div class="bus-pin-label">${this.escapeHtml(busRoute.split('(')[0].trim())}</div>
+        `;
+
+        this.busMarker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+          .setLngLat([lon, lat])
+          .addTo(this.map);
+      }
+
+      setupListeners() {
+        // Change bus selection
+        this.dom.busSelect.addEventListener('change', () => {
+          const busId = this.dom.busSelect.value;
+          if (busId) {
+            const b = this.busManager.getBusById(busId);
+            if (b) this.selectBus(b);
+          }
+        });
+
+        // Toggle broadcast button
+        this.dom.btnToggle.addEventListener('click', () => {
+          if (this.isBroadcasting) {
+            this.stopBroadcast();
+          } else {
+            this.startBroadcast();
+          }
+        });
+
+        // Quick Preset Bay Buttons (sets parking bay name text without spoofing fake GPS)
+        document.querySelectorAll('.preset-bay-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.preset-bay-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const bay = btn.dataset.bay;
+            if (bay) {
+              this.dom.inputBay.value = bay;
+            }
+          });
+        });
+
+        // Snap & Save Parked Spot
+        this.dom.btnSaveParked.addEventListener('click', () => {
+          this.saveParkedLocation();
+        });
+      }
+
+      async startBroadcast() {
+        if (!this.currentBus || !this.currentBus.busId) {
+          this.showToast('Please select a valid bus first');
+          return;
+        }
+
+        // 1. Authorize driver session on backend
+        try {
+          this.dom.gpsFeedStatus.textContent = 'Authorizing session...';
+          this.driverSession = await this.busManager.createDriverSession(this.currentBus.busId);
+        } catch (err) {
+          console.error('[DriverCockpit] Session authorization error:', err);
+          this.showToast('Session error: ' + err.message);
+          return;
+        }
+
+        // 2. Request real device geolocation permission
+        if (!('geolocation' in navigator)) {
+          this.showToast('Geolocation is not supported on this device/browser');
+          return;
+        }
+
+        this.isBroadcasting = true;
+        this.dom.btnToggle.className = 'big-toggle-btn btn-stop-broadcast';
+        this.dom.btnToggle.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="6" width="12" height="12"></rect></svg>
+          <span>🛑 Stop Trip / Stop Broadcasting</span>
+        `;
+        this.dom.actionCard.classList.add('live-active');
+        this.dom.hdrBadge.className = 'driver-status-badge status-broadcasting';
+        this.dom.hdrText.textContent = 'GPS SEARCHING';
+        this.dom.hdrDot.style.background = '#34d399';
+        this.dom.gpsFeedStatus.textContent = 'GPS SEARCHING';
+        this.dom.gpsFeedStatus.style.color = '#fbbf24';
+        this.dom.valLastPing.textContent = 'SEARCHING';
+
+        this.setMapStatus('Searching for satellite lock...', '#fbbf24');
+        this.showToast(`Requesting device GPS for Bus #${this.currentBus.busNumber}...`);
+
+        // 3. Start high-accuracy device geolocation watch
+        this.watchId = navigator.geolocation.watchPosition(
+          (pos) => this.handleDeviceLocation(pos),
+          (err) => {
+            console.warn('[DriverCockpit] Geolocation error:', err);
+            this.dom.gpsFeedStatus.textContent = 'GPS ERROR: ' + err.message;
+            this.dom.gpsFeedStatus.style.color = '#f87171';
+            this.setMapStatus('GPS Error: ' + err.message, '#f87171');
+          },
+          {
+            enableHighAccuracy: true,
+            maximumAge: 0,
+            timeout: 10000
+          }
+        );
+
+        // 4. Regular 3-second heartbeat transmitting real coordinates
+        this.heartbeatTimer = setInterval(() => {
+          if (this.currentLat !== null && this.currentLon !== null) {
+            this.transmitTelemetry(true);
+          }
+        }, 3000);
+      }
+
+      handleDeviceLocation(pos) {
+        if (!pos || !pos.coords) return;
+        const { latitude, longitude, accuracy, speed, heading } = pos.coords;
+
+        this.currentLat = latitude;
+        this.currentLon = longitude;
+        this.currentAccuracy = Math.round(accuracy || 0);
+        this.currentSpeed = (speed !== null && speed !== undefined) ? Math.round(speed * 3.6) : 0;
+        this.currentHeading = (heading !== null && heading !== undefined) ? Math.round(heading) : 0;
+        this.lastGpsTimestamp = new Date();
+
+        // Update Driver UI
+        this.updateTelemetryUI({
+          latitude: this.currentLat,
+          longitude: this.currentLon,
+          accuracy: this.currentAccuracy,
+          speed: this.currentSpeed,
+          heading: this.currentHeading
+        });
+
+        // Update GPS Status
+        const accQuality = this.currentAccuracy <= 10 ? 'EXCELLENT' : (this.currentAccuracy <= 25 ? 'GOOD' : 'FAIR');
+        this.dom.gpsFeedStatus.textContent = `GPS READY (±${this.currentAccuracy}m • ${accQuality})`;
+        this.dom.gpsFeedStatus.style.color = '#34d399';
+        this.dom.hdrText.textContent = 'TRANSMITTING LIVE';
+        this.setMapStatus(`Real Device GPS Active (±${this.currentAccuracy}m)`, '#34d399');
+
+        // Update Driver Map
+        this.updateMapMarker(this.currentLat, this.currentLon, true);
+        if (this.map) {
+          this.map.easeTo({ center: [this.currentLon, this.currentLat], zoom: 18, duration: 800 });
+        }
+
+        // Transmit immediately upon acquiring genuine GPS
+        if (this.isBroadcasting) {
+          this.transmitTelemetry(true);
+        }
+      }
+
+      async transmitTelemetry(isLive) {
+        if (!this.currentBus || !this.currentBus.busId) return;
+        if (this.currentLat === null || this.currentLon === null) return;
+
+        const bay = this.dom.inputBay.value.trim() || this.currentBus.parkingBay || '';
+
+        try {
+          this.dom.valLastPing.textContent = 'TRANSMITTING...';
+          
+          await this.busManager.broadcastTelemetry({
+            busId: this.currentBus.busId,
+            latitude: this.currentLat,
+            longitude: this.currentLon,
+            speed: this.currentSpeed,
+            heading: this.currentHeading,
+            accuracy: this.currentAccuracy,
+            isLive: isLive,
+            parkingBay: bay,
+            token: this.driverSession ? this.driverSession.token : null,
+            timestamp: new Date().toISOString()
+          });
+
+          this.pingCount++;
+          this.dom.pingBadge.textContent = `${this.pingCount} Pings`;
+          this.dom.valLastPing.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          this.dom.valLastPing.style.color = '#34d399';
+        } catch (err) {
+          console.warn('[DriverCockpit] Telemetry transmission failed:', err.message);
+          this.dom.valLastPing.textContent = 'TRANSMISSION ERROR';
+          this.dom.valLastPing.style.color = '#f87171';
+        }
+      }
+
+      async stopBroadcast() {
+        this.isBroadcasting = false;
+
+        // 1. Clear GPS watch
+        if (this.watchId !== null) {
+          navigator.geolocation.clearWatch(this.watchId);
+          this.watchId = null;
+        }
+
+        // 2. Clear heartbeat interval
+        if (this.heartbeatTimer) {
+          clearInterval(this.heartbeatTimer);
+          this.heartbeatTimer = null;
+        }
+
+        // 3. Send final telemetry packet with isLive: false
+        if (this.currentLat !== null && this.currentLon !== null) {
+          try {
+            await this.transmitTelemetry(false);
+          } catch (e) {}
+        }
+
+        // 4. Update UI to Stopped / Parked
+        this.dom.btnToggle.className = 'big-toggle-btn btn-start-broadcast';
+        this.dom.btnToggle.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Start Trip / Broadcast GPS</span>
+        `;
+        this.dom.actionCard.classList.remove('live-active');
+        this.dom.hdrBadge.className = 'driver-status-badge status-parked';
+        this.dom.hdrText.textContent = 'PARKED / LAST KNOWN';
+        this.dom.hdrDot.style.background = '#38bdf8';
+        this.dom.gpsFeedStatus.textContent = 'GPS: Standby';
+        this.dom.gpsFeedStatus.style.color = 'var(--text-muted)';
+        this.dom.valLastPing.textContent = 'TRIP STOPPED';
+        this.dom.valLastPing.style.color = '#38bdf8';
+
+        this.setMapStatus('Trip stopped. Last coordinates preserved.', '#38bdf8');
+
+        if (this.currentLat !== null && this.currentLon !== null) {
+          this.updateMapMarker(this.currentLat, this.currentLon, false);
+        }
+
+        this.showToast(`Trip stopped for Bus #${this.currentBus.busNumber}. Status changed to LAST KNOWN.`);
+      }
+
+      async saveParkedLocation() {
+        if (!this.currentBus || !this.currentBus.busId) {
+          this.showToast('Please select a bus first');
+          return;
+        }
+
+        // Must have real coordinates (either current GPS or prior verified coordinates)
+        let latToSave = this.currentLat;
+        let lonToSave = this.currentLon;
+
+        if (latToSave === null || lonToSave === null) {
+          if (this.currentBus.lastLatitude !== null && this.currentBus.lastLongitude !== null) {
+            latToSave = this.currentBus.lastLatitude;
+            lonToSave = this.currentBus.lastLongitude;
+          } else {
+            this.showToast('Acquiring device GPS... Please wait until GPS is locked to snap position.');
+            return;
+          }
+        }
+
+        const bay = this.dom.inputBay.value.trim() || 'Campus Bay';
+
+        try {
+          await this.busManager.updateBusParkedLocation(
+            this.currentBus.busId,
+            latToSave,
+            lonToSave,
+            bay
+          );
+
+          this.updateMapMarker(latToSave, lonToSave, false);
+          this.showToast(`✅ Bus #${this.currentBus.busNumber} parked spot (${bay}) saved permanently in REC system.`);
+
+          // Update bus info display
+          this.dom.busInfo.innerHTML = `
+            <div><strong>Route:</strong> ${this.escapeHtml(this.currentBus.routeName || this.currentBus.route || 'REC Transit')}</div>
+            <div><strong>Reg Number:</strong> ${this.escapeHtml(this.currentBus.registrationNumber || 'Not configured')} • <strong>Driver:</strong> ${this.escapeHtml(this.currentBus.driver || 'Not configured')}</div>
+            <div><strong>Current Bay:</strong> ${this.escapeHtml(bay)} • <strong>Status:</strong> LAST_KNOWN</div>
+          `;
+        } catch (err) {
+          console.error('[DriverCockpit] Error saving parked location:', err);
+          this.showToast('Failed to save parked location: ' + err.message);
+        }
+      }
+
+      updateTelemetryUI({ latitude, longitude, speed, accuracy, heading }) {
+        this.dom.valLat.textContent = `${latitude.toFixed(6)}° N`;
+        this.dom.valLat.className = 'telemetry-val accent-blue';
+
+        this.dom.valLon.textContent = `${longitude.toFixed(6)}° E`;
+        this.dom.valLon.className = 'telemetry-val accent-blue';
+
+        this.dom.valSpeed.textContent = `${speed} km/h`;
+        this.dom.valSpeed.className = 'telemetry-val accent-green';
+
+        this.dom.valAcc.textContent = `±${accuracy} m`;
+        this.dom.valAcc.className = accuracy <= 15 ? 'telemetry-val accent-green' : 'telemetry-val accent-amber';
+
+        this.dom.valHeading.textContent = heading ? `${heading}°` : 'Stationary';
+      }
+
+      setMapStatus(msg, dotColor) {
+        this.dom.mapStatusMsg.textContent = msg;
+        this.dom.mapDot.style.background = dotColor || '#fbbf24';
+      }
+
+      showToast(msg, duration = 3500) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-overlay';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), duration);
+      }
+
+      escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const app = new DriverCockpitApp();
+      app.init();
+    });
+  </script>
+</body>
+</html>

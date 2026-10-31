@@ -1,0 +1,1650 @@
+{
+  "system": "Rajalakshmi Engineering College (REC) Transport System",
+  "campus": "REC Thandalam Campus",
+  "officialWebsite": "https://www.rectransport.com/",
+  "mapImage": "assets/rec_thandalam_bus_map_hd.jpg",
+  "lastSyncTimestamp": "2026-10-20T15:32:18.690Z",
+  "calibration": {
+    "topLeft": {
+      "latitude": 13.013,
+      "longitude": 80
+    },
+    "topRight": {
+      "latitude": 13.013,
+      "longitude": 80.0062
+    },
+    "bottomLeft": {
+      "latitude": 13.0068,
+      "longitude": 80
+    },
+    "bottomRight": {
+      "latitude": 13.0068,
+      "longitude": 80.0062
+    },
+    "isVerified": true,
+    "lastCalibratedAt": "2026-10-06T15:26:11.636Z"
+  },
+  "buses": [
+    {
+      "busId": "rec_bus_10c",
+      "busNumber": "10C",
+      "registrationNumber": "TN 21 AX 4810",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_10c",
+      "routeName": "Binny Mill Church",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "R. Jayaraman",
+      "driverContact": "+91 98401 10010",
+      "conductor": "S. Kumar",
+      "conductorContact": "+91 98402 10010",
+      "morningTrip": "Morning Trip (6.15 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Binny Mill Church → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.15 am",
+      "arrivalTime": "07:45 am",
+      "status": "LAST_KNOWN",
+      "isActive": true,
+      "mapX": 0.4281,
+      "mapY": 0.5723,
+      "parkingBay": "PARKWIZ Bay 10C",
+      "lastLatitude": 13.012475,
+      "lastLongitude": 80.000343,
+      "lastGpsUpdate": "2026-10-20T15:32:18.690Z",
+      "stopLocationId": "GATE-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-20T15:32:18.690Z",
+      "speed": 0,
+      "heading": 0,
+      "accuracy": 3
+    },
+    {
+      "busId": "rec_bus_15a",
+      "busNumber": "15A",
+      "registrationNumber": "TN 21 AX 4815",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_15a",
+      "routeName": "Ayappakkam Water Tank",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "V. Jayakumar",
+      "driverContact": "+91 98401 11015",
+      "conductor": "P. Murugan",
+      "conductorContact": "+91 98402 11015",
+      "morningTrip": "Morning Trip (6.40 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Ayappakkam Water Tank → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.40 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.344,
+      "mapY": 0.194,
+      "parkingBay": "North EB Block Bay 15A",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "PKG-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T13:27:39.385Z"
+    },
+    {
+      "busId": "rec_bus_15b",
+      "busNumber": "15B",
+      "registrationNumber": "TN 21 AX 4816",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_15b",
+      "routeName": "Thirumullaivoyal",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "A. Francis",
+      "driverContact": "+91 98401 11016",
+      "conductor": "K. Mani",
+      "conductorContact": "+91 98402 11016",
+      "morningTrip": "Morning Trip (6.40 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Thirumullaivoyal → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.40 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.425,
+      "mapY": 0.194,
+      "parkingBay": "North EB Block Bay 15B",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "PKG-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_15c",
+      "busNumber": "15C",
+      "registrationNumber": "TN 21 AX 4817",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_15c",
+      "routeName": "Ambattur OT",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "G. Selvam",
+      "driverContact": "+91 98401 11017",
+      "conductor": "M. Raj",
+      "conductorContact": "+91 98402 11017",
+      "morningTrip": "Morning Trip (6.30 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Ambattur OT → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.30 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.447,
+      "mapY": 0.194,
+      "parkingBay": "North EB Block Bay 15C",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "PKG-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_16a",
+      "busNumber": "16A",
+      "registrationNumber": "TN 21 AX 4820",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_16a",
+      "routeName": "Kallikuppam",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "D. Anbarasan",
+      "driverContact": "+91 98401 11020",
+      "conductor": "R. Suresh",
+      "conductorContact": "+91 98402 11020",
+      "morningTrip": "Morning Trip (6.25 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Kallikuppam → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.25 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.603,
+      "mapY": 0.194,
+      "parkingBay": "Library North Bay 16A",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "LIB-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_16b",
+      "busNumber": "16B",
+      "registrationNumber": "TN 21 AX 4821",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_16b",
+      "routeName": "Puzhal",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "S. Muthu",
+      "driverContact": "+91 98401 11021",
+      "conductor": "T. Prakash",
+      "conductorContact": "+91 98402 11021",
+      "morningTrip": "Morning Trip (6.20 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Puzhal → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.20 am",
+      "arrivalTime": "07:45 am",
+      "status": "LAST_KNOWN",
+      "isActive": true,
+      "mapX": 0.625,
+      "mapY": 0.194,
+      "parkingBay": "Library North Bay 16B",
+      "lastLatitude": 13.009530493372132,
+      "lastLongitude": 80.00372515648287,
+      "lastGpsUpdate": "2026-10-15T08:19:35.613Z",
+      "stopLocationId": "LIB-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-20T15:31:08.108Z",
+      "speed": 0,
+      "heading": 0,
+      "accuracy": 40
+    },
+    {
+      "busId": "rec_bus_17a",
+      "busNumber": "17A",
+      "registrationNumber": "TN 21 AX 4825",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_17a",
+      "routeName": "Veppampattu (Kandhan Kollai)",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "N. Ramesh",
+      "driverContact": "+91 98401 11025",
+      "conductor": "V. Balan",
+      "conductorContact": "+91 98402 11025",
+      "morningTrip": "Morning Trip (6.30 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Veppampattu (Kandhan Kollai) → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.30 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.747,
+      "mapY": 0.194,
+      "parkingBay": "Auditorium North Bay 17A",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "AUD-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_17b",
+      "busNumber": "17B",
+      "registrationNumber": "TN 21 AX 4826",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_17b",
+      "routeName": "Thiruvallur (Vasantha Bhavan)",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "E. Shankar",
+      "driverContact": "+91 98401 11026",
+      "conductor": "M. Velu",
+      "conductorContact": "+91 98402 11026",
+      "morningTrip": "Morning Trip (6.45 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Thiruvallur (Vasantha Bhavan) → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.45 am",
+      "arrivalTime": "07:45 am",
+      "status": "LAST_KNOWN",
+      "isActive": true,
+      "mapX": 0.769,
+      "mapY": 0.194,
+      "parkingBay": "PARKWIZ 1 — Bay A-04",
+      "lastLatitude": 12.923229966766687,
+      "lastLongitude": 80.08904528812509,
+      "lastGpsUpdate": "2026-10-06T17:23:25.846Z",
+      "stopLocationId": "AUD-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-07T17:20:17.070Z",
+      "speed": 0,
+      "heading": 0,
+      "accuracy": 40
+    },
+    {
+      "busId": "rec_bus_18a",
+      "busNumber": "18A",
+      "registrationNumber": "TN 21 AX 4830",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_18a",
+      "routeName": "Ambattur Stedford Hospital",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "K. Moorthy",
+      "driverContact": "+91 98401 11030",
+      "conductor": "J. Johnson",
+      "conductorContact": "+91 98402 11030",
+      "morningTrip": "Morning Trip (6.40 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Ambattur Stedford Hospital → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.40 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.919,
+      "mapY": 0.238,
+      "parkingBay": "Playground East Bay 18A",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "GH-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_18b",
+      "busNumber": "18B",
+      "registrationNumber": "TN 21 AX 4831",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_18b",
+      "routeName": "Avadi (GRT)",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "A. Joseph",
+      "driverContact": "+91 98401 11018",
+      "conductor": "S. Mohan",
+      "conductorContact": "+91 98402 11018",
+      "morningTrip": "Morning Trip (6.45 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Avadi (GRT) → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.45 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.919,
+      "mapY": 0.273,
+      "parkingBay": "Playground East Bay 18B",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "GH-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_35a",
+      "busNumber": "35A",
+      "registrationNumber": "TN 21 AX 4835",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_35a",
+      "routeName": "Mangadu",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "C. Venkatesh",
+      "driverContact": "+91 98401 11035",
+      "conductor": "B. Babu",
+      "conductorContact": "+91 98402 11035",
+      "morningTrip": "Morning Trip (6.50 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Mangadu → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.50 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.888,
+      "mapY": 0.451,
+      "parkingBay": "Playground South Bay 35A",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "CAFE-02",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_35b",
+      "busNumber": "35B",
+      "registrationNumber": "TN 21 AX 4836",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_35b",
+      "routeName": "Karima Nagar",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "S. Rajendran",
+      "driverContact": "+91 98401 11036",
+      "conductor": "T. Srinivasan",
+      "conductorContact": "+91 98402 11036",
+      "morningTrip": "Morning Trip (6.45 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Karima Nagar → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.45 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.906,
+      "mapY": 0.451,
+      "parkingBay": "Playground South Bay 35B",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "CAFE-02",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_36c",
+      "busNumber": "36C",
+      "registrationNumber": "TN 21 AX 4840",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_36c",
+      "routeName": "Madhanandapuram",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "M. Subramani",
+      "driverContact": "+91 98401 11040",
+      "conductor": "C. Anand",
+      "conductorContact": "+91 98402 11040",
+      "morningTrip": "Morning Trip (6.35 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Madhanandapuram → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.35 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.919,
+      "mapY": 0.364,
+      "parkingBay": "Canteen East Bay 36C",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "GH-02",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_37a",
+      "busNumber": "37A",
+      "registrationNumber": "TN 21 AX 4845",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_37a",
+      "routeName": "Iyyappanthangal (Reliance Mart)",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "P. Mani",
+      "driverContact": "+91 98401 11007",
+      "conductor": "L. Karthik",
+      "conductorContact": "+91 98402 11007",
+      "morningTrip": "Morning Trip (6.50 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Iyyappanthangal (Reliance Mart) → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.50 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.753,
+      "mapY": 0.451,
+      "parkingBay": "Playground South Bay 37A",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "W-STRS",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_1",
+      "busNumber": "1",
+      "registrationNumber": "TN 21 AX 4801",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_1",
+      "routeName": "Ennore",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "K. Arumugam",
+      "driverContact": "+91 98401 11001",
+      "conductor": "D. Elumalai",
+      "conductorContact": "+91 98402 11001",
+      "morningTrip": "Morning Trip (5.40 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Ennore → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "5.40 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.172,
+      "mapY": 0.815,
+      "parkingBay": "Main Gate Highway Bay 1",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "GATE-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_12",
+      "busNumber": "12",
+      "registrationNumber": "TN 21 AX 4812",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_12",
+      "routeName": "MKB Nagar",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "M. Selvam",
+      "driverContact": "+91 98401 11012",
+      "conductor": "K. Saravanan",
+      "conductorContact": "+91 98402 11012",
+      "morningTrip": "Morning Trip (6.15 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: MKB Nagar → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.15 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.222,
+      "mapY": 0.121,
+      "parkingBay": "Temple Gate Bay 12",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "GATE-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    },
+    {
+      "busId": "rec_bus_24",
+      "busNumber": "24",
+      "registrationNumber": "TN 21 AX 4824",
+      "campus": "REC Thandalam Campus",
+      "routeId": "route_24",
+      "routeName": "Nanganallur",
+      "busType": "Standard Transit",
+      "capacity": 55,
+      "driver": "D. Kumar",
+      "driverContact": "+91 98401 11024",
+      "conductor": "N. Vignesh",
+      "conductorContact": "+91 98402 11024",
+      "morningTrip": "Morning Trip (6.25 am departure)",
+      "returnTrip": "Evening Return (03:15 PM & 05:05 PM)",
+      "boardingPoints": "Origin: Nanganallur → Toll Gate → Poonamallee → REC Thandalam",
+      "departureTime": "6.25 am",
+      "arrivalTime": "07:45 am",
+      "status": "STATIC",
+      "isActive": true,
+      "mapX": 0.669,
+      "mapY": 0.932,
+      "parkingBay": "Academic Block South Bay 24",
+      "lastLatitude": null,
+      "lastLongitude": null,
+      "lastGpsUpdate": null,
+      "stopLocationId": "ACAD-01",
+      "createdAt": "2026-10-06T12:54:58.379265+00:00",
+      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+    }
+  ],
+  "routes": [
+    {
+      "sno": "1",
+      "routeNumber": "1",
+      "routeName": "Ennore",
+      "startTime": "5.40 am",
+      "boardingPointsUrl": "../routes/n01.php"
+    },
+    {
+      "sno": "2",
+      "routeNumber": "1B",
+      "routeName": "Beach Station",
+      "startTime": "6.18 am",
+      "boardingPointsUrl": "../routes/n01b.php"
+    },
+    {
+      "sno": "3",
+      "routeNumber": "1C",
+      "routeName": "Tondiarpet (RTO Office)",
+      "startTime": "6.05 am",
+      "boardingPointsUrl": "../routes/n01c.php"
+    },
+    {
+      "sno": "4",
+      "routeNumber": "2",
+      "routeName": "Tondiarpet",
+      "startTime": "6.10 am",
+      "boardingPointsUrl": "../routes/n02.php"
+    },
+    {
+      "sno": "5",
+      "routeNumber": "2B",
+      "routeName": "Ajax",
+      "startTime": "5.50 am",
+      "boardingPointsUrl": "../routes/n02b.php"
+    },
+    {
+      "sno": "6",
+      "routeNumber": "2C",
+      "routeName": "Mint",
+      "startTime": "6.10 am",
+      "boardingPointsUrl": "../routes/n02c.php"
+    },
+    {
+      "sno": "7",
+      "routeNumber": "3",
+      "routeName": "Choolai",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n03.php"
+    },
+    {
+      "sno": "8",
+      "routeNumber": "3B",
+      "routeName": "Kilpauk Kallarai",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n03b.php"
+    },
+    {
+      "sno": "9",
+      "routeNumber": "3C",
+      "routeName": "Doveton Bridge",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n03c.php"
+    },
+    {
+      "sno": "10",
+      "routeNumber": "4",
+      "routeName": "Chintadripet",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n04.php"
+    },
+    {
+      "sno": "11",
+      "routeNumber": "4C",
+      "routeName": "Loyola College",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n04c.php"
+    },
+    {
+      "sno": "12",
+      "routeNumber": "5",
+      "routeName": "Chintamani",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n05.php"
+    },
+    {
+      "sno": "13",
+      "routeNumber": "5A",
+      "routeName": "Arumbakkam",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n05a.php"
+    },
+    {
+      "sno": "14",
+      "routeNumber": "5B",
+      "routeName": "Maduravoyal Erikarai",
+      "startTime": "7.00 am",
+      "boardingPointsUrl": "../routes/n05b.php"
+    },
+    {
+      "sno": "15",
+      "routeNumber": "5C",
+      "routeName": "Thirunagar (Ambica Empire Hotel)",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n05c.php"
+    },
+    {
+      "sno": "16",
+      "routeNumber": "5D",
+      "routeName": "Toyota Showroom",
+      "startTime": "6.50 am",
+      "boardingPointsUrl": "../routes/n05d.php"
+    },
+    {
+      "sno": "17",
+      "routeNumber": "6",
+      "routeName": "New Avadi Road Water Tank",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n06.php"
+    },
+    {
+      "sno": "18",
+      "routeNumber": "6A",
+      "routeName": "Krishna Nagar (Vellammal School)",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n06a.php"
+    },
+    {
+      "sno": "19",
+      "routeNumber": "7",
+      "routeName": "Anna Nagar East",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n07.php"
+    },
+    {
+      "sno": "20",
+      "routeNumber": "7C",
+      "routeName": "Collector nagar",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n07c.php"
+    },
+    {
+      "sno": "21",
+      "routeNumber": "8",
+      "routeName": "Anna nagar West Depot",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n08.php"
+    },
+    {
+      "sno": "22",
+      "routeNumber": "8C",
+      "routeName": "Waves",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n08c.php"
+    },
+    {
+      "sno": "23",
+      "routeNumber": "9",
+      "routeName": "Mogappair East",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n09.php"
+    },
+    {
+      "sno": "24",
+      "routeNumber": "9A",
+      "routeName": "Mogappair (Golden Flat)",
+      "startTime": "6.55 am",
+      "boardingPointsUrl": "../routes/n09a.php"
+    },
+    {
+      "sno": "25",
+      "routeNumber": "9B",
+      "routeName": "Mogappair",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n09b.php"
+    },
+    {
+      "sno": "26",
+      "routeNumber": "9C",
+      "routeName": "Mogappair west",
+      "startTime": "6.50 am",
+      "boardingPointsUrl": "../routes/n09c.php"
+    },
+    {
+      "sno": "27",
+      "routeNumber": "10",
+      "routeName": "Vyasarpadi (Erikarai)",
+      "startTime": "6.10 am",
+      "boardingPointsUrl": "../routes/n10.php"
+    },
+    {
+      "sno": "28",
+      "routeNumber": "10B",
+      "routeName": "ICF",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n10b.php"
+    },
+    {
+      "sno": "29",
+      "routeNumber": "10C",
+      "routeName": "Binny Mill Church",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n10c.php"
+    },
+    {
+      "sno": "30",
+      "routeNumber": "11",
+      "routeName": "Moolakadai",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n11.php"
+    },
+    {
+      "sno": "31",
+      "routeNumber": "11A",
+      "routeName": "Retteri (RTO Office)",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n11a.php"
+    },
+    {
+      "sno": "32",
+      "routeNumber": "11C",
+      "routeName": "Korattur",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n11c.php"
+    },
+    {
+      "sno": "33",
+      "routeNumber": "12",
+      "routeName": "MKB Nagar",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n12.php"
+    },
+    {
+      "sno": "34",
+      "routeNumber": "12A",
+      "routeName": "Venus",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n12a.php"
+    },
+    {
+      "sno": "35",
+      "routeNumber": "12B",
+      "routeName": "Kolathur",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n12b.php"
+    },
+    {
+      "sno": "36",
+      "routeNumber": "12C",
+      "routeName": "Perambur",
+      "startTime": "6.10 am",
+      "boardingPointsUrl": "../routes/n12c.php"
+    },
+    {
+      "sno": "37",
+      "routeNumber": "13",
+      "routeName": "Peravallur",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n13.php"
+    },
+    {
+      "sno": "38",
+      "routeNumber": "13A",
+      "routeName": "Kolathur (Don Bosco School)",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n13a.php"
+    },
+    {
+      "sno": "39",
+      "routeNumber": "13B",
+      "routeName": "T.V.K Nagar",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n13b.php"
+    },
+    {
+      "sno": "40",
+      "routeNumber": "13C",
+      "routeName": "Poombukar Nagar",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n13c.php"
+    },
+    {
+      "sno": "41",
+      "routeNumber": "13D",
+      "routeName": "Temple School",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n13d.php"
+    },
+    {
+      "sno": "42",
+      "routeNumber": "14",
+      "routeName": "Manali",
+      "startTime": "6.10 am",
+      "boardingPointsUrl": "../routes/n14.php"
+    },
+    {
+      "sno": "43",
+      "routeNumber": "14C",
+      "routeName": "Veterinary college (mathur)",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n14c.php"
+    },
+    {
+      "sno": "44",
+      "routeNumber": "15",
+      "routeName": "Ayappakkam",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n15.php"
+    },
+    {
+      "sno": "45",
+      "routeNumber": "15A",
+      "routeName": "Ayappakkam Water Tank",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n15a.php"
+    },
+    {
+      "sno": "46",
+      "routeNumber": "15B",
+      "routeName": "Thirumullaivoyal",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n15b.php"
+    },
+    {
+      "sno": "47",
+      "routeNumber": "15C",
+      "routeName": "Ambattur OT",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n15c.php"
+    },
+    {
+      "sno": "48",
+      "routeNumber": "15D",
+      "routeName": "Ayappakkam  (Pillaiyar kovil)",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n15d.php"
+    },
+    {
+      "sno": "49",
+      "routeNumber": "15E",
+      "routeName": "Vinayagapuram",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n15e.php"
+    },
+    {
+      "sno": "50",
+      "routeNumber": "15F",
+      "routeName": "Dunlop",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n15f.php"
+    },
+    {
+      "sno": "51",
+      "routeNumber": "16",
+      "routeName": "Redhills",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n16.php"
+    },
+    {
+      "sno": "52",
+      "routeNumber": "16A",
+      "routeName": "Kallikuppam",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n16a.php"
+    },
+    {
+      "sno": "53",
+      "routeNumber": "16B",
+      "routeName": "Puzhal",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n16b.php"
+    },
+    {
+      "sno": "54",
+      "routeNumber": "16C",
+      "routeName": "Puzhal Bypass",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n16c.php"
+    },
+    {
+      "sno": "55",
+      "routeNumber": "16D",
+      "routeName": "Gandhinagar Police Booth (Redhills)",
+      "startTime": "6.00 am",
+      "boardingPointsUrl": "../routes/n16d.php"
+    },
+    {
+      "sno": "56",
+      "routeNumber": "16E",
+      "routeName": "Oragadam (Ambattur)",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n16e.php"
+    },
+    {
+      "sno": "57",
+      "routeNumber": "17",
+      "routeName": "Thiruvallur",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n17.php"
+    },
+    {
+      "sno": "58",
+      "routeNumber": "17A",
+      "routeName": "Veppampattu (Kandhan Kollai)",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n17a.php"
+    },
+    {
+      "sno": "59",
+      "routeNumber": "17B",
+      "routeName": "Thiruvallur (Vasantha Bhavan)",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n17b.php"
+    },
+    {
+      "sno": "60",
+      "routeNumber": "17C",
+      "routeName": "Sevvapet",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n17c.php"
+    },
+    {
+      "sno": "61",
+      "routeNumber": "17D",
+      "routeName": "Veppampattu",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n17d.php"
+    },
+    {
+      "sno": "62",
+      "routeNumber": "17E",
+      "routeName": "Nemilichery Roundana",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n17e.php"
+    },
+    {
+      "sno": "63",
+      "routeNumber": "17F",
+      "routeName": "Thiruvallur (New Bus Stand)",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n17f.php"
+    },
+    {
+      "sno": "64",
+      "routeNumber": "17G",
+      "routeName": "Thiruvallur (Oil Mill)",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n17g.php"
+    },
+    {
+      "sno": "65",
+      "routeNumber": "18",
+      "routeName": "Avadi",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n18.php"
+    },
+    {
+      "sno": "66",
+      "routeNumber": "18A",
+      "routeName": "Ambattur Stedford Hospital",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n18a.php"
+    },
+    {
+      "sno": "67",
+      "routeNumber": "18B",
+      "routeName": "Avadi (GRT)",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n18b.php"
+    },
+    {
+      "sno": "68",
+      "routeNumber": "18C",
+      "routeName": "Avadi Market",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n18c.php"
+    },
+    {
+      "sno": "69",
+      "routeNumber": "18D",
+      "routeName": "Kollumedu (GH)",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n18d.php"
+    },
+    {
+      "sno": "70",
+      "routeNumber": "18E",
+      "routeName": "Vel Tech junction",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n18e.php"
+    },
+    {
+      "sno": "71",
+      "routeNumber": "18F",
+      "routeName": "Avadi Check Post",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n18f.php"
+    },
+    {
+      "sno": "72",
+      "routeNumber": "19",
+      "routeName": "SP Kovil",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n19.php"
+    },
+    {
+      "sno": "73",
+      "routeNumber": "19A",
+      "routeName": "Perungalathur",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n19a.php"
+    },
+    {
+      "sno": "74",
+      "routeNumber": "19B",
+      "routeName": "Varatharaja Theatre",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n19b.php"
+    },
+    {
+      "sno": "75",
+      "routeNumber": "19C",
+      "routeName": "Hasthinapuram",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n19c.php"
+    },
+    {
+      "sno": "76",
+      "routeNumber": "19D",
+      "routeName": "Urapakkam",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n19d.php"
+    },
+    {
+      "sno": "77",
+      "routeNumber": "19E",
+      "routeName": "Tambaram (MCC)",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n19e.php"
+    },
+    {
+      "sno": "78",
+      "routeNumber": "19F",
+      "routeName": "Maraimalai Nagar",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n19f.php"
+    },
+    {
+      "sno": "79",
+      "routeNumber": "20",
+      "routeName": "Kamatchi Hospital (Pallikaranai)",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n20.php"
+    },
+    {
+      "sno": "80",
+      "routeNumber": "20A",
+      "routeName": "Sembakkam",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n20a.php"
+    },
+    {
+      "sno": "81",
+      "routeNumber": "20B",
+      "routeName": "Mambakkam",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n20b.php"
+    },
+    {
+      "sno": "82",
+      "routeNumber": "20C",
+      "routeName": "Madipakkam",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n20c.php"
+    },
+    {
+      "sno": "83",
+      "routeNumber": "20D",
+      "routeName": "Nanmangalam",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n20d.php"
+    },
+    {
+      "sno": "84",
+      "routeNumber": "20E",
+      "routeName": "Chrompet",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n20e.php"
+    },
+    {
+      "sno": "85",
+      "routeNumber": "20F",
+      "routeName": "Bharath University",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n20f.php"
+    },
+    {
+      "sno": "86",
+      "routeNumber": "20G",
+      "routeName": "Sembakkam",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n20g.php"
+    },
+    {
+      "sno": "87",
+      "routeNumber": "20H",
+      "routeName": "Sanatorium",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n20h.php"
+    },
+    {
+      "sno": "88",
+      "routeNumber": "21",
+      "routeName": "NGO Colony",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n21.php"
+    },
+    {
+      "sno": "89",
+      "routeNumber": "21A",
+      "routeName": "Velachery",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n21a.php"
+    },
+    {
+      "sno": "90",
+      "routeNumber": "21C",
+      "routeName": "Adambakkam",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n21c.php"
+    },
+    {
+      "sno": "91",
+      "routeNumber": "22",
+      "routeName": "Sholinganallur (OMR)",
+      "startTime": "5.50 am",
+      "boardingPointsUrl": "../routes/n22.php"
+    },
+    {
+      "sno": "92",
+      "routeNumber": "23",
+      "routeName": "Kovilampakkam",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n23.php"
+    },
+    {
+      "sno": "93",
+      "routeNumber": "23C",
+      "routeName": "Keelkatalai",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n23c.php"
+    },
+    {
+      "sno": "94",
+      "routeNumber": "24",
+      "routeName": "Nanganallur",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n24.php"
+    },
+    {
+      "sno": "95",
+      "routeNumber": "24C",
+      "routeName": "Pallavaram Bus stand",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n24c.php"
+    },
+    {
+      "sno": "96",
+      "routeNumber": "25",
+      "routeName": "VGP (ECR)",
+      "startTime": "6.00 am",
+      "boardingPointsUrl": "../routes/n25.php"
+    },
+    {
+      "sno": "97",
+      "routeNumber": "25C",
+      "routeName": "Adyar",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n25c.php"
+    },
+    {
+      "sno": "98",
+      "routeNumber": "26",
+      "routeName": "Triplicane",
+      "startTime": "6.05 am",
+      "boardingPointsUrl": "../routes/n26.php"
+    },
+    {
+      "sno": "99",
+      "routeNumber": "26C",
+      "routeName": "Teynampet",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n26c.php"
+    },
+    {
+      "sno": "100",
+      "routeNumber": "27",
+      "routeName": "Pattinapakkam (Metro work)",
+      "startTime": "6.00 am",
+      "boardingPointsUrl": "../routes/n27.php"
+    },
+    {
+      "sno": "101",
+      "routeNumber": "27C",
+      "routeName": "Santhome (Light house)(Metro work)",
+      "startTime": "6.05 am",
+      "boardingPointsUrl": "../routes/n27c.php"
+    },
+    {
+      "sno": "102",
+      "routeNumber": "28",
+      "routeName": "Nungambakkam",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n28.php"
+    },
+    {
+      "sno": "103",
+      "routeNumber": "28B",
+      "routeName": "Power House",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n28b.php"
+    },
+    {
+      "sno": "104",
+      "routeNumber": "28C",
+      "routeName": "Lakshman Sruthi",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n28c.php"
+    },
+    {
+      "sno": "105",
+      "routeNumber": "29",
+      "routeName": "Saligramam",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n29.php"
+    },
+    {
+      "sno": "106",
+      "routeNumber": "29C",
+      "routeName": "Alwarthirunagar",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n29c.php"
+    },
+    {
+      "sno": "107",
+      "routeNumber": "30",
+      "routeName": "Chinmaya Nagar",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n30.php"
+    },
+    {
+      "sno": "108",
+      "routeNumber": "30C",
+      "routeName": "Elango Nagar",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n30c.php"
+    },
+    {
+      "sno": "109",
+      "routeNumber": "31",
+      "routeName": "Valluvarkottam",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n31.php"
+    },
+    {
+      "sno": "110",
+      "routeNumber": "32",
+      "routeName": "CIT.Nagar",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n32.php"
+    },
+    {
+      "sno": "111",
+      "routeNumber": "32C",
+      "routeName": "Ashok Pillar",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n32c.php"
+    },
+    {
+      "sno": "112",
+      "routeNumber": "33",
+      "routeName": "K.K.Nagar (Sivan park)",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n33.php"
+    },
+    {
+      "sno": "113",
+      "routeNumber": "33C",
+      "routeName": "Nesapakkam",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n33c.php"
+    },
+    {
+      "sno": "114",
+      "routeNumber": "34",
+      "routeName": "Porur Ramachandra",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n34.php"
+    },
+    {
+      "sno": "115",
+      "routeNumber": "34B",
+      "routeName": "Iyyappanthangal Depot",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n34b.php"
+    },
+    {
+      "sno": "116",
+      "routeNumber": "34C",
+      "routeName": "Iyyappanthangal",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n34c.php"
+    },
+    {
+      "sno": "117",
+      "routeNumber": "35",
+      "routeName": "Pammal (Therasa School)",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n35.php"
+    },
+    {
+      "sno": "118",
+      "routeNumber": "35A",
+      "routeName": "Mangadu",
+      "startTime": "6.50 am",
+      "boardingPointsUrl": "../routes/n35a.php"
+    },
+    {
+      "sno": "119",
+      "routeNumber": "35B",
+      "routeName": "Karima Nagar",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n35b.php"
+    },
+    {
+      "sno": "120",
+      "routeNumber": "35C",
+      "routeName": "Kundrathur",
+      "startTime": "6.38 am",
+      "boardingPointsUrl": "../routes/n35c.php"
+    },
+    {
+      "sno": "121",
+      "routeNumber": "35D",
+      "routeName": "Pammal",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n35d.php"
+    },
+    {
+      "sno": "122",
+      "routeNumber": "35E",
+      "routeName": "Kundrathur",
+      "startTime": "6.40 am",
+      "boardingPointsUrl": "../routes/n35e.php"
+    },
+    {
+      "sno": "123",
+      "routeNumber": "36",
+      "routeName": "Kovur",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n36.php"
+    },
+    {
+      "sno": "124",
+      "routeNumber": "36C",
+      "routeName": "Madhanandapuram",
+      "startTime": "6.35 am",
+      "boardingPointsUrl": "../routes/n36c.php"
+    },
+    {
+      "sno": "125",
+      "routeNumber": "37",
+      "routeName": "DLF",
+      "startTime": "6.45 am",
+      "boardingPointsUrl": "../routes/n37.php"
+    },
+    {
+      "sno": "126",
+      "routeNumber": "37A",
+      "routeName": "Iyyappanthangal (Reliance Mart)",
+      "startTime": "6.50 am",
+      "boardingPointsUrl": "../routes/n37a.php"
+    },
+    {
+      "sno": "127",
+      "routeNumber": "37B",
+      "routeName": "Karayanchavadi",
+      "startTime": "7.05 am",
+      "boardingPointsUrl": "../routes/n37b.php"
+    },
+    {
+      "sno": "128",
+      "routeNumber": "37C",
+      "routeName": "Poonamallee Bus Stand",
+      "startTime": "7.05 am",
+      "boardingPointsUrl": "../routes/n37c.php"
+    },
+    {
+      "sno": "129",
+      "routeNumber": "37D",
+      "routeName": "Poonamallee Ambedkar statue",
+      "startTime": "7.00 am",
+      "boardingPointsUrl": "../routes/n37d.php"
+    },
+    {
+      "sno": "130",
+      "routeNumber": "37E",
+      "routeName": "Poonamallee",
+      "startTime": "7.00 am",
+      "boardingPointsUrl": "../routes/n37e.php"
+    },
+    {
+      "sno": "130",
+      "routeNumber": "38",
+      "routeName": "Housing Board",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n38.php"
+    },
+    {
+      "sno": "131",
+      "routeNumber": "38B",
+      "routeName": "Kancheepuram Bus Stand",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n38b.php"
+    },
+    {
+      "sno": "132",
+      "routeNumber": "38C",
+      "routeName": "Kancheepuram collectorate",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n38c.php"
+    },
+    {
+      "sno": "133",
+      "routeNumber": "39",
+      "routeName": "Orikkai",
+      "startTime": "6.10 am",
+      "boardingPointsUrl": "../routes/n39.php"
+    },
+    {
+      "sno": "134",
+      "routeNumber": "39C",
+      "routeName": "Kancheepuram",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n39c.php"
+    },
+    {
+      "sno": "135",
+      "routeNumber": "40",
+      "routeName": "Walajabad",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n40.php"
+    },
+    {
+      "sno": "136",
+      "routeNumber": "40A",
+      "routeName": "Muthiyalpettai",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n40a.php"
+    },
+    {
+      "sno": "137",
+      "routeNumber": "40B",
+      "routeName": "Rangasamy Kulam",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n40b.php"
+    },
+    {
+      "sno": "138",
+      "routeNumber": "40C",
+      "routeName": "Kancheepuram Bus Stand",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n40c.php"
+    },
+    {
+      "sno": "139",
+      "routeNumber": "40D",
+      "routeName": "Kancheepuram",
+      "startTime": "6.20 am",
+      "boardingPointsUrl": "../routes/n40d.php"
+    },
+    {
+      "sno": "140",
+      "routeNumber": "41C",
+      "routeName": "Vellore (Faculty & Staff only)",
+      "startTime": "5.10 am",
+      "boardingPointsUrl": "../routes/n41c.php"
+    },
+    {
+      "sno": "141",
+      "routeNumber": "42",
+      "routeName": "Arakkonam",
+      "startTime": "6.08 am",
+      "boardingPointsUrl": "../routes/n42.php"
+    },
+    {
+      "sno": "142",
+      "routeNumber": "42A",
+      "routeName": "S R Gate",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n42a.php"
+    },
+    {
+      "sno": "143",
+      "routeNumber": "42C",
+      "routeName": "Arakkonam",
+      "startTime": "6.15 am",
+      "boardingPointsUrl": "../routes/n42c.php"
+    },
+    {
+      "sno": "144",
+      "routeNumber": "42D",
+      "routeName": "Suvalpet",
+      "startTime": "6.10 am",
+      "boardingPointsUrl": "../routes/n42d.php"
+    },
+    {
+      "sno": "145",
+      "routeNumber": "44",
+      "routeName": "Meenakshi College (KPM)",
+      "startTime": "6.30 am",
+      "boardingPointsUrl": "../routes/n44.php"
+    },
+    {
+      "sno": "146",
+      "routeNumber": "45",
+      "routeName": "Padappai",
+      "startTime": "6.25 am",
+      "boardingPointsUrl": "../routes/n45.php"
+    }
+  ],
+  "stops": [
+    {
+      "stopId": "stop_main_gate",
+      "stopName": "Main Campus Entrance Gate (NH 48)",
+      "locationId": "GATE-01",
+      "latitude": 13.0124751,
+      "longitude": 80.0003439,
+      "description": "Main NH 48 highway bus pickup, drop-off arch & security gate",
+      "mapX": 0.172,
+      "mapY": 0.815
+    },
+    {
+      "stopId": "stop_parkwiz_1",
+      "stopName": "PARKWIZ 1 Parking Zone",
+      "locationId": "PKG-01",
+      "latitude": 13.0118251,
+      "longitude": 80.0009674,
+      "description": "Designated North Campus college bus depot & parking bay zone",
+      "mapX": 0.198,
+      "mapY": 0.58
+    },
+    {
+      "stopId": "stop_parkwiz_2",
+      "stopName": "PARKWIZ 2 Parking Zone",
+      "locationId": "PKG-02",
+      "latitude": 13.0108162,
+      "longitude": 80.0009731,
+      "description": "South Transit terminal and overflow student bus boarding bay",
+      "mapX": 0.198,
+      "mapY": 0.72
+    },
+    {
+      "stopId": "stop_academic_bay",
+      "stopName": "Academic Block Bay",
+      "locationId": "ACAD-01",
+      "latitude": 13.0079197,
+      "longitude": 80.0024037,
+      "description": "South quadrangle boarding point near Academic Block and REC Cafe",
+      "mapX": 0.669,
+      "mapY": 0.932
+    },
+    {
+      "stopId": "stop_library_bay",
+      "stopName": "Central Library & J Block Bay",
+      "locationId": "LIB-01",
+      "latitude": 13.0088743,
+      "longitude": 80.005524,
+      "description": "East campus parking walkway near Library and Auditorium",
+      "mapX": 0.614,
+      "mapY": 0.194
+    }
+  ],
+  "studentNotificationProfile": {
+    "name": "Rithvik S",
+    "phoneNumber": "+919876543210",
+    "busId": "rec_bus_10c",
+    "busNumber": "10C",
+    "pickupPointId": "stop_main_gate",
+    "pickupPointName": "Main Campus Entrance Gate (NH 48)",
+    "smsEnabled": true,
+    "lastNotification": {
+      "alertType": "5_MIN",
+      "etaMinutes": 4.6,
+      "timestamp": "2026-10-20T15:32:18.503Z",
+      "pickupPoint": "Main Campus Entrance Gate (NH 48)",
+      "busNumber": "10C",
+      "status": "failed",
+      "messageSid": null,
+      "error": "No Twilio trial phone number is assigned for messaging to this destination number. Please add the 'to' number as a verified recipient."
+    }
+  }
+}

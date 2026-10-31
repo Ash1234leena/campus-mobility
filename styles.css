@@ -46,13 +46,16 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -96,7 +99,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
   pointer-events: none;
 }
 
@@ -113,7 +116,7 @@ html, body {
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-lg);
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .brand-badge:hover {
@@ -412,7 +415,8 @@ html, body {
   transition: background 0.15s ease;
 }
 
-.search-result-item:hover, .search-result-item.highlighted {
+.search-result-item:hover,
+.search-result-item.highlighted {
   background: rgba(56, 189, 248, 0.12);
 }
 
@@ -1192,6 +1196,7 @@ html, body {
   from {
     stroke-dashoffset: 24;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -1202,6 +1207,7 @@ html, body {
     transform: scale(0.6);
     opacity: 0.9;
   }
+
   100% {
     transform: scale(2.2);
     opacity: 0;
@@ -1213,6 +1219,7 @@ html, body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1224,6 +1231,7 @@ html, body {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1235,6 +1243,7 @@ html, body {
     opacity: 0;
     transform: scale(0.85);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -1242,9 +1251,19 @@ html, body {
 }
 
 @keyframes pulse-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
 }
 
 /* Custom Leaflet Tooltip */
@@ -1336,9 +1355,11 @@ html, body {
   .brand-title {
     font-size: 12.5px;
   }
+
   .brand-subtitle {
     font-size: 9px;
   }
+
   .dest-name-title {
     font-size: 16px;
   }
@@ -1394,8 +1415,15 @@ html, body {
 }
 
 @keyframes pulse-dot {
-  0% { transform: scale(0.8); opacity: 0.7; }
-  100% { transform: scale(1.4); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
 }
 
 .live-speed-tag {
@@ -1571,33 +1599,34 @@ html, body {
 
 /* Top View Switcher */
 .nav-view-switcher {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-full);
-  padding: 3px;
+  padding: 4px;
   gap: 4px;
   pointer-events: auto;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
 }
 
 .view-switch-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 8px;
+  padding: 6px 16px;
   border-radius: var(--radius-full);
   border: none;
   background: transparent;
   color: var(--text-secondary);
   font-family: var(--font-heading);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
 
@@ -1858,6 +1887,7 @@ html, body {
   -webkit-user-drag: none;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: high-quality;
+  transform: translateZ(0); // Force GPU acceleration for cleaner scaling
 }
 
 .tmap-markers-layer,
@@ -1986,8 +2016,15 @@ html, body {
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(0.85); opacity: 0.9; }
-  100% { transform: scale(1.8); opacity: 0; }
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }
 
 /* Floating Zoom Controls for Transport Map */

@@ -301,6 +301,16 @@ export class CampusRouter {
 
     // 4. College Bus Destination (Moving or Parked in Bay)
     if (locationObj.isBus || locationObj.category === 'Buses') {
+      // Prefer verified entrance if available to avoid projecting through buildings
+      if (locationObj.entrance && locationObj.entrance.latitude && locationObj.entrance.longitude) {
+        return {
+          roadCoords: [Number(locationObj.entrance.latitude), Number(locationObj.entrance.longitude)],
+          actualCoords: point,
+          walkwayNodeId: locationObj.entrance.walkway_node_id || null,
+          isEntrance: true
+        };
+      }
+
       const proj = this.findNearestRoadProjection(point, { busAccessible: true });
       return {
         roadCoords: proj.distance < 45 ? proj.point : point,
@@ -330,15 +340,47 @@ export class CampusRouter {
    */
   calculateGraphAStarPath(startCoord, endCoord, options = {}) {
     const busAccessible = Boolean(options.busAccessible || options.profile === 'driving');
-    const startProj = this.findNearestRoadProjection(startCoord, { busAccessible });
-    const endProj = this.findNearestRoadProjection(endCoord, { busAccessible });
 
-    if (!startProj.edge || !endProj.edge) {
+    // 1. Resolve start projection
+    let startProj;
+    if (options.startNodeId && this.nodesMap.has(options.startNodeId)) {
+      const node = this.nodesMap.get(options.startNodeId);
+      startProj = {
+        point: [node.lat, node.lon],
+        distance: CampusRouter.haversineDistance(startCoord, [node.lat, node.lon]),
+        fromNodeId: options.startNodeId,
+        toNodeId: null, // A* will find neighbors
+        t: 0 // Start exactly at the node
+      };
+      // Mock the edge for Case A check (same edge)
+      startProj.edge = { id: 'node-start-' + options.startNodeId, distance: 0 };
+    } else {
+      startProj = this.findNearestRoadProjection(startCoord, { busAccessible });
+    }
+
+    // 2. Resolve end projection
+    let endProj;
+    if (options.endNodeId && this.nodesMap.has(options.endNodeId)) {
+      const node = this.nodesMap.get(options.endNodeId);
+      endProj = {
+        point: [node.lat, node.lon],
+        distance: CampusRouter.haversineDistance(endCoord, [node.lat, node.lon]),
+        fromNodeId: null,
+        toNodeId: options.endNodeId,
+        t: 0
+      };
+      // Mock the edge for Case A check
+      endProj.edge = { id: 'node-end-' + options.endNodeId, distance: 0 };
+    } else {
+      endProj = this.findNearestRoadProjection(endCoord, { busAccessible });
+    }
+
+    if (!startProj || !endProj) {
       return null;
     }
 
     // Case A: Both start and end project onto the EXACT same road edge
-    if (startProj.edge.id === endProj.edge.id) {
+    if (startProj.edge && endProj.edge && startProj.edge.id === endProj.edge.id) {
       const directDist = CampusRouter.haversineDistance(startProj.point, endProj.point);
       const raw = [startCoord];
       if (CampusRouter.haversineDistance(startCoord, startProj.point) > 2) raw.push(startProj.point);
@@ -358,14 +400,30 @@ export class CampusRouter {
     }
 
     // Case B: Pathfinding across connected road segments
-    // Candidates at start: traveler can proceed towards fromNode or toNode along edge
-    const startEdgeDist = startProj.edge.distance;
-    const startCandidates = [
-      { nodeId: startProj.fromNodeId, initCost: startProj.t * startEdgeDist, anchor: startProj.point },
-      { nodeId: startProj.toNodeId, initCost: (1 - startProj.t) * startEdgeDist, anchor: startProj.point }
-    ];
+    // Candidates at start
+    const startCandidates = [];
+    if (options.startNodeId) {
+      startCandidates.push({ nodeId: options.startNodeId, initCost: startProj.distance, anchor: startProj.point });
+    } else if (startProj.edge) {
+      const startEdgeDist = startProj.edge.distance;
+      startCandidates.push(
+        { nodeId: startProj.fromNodeId, initCost: startProj.t * startEdgeDist, anchor: startProj.point },
+        { nodeId: startProj.toNodeId, initCost: (1 - startProj.t) * startEdgeDist, anchor: startProj.point }
+      );
+    }
 
-    const targetCandidates = new Set([endProj.fromNodeId, endProj.toNodeId]);
+    const targetCandidates = new Set();
+    if (options.endNodeId) {
+      targetCandidates.add(options.endNodeId);
+    } else if (endProj.edge) {
+      targetCandidates.add(endProj.fromNodeId);
+      targetCandidates.add(endProj.toNodeId);
+    } else {
+      // If no edge found for endProj, just use the nearest node
+      const nearestNode = this.findNearestWalkwayNode(endCoord, { busAccessible });
+      if (nearestNode.node) targetCandidates.add(nearestNode.node.id);
+    }
+
 
     let bestPath = null;
     let bestTotalCost = Infinity;
@@ -873,7 +931,9 @@ export class CampusRouter {
     // Attempt 2: Verified REC In-Campus Road Graph (A* with Turn Cost Penalties)
     const aStarResult = this.calculateGraphAStarPath(originPoint, destRoadCoords, {
       ...routingOptions,
-      destinationName: destination.name
+      destinationName: destination.name,
+      startNodeId: resolvedOrigin?.walkwayNodeId,
+      endNodeId: resolvedDest.walkwayNodeId
     });
 
     if (aStarResult && aStarResult.coordinates && aStarResult.coordinates.length >= 2) {

@@ -3,7 +3,7 @@
   "campus": "REC Thandalam Campus",
   "officialWebsite": "https://www.rectransport.com/",
   "mapImage": "assets/rec_thandalam_bus_map_hd.jpg",
-  "lastSyncTimestamp": "2026-10-20T15:32:18.690Z",
+  "lastSyncTimestamp": "2026-10-31T09:03:23.747Z",
   "calibration": {
     "topLeft": {
       "latitude": 13.013,
@@ -1630,8 +1630,8 @@
   ],
   "studentNotificationProfile": {
     "name": "Rithvik S",
-    "phoneNumber": "+919876543210",
-    "busId": "rec_bus_10c",
+    "phoneNumber": "+917603834339",
+    "busId": "",
     "busNumber": "10C",
     "pickupPointId": "stop_main_gate",
     "pickupPointName": "Main Campus Entrance Gate (NH 48)",

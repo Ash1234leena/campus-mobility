@@ -16,8 +16,8 @@
 export class TransportMapEngine {
   constructor(containerElement, options = {}) {
     this.container = containerElement;
-    this.onBusSelected = options.onBusSelected || (() => {});
-    this.onPositionChanged = options.onPositionChanged || (() => {});
+    this.onBusSelected = options.onBusSelected || (() => { });
+    this.onPositionChanged = options.onPositionChanged || (() => { });
 
     // Calibration configuration (4 corners)
     this.calibration = options.calibration || {
@@ -176,7 +176,7 @@ export class TransportMapEngine {
         const dist = this.getTouchDistance(e.touches);
         const factor = dist / this.initialPinchDistance;
         const targetScale = Math.max(this.minScale, Math.min(this.maxScale, this.initialPinchScale * factor));
-        
+
         const rect = this.viewport.getBoundingClientRect();
         const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
         const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
@@ -304,7 +304,7 @@ export class TransportMapEngine {
     const lonBuffer = lonSpan * 0.15;
 
     if (lat < minLat - latBuffer || lat > maxLat + latBuffer ||
-        lon < minLon - lonBuffer || lon > maxLon + lonBuffer) {
+      lon < minLon - lonBuffer || lon > maxLon + lonBuffer) {
       return null; // outside campus boundary
     }
 
@@ -319,14 +319,14 @@ export class TransportMapEngine {
       v = Math.max(0, Math.min(1, v));
 
       const curLat = (1 - u) * (1 - v) * tl.latitude +
-                     u * (1 - v) * tr.latitude +
-                     (1 - u) * v * bl.latitude +
-                     u * v * br.latitude;
+        u * (1 - v) * tr.latitude +
+        (1 - u) * v * bl.latitude +
+        u * v * br.latitude;
 
       const curLon = (1 - u) * (1 - v) * tl.longitude +
-                     u * (1 - v) * tr.longitude +
-                     (1 - u) * v * bl.longitude +
-                     u * v * br.longitude;
+        u * (1 - v) * tr.longitude +
+        (1 - u) * v * bl.longitude +
+        u * v * br.longitude;
 
       const dLat = lat - curLat;
       const dLon = lon - curLon;
@@ -349,7 +349,7 @@ export class TransportMapEngine {
    */
   resolveBusPosition(bus) {
     if (bus.lastLatitude !== null && bus.lastLatitude !== undefined &&
-        bus.lastLongitude !== null && bus.lastLongitude !== undefined) {
+      bus.lastLongitude !== null && bus.lastLongitude !== undefined) {
       const projected = this.gpsToMapNormalized(bus.lastLatitude, bus.lastLongitude);
       if (projected) {
         return {

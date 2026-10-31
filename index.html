@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
   <!-- Core Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
 </head>
 <body>
   <div id="app-container">
@@ -21,14 +25,6 @@
 
     <!-- Top Navigation Bar -->
     <header class="top-nav-bar" role="banner">
-      <div class="brand-badge" id="btn-brand-info" title="Rajalakshmi Engineering College Navigation">
-        <div class="brand-logo-icon">REC</div>
-        <div class="brand-text">
-          <span class="brand-title">Campus Mobility</span>
-          <span class="brand-subtitle">Rajalakshmi Eng. College</span>
-        </div>
-      </div>
-
       <div class="nav-view-switcher" id="nav-view-switcher" role="tablist" aria-label="Map View Switcher">
         <button class="view-switch-btn active" id="btn-view-campus" data-view="campus" role="tab" aria-selected="true">
           <span>🗺️</span>
@@ -73,8 +69,8 @@
           <span style="font-size: 15px;">🚌</span>
         </button>
 
-        <!-- Real Twilio SMS Alerts Button -->
-        <button class="glass-btn" id="btn-sms-modal" title="SMS Approaching Alerts (Real Twilio Notification System)" aria-label="SMS Approaching Alerts">
+        <!-- Push Notification Alerts Button -->
+        <button class="glass-btn" id="btn-sms-modal" title="Push Approaching Alerts (Real Firebase Notification System)" aria-label="Push Approaching Alerts">
           <span style="font-size: 15px;">🔔</span>
         </button>
 
@@ -82,15 +78,6 @@
         <a href="driver.html" target="_blank" class="glass-btn" id="btn-driver-dashboard" title="Open Driver Dashboard (Live GPS & Parked Spot)" aria-label="Driver Dashboard" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
           <span style="font-size: 15px;">👨‍✈️</span>
         </a>
-
-        <!-- Verified Locations Data Manager / Admin Button -->
-        <button class="glass-btn" id="btn-admin-modal" title="Manage Verified Campus Data & Transport" aria-label="Campus Data Settings">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-          </svg>
-        </button>
       </div>
     </header>
 
@@ -103,12 +90,12 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </span>
-        <input 
-          type="text" 
-          id="search-dest-input" 
-          class="search-input" 
-          placeholder="Search building or Bus # (e.g. 12, Tambaram)..." 
-          autocomplete="off" 
+        <input
+          type="text"
+          id="search-dest-input"
+          class="search-input"
+          placeholder="Search building or Bus # (e.g. 12, Tambaram)..."
+          autocomplete="off"
           spellcheck="false"
           aria-label="Search REC Campus Locations"
         />
@@ -274,11 +261,11 @@
         <div class="transport-search-row">
           <div class="t-search-box">
             <span class="t-search-icon">🔍</span>
-            <input 
-              type="text" 
-              id="tmap-search-input" 
-              class="t-search-input" 
-              placeholder="Search bus number or route (e.g. 10C, 15A, Tambaram)..." 
+            <input
+              type="text"
+              id="tmap-search-input"
+              class="t-search-input"
+              placeholder="Search bus number or route (e.g. 10C, 15A, Tambaram)..."
               autocomplete="off"
               spellcheck="false"
               aria-label="Search college buses"
@@ -300,14 +287,14 @@
           <button class="t-filter-chip" data-filter="LIVE" id="tmap-filter-live">🟢 Live (<span id="t-count-live">0</span>)</button>
           <button class="t-filter-chip" data-filter="LAST_KNOWN" id="tmap-filter-last-known">🟡 Last Known (<span id="t-count-last-known">0</span>)</button>
           <button class="t-filter-chip" data-filter="STATIC" id="tmap-filter-static">🔵 Static (<span id="t-count-static">0</span>)</button>
-          
+
           <select class="t-route-select" id="tmap-route-filter" aria-label="Filter by Route">
             <option value="">All Verified Routes</option>
           </select>
         </div>
       </div>
 
-      <!-- Main Offline Interactive Bus Map Canvas -->
+      <!-- Main Offline Interactive Bus Map Canvas Container -->
       <div class="transport-map-canvas-container" id="transport-map-canvas-container">
         <!-- TransportMapEngine mounts dynamically here -->
       </div>
@@ -354,18 +341,18 @@
         <div class="tcard-sms-box" id="tcard-sms-box">
           <div class="tcard-sms-header">
             <span class="tcard-sms-icon">📱</span>
-            <span class="tcard-sms-title">Twilio SMS Approaching Alerts</span>
+            <span class="tcard-sms-title">Push Approaching Alerts</span>
             <span class="tcard-sms-badge" id="tcard-sms-status-badge">ACTIVE (10m &amp; 5m)</span>
           </div>
           <div class="tcard-sms-desc" id="tcard-sms-desc">
-            Registered phone: <strong id="tcard-sms-phone">+91 98*** **210</strong>. Automatically triggers real SMS when this bus is 10 min &amp; 5 min away.
+            Registered device: <strong id="tcard-sms-phone">Checking token...</strong>. Automatically triggers real push notifications when this bus is 10 min &amp; 5 min away.
           </div>
           <div class="tcard-sms-meta" id="tcard-sms-meta" style="display: none;">
             Last Alert: <span id="tcard-sms-last-text">—</span>
           </div>
           <div style="display: flex; gap: 8px; margin-top: 6px;">
-            <button class="btn-secondary-outline" id="tcard-btn-manage-sms" style="flex: 1; height: 32px; font-size: 11.5px;">⚙️ Manage Student SMS</button>
-            <button class="btn-secondary-outline" id="tcard-btn-test-sms" style="flex: 1; height: 32px; font-size: 11.5px;">⚡ Test Real SMS</button>
+            <button class="btn-secondary-outline" id="tcard-btn-manage-sms" style="flex: 1; height: 32px; font-size: 11.5px;">⚙️ Manage Alerts</button>
+            <button class="btn-secondary-outline" id="tcard-btn-test-sms" style="flex: 1; height: 32px; font-size: 11.5px;">⚡ Test Push</button>
           </div>
         </div>
 
@@ -489,11 +476,11 @@
               If you wish to use premium Carto Voyager tiles without watermarks, paste your Carto API key below:
             </p>
             <div style="display: flex; gap: 8px;">
-              <input 
-                type="text" 
-                id="input-carto-api-key" 
-                class="admin-text-input" 
-                placeholder="Paste Carto / Mapbox API Key here..." 
+              <input
+                type="text"
+                id="input-carto-api-key"
+                class="admin-text-input"
+                placeholder="Paste Carto / Mapbox API Key here..."
                 style="flex: 1;"
               />
               <button class="btn-primary-nav" id="btn-save-api-key" style="height: 36px; padding: 0 14px; font-size: 12.5px;">
@@ -555,17 +542,17 @@
                 <!-- Populated with active buses -->
               </select>
               <div class="admin-pos-coords-badge" style="background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: var(--nav-light-blue-bright); font-family: monospace;">
-                Bus: <strong id="admin-pos-bus-name" style="color: #fff;">--</strong> • 
-                X: <strong id="admin-pos-val-x">0.0000</strong> • 
+                Bus: <strong id="admin-pos-bus-name" style="color: #fff;">--</strong> •
+                X: <strong id="admin-pos-val-x">0.0000</strong> •
                 Y: <strong id="admin-pos-val-y">0.0000</strong>
               </div>
             </div>
 
             <div style="display: flex; align-items: center; gap: 8px;">
-              <input 
-                type="text" 
-                id="admin-pos-bay-desc" 
-                class="admin-text-input" 
+              <input
+                type="text"
+                id="admin-pos-bay-desc"
+                class="admin-text-input"
                 placeholder="Bay Label (e.g. Bay 10C)"
                 style="height: 34px; width: 170px; font-size: 12px;"
               />
@@ -629,7 +616,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -649,10 +635,10 @@
 
         <!-- Search input inside modal -->
         <div style="margin-block: 8px;">
-          <input 
-            type="text" 
-            id="bus-search-input" 
-            class="admin-text-input" 
+          <input
+            type="text"
+            id="bus-search-input"
+            class="admin-text-input"
             placeholder="Search Bus Number or Route (e.g. 12, Tambaram, Anna Nagar)..."
             style="width: 100%; box-sizing: border-box;"
           />
@@ -682,10 +668,10 @@
             <select id="bus-select-to-save" class="admin-text-input" style="flex: 1; min-width: 140px;">
               <!-- Dynamically populated options -->
             </select>
-            <input 
-              type="text" 
-              id="bus-bay-name-input" 
-              class="admin-text-input" 
+            <input
+              type="text"
+              id="bus-bay-name-input"
+              class="admin-text-input"
               placeholder="Bay (e.g. PARKWIZ 1 — Bay A-04)"
               style="flex: 1; min-width: 140px;"
             />
@@ -703,8 +689,6 @@
         </div>
       </div>
     </div>
-  </div>
-
 
     <!-- SMS Notification Center Modal (Real Twilio Provider) -->
     <div class="modal-overlay" id="sms-modal" role="dialog" aria-labelledby="sms-modal-title">
@@ -713,8 +697,8 @@
           <div style="display: flex; align-items: center; gap: 8px;">
             <span style="font-size: 22px;">🔔</span>
             <div>
-              <h3 class="modal-title" id="sms-modal-title" style="font-size: 16px;">ACIMS Real SMS Notification Center</h3>
-              <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">Automated 10-Minute &amp; 5-Minute Student Approaching Alerts (Twilio Provider)</p>
+              <h3 class="modal-title" id="sms-modal-title" style="font-size: 16px;">ACIMS Real Notification Center</h3>
+              <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">Automated 10-Minute &amp; 5-Minute Student Approaching Alerts (Firebase Push Provider)</p>
             </div>
           </div>
           <button class="close-card-btn" id="btn-close-sms-modal" aria-label="Close SMS Modal">✕</button>
@@ -726,8 +710,8 @@
             <div style="display: flex; align-items: center; gap: 8px;">
               <span id="sms-provider-status-dot" style="font-size: 14px;">🟢</span>
               <div>
-                <strong id="sms-provider-status-title">Twilio SMS Gateway: Connected</strong>
-                <div id="sms-provider-status-detail" style="font-size: 11px; opacity: 0.9;">Sender: +1 (Twilio Phone Number)</div>
+                <strong id="sms-provider-status-title">Firebase Push Gateway: Connected</strong>
+                <div id="sms-provider-status-detail" style="font-size: 11px; opacity: 0.9;">Push Service Active</div>
               </div>
             </div>
             <span style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(16, 185, 129, 0.2); font-weight: 700;">PROD GATEWAY</span>
@@ -739,7 +723,7 @@
               <strong style="font-size: 13px; color: #fff;">👤 Student Profile &amp; Assignment</strong>
               <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; color: #f8fafc;">
                 <input type="checkbox" id="sms-toggle-enabled" checked style="accent-color: var(--accent-emerald);" />
-                <span>SMS Alerts Enabled</span>
+                <span>Notifications Enabled</span>
               </label>
             </div>
 
@@ -751,7 +735,7 @@
               <div>
                 <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">Indian Mobile Number (+91)</label>
                 <input type="tel" id="sms-input-phone" class="admin-text-input" placeholder="e.g. 9876543210 or +91..." style="width: 100%; box-sizing: border-box;" />
-                <span id="sms-phone-validation-hint" style="font-size: 10.5px; display: block; margin-top: 2px; color: var(--text-muted);">Standard 10-digit Indian number</span>
+                <span id="sms-phone-validation-hint" style="font-size: 10.5px; display: block; margin-top: 2px; color: var(--text-muted);">Used for fallback SMS</span>
               </div>
             </div>
 
@@ -803,16 +787,16 @@
           <!-- Section 3: Safe Interactive Test Mode & Real Twilio SMS Trigger -->
           <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <strong style="font-size: 13px; color: #fbbf24;">⚡ Real Twilio SMS Test Dispatch</strong>
-              <span style="font-size: 10.5px; color: #fde68a;">Official Twilio API</span>
+              <strong style="font-size: 13px; color: #fbbf24;">⚡ Real Push Test Dispatch</strong>
+              <span style="font-size: 10.5px; color: #fde68a;">Official Firebase API</span>
             </div>
             <p style="font-size: 11.5px; color: var(--text-secondary); margin: 0;">
-              Enter a test Indian mobile number to trigger an actual test SMS through Twilio.
+              Enter a test token or Indian mobile number to trigger an actual test notification.
             </p>
             <div style="display: flex; gap: 8px;">
-              <input type="tel" id="sms-test-phone-input" class="admin-text-input" placeholder="+91XXXXXXXXXX" style="flex: 1;" />
+              <input type="text" id="sms-test-phone-input" class="admin-text-input" placeholder="Token or +91..." style="flex: 1;" />
               <button class="btn-primary-nav" id="btn-trigger-real-test-sms" style="height: 38px; font-size: 12px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-                🚀 Send Real SMS
+                🚀 Send Real Notif
               </button>
             </div>
             <div id="sms-test-result-box" style="display: none; padding: 10px; border-radius: 6px; font-size: 12px;"></div>
@@ -843,11 +827,11 @@
           <!-- Section 5: Recent Audit History -->
           <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <strong style="font-size: 13px; color: #fff;">📋 Recent SMS Activity Log</strong>
+              <strong style="font-size: 13px; color: #fff;">📋 Recent Notification Activity Log</strong>
               <button class="btn-secondary-outline" id="btn-refresh-sms-logs" style="height: 24px; font-size: 10.5px; padding: 0 8px;">Refresh</button>
             </div>
             <div id="sms-audit-log-container" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 11px;">
-              <div style="color: var(--text-muted); text-align: center; padding: 10px;">No SMS logs recorded yet</div>
+              <div style="color: var(--text-muted); text-align: center; padding: 10px;">No notification logs recorded yet</div>
             </div>
           </div>
         </div>
@@ -856,6 +840,50 @@
 
     <!-- MapLibre GL 3D JavaScript Engine -->
   <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+  <!-- Firebase Registration Logic -->
+  <script type="module">
+    import { firebaseConfig, firebaseMessagingKey } from './firebase-config.js';
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+
+    async function requestNotificationPermission() {
+      console.log('Requesting notification permission...');
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+
+          // Get the FCM Token
+          const currentToken = await messaging.getToken({ vapidKey: firebaseMessagingKey });
+          if (currentToken) {
+            console.log('Received FCM Token:', currentToken);
+            // Save the token to the server
+            await fetch('/api/student/register-fcm-token', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: currentToken })
+            });
+            console.log('Token registered with server.');
+          } else {
+            console.log('No registration token available. Request request permission to generate one.');
+          }
+        } else {
+          console.log('Unable to get permission to send notifications.');
+        }
+      } catch (err) {
+        console.error('An error occurred while retrieving token. ', err);
+      }
+    }
+
+    // Trigger permission request on load (or you can link this to a button)
+    window.addEventListener('load', () => {
+      requestNotificationPermission();
+    });
+  </script>
+
   <!-- Application Entry Point -->
   <script type="module" src="app.js"></script>
 </body>

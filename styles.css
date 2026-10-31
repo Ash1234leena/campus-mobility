@@ -94,14 +94,13 @@ body {
   position: absolute;
   top: calc(12px + var(--safe-top));
   left: 12px;
-  bottom: calc(12px + var(--safe-bottom));
+  right: 12px;
   z-index: 1000;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
   gap: 12px;
   pointer-events: none;
-  width: fit-content;
 }
 
 .brand-badge {
@@ -166,8 +165,7 @@ body {
 .top-actions {
   pointer-events: auto;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
 }
 
@@ -239,6 +237,28 @@ body {
 
 .glass-btn:active {
   transform: scale(0.96);
+}
+
+/* Top Center Bar (Search & Status) */
+.top-center-bar {
+  position: absolute;
+  top: calc(12px + var(--safe-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  pointer-events: auto;
+  width: auto;
+  max-width: 90vw;
+}
+
+.top-status-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Floating Search & Category Panel */
@@ -1595,15 +1615,14 @@ body {
 
 /* Top View Switcher */
 .nav-view-switcher {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: inline-flex;
+  align-items: center;
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 6px;
+  border-radius: var(--radius-full);
+  padding: 4px;
   gap: 4px;
   pointer-events: auto;
   box-shadow: var(--shadow-lg);
@@ -1614,8 +1633,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  border-radius: var(--radius-sm);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
   border: none;
   background: transparent;
   color: var(--text-secondary);
@@ -1625,8 +1644,6 @@ body {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
-  width: 100%;
-  justify-content: flex-start;
 }
 
 .view-switch-btn:hover {

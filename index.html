@@ -31,7 +31,7 @@
     <!-- Background Interactive Map Canvas -->
     <div id="map"></div>
 
-    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar (Left Sidebar) -->
     <header class="top-nav-bar" role="banner">
       <div class="nav-view-switcher" id="nav-view-switcher" role="tablist" aria-label="Map View Switcher">
         <button class="view-switch-btn active" id="btn-view-campus" data-view="campus" role="tab" aria-selected="true">
@@ -44,7 +44,41 @@
         </button>
       </div>
 
-      <!-- Floating Search & Category Selection Panel -->
+      <div class="top-actions">
+        <!-- Map Layer Switcher Button -->
+        <div style="position: relative;" id="layer-switcher-wrapper">
+          <button class="glass-btn" id="btn-layer-toggle" title="Switch Map Layer" aria-label="Switch Map Layer">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </button>
+          <div class="layer-picker-menu" id="layer-picker-menu">
+            <button class="layer-opt-btn active" data-layer="satellite">🛰️ 3D Satellite (Google Earth Style)</button>
+            <button class="layer-opt-btn" data-layer="street">🗺️ Campus Map (Streets & Paths)</button>
+          </div>
+        </div>
+
+        <!-- College Bus Finder Button -->
+        <button class="glass-btn" id="btn-bus-modal" title="Find My College Bus & Parked Bays" aria-label="Find College Bus">
+          <span style="font-size: 15px;">🚌</span>
+        </button>
+
+        <!-- Push Notification Alerts Button -->
+        <button class="glass-btn" id="btn-sms-modal" title="Push Approaching Alerts (Real Firebase Notification System)" aria-label="Push Approaching Alerts">
+          <span style="font-size: 15px;">🔔</span>
+        </button>
+
+        <!-- Dedicated Driver Dashboard Button -->
+        <a href="driver.html" target="_blank" class="glass-btn" id="btn-driver-dashboard" title="Open Driver Dashboard (Live GPS & Parked Spot)" aria-label="Driver Dashboard" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 15px;">👨‍✈️</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Top Center Bar (Search & Status) -->
+    <div class="top-center-bar">
       <section class="search-floating-panel" id="search-panel" aria-label="Search Campus Destinations">
         <div class="search-input-box">
           <span class="search-icon">
@@ -81,7 +115,7 @@
         </div>
       </section>
 
-      <div class="top-actions">
+      <div class="top-status-group">
         <!-- Live Connection Status Pill -->
         <div class="conn-status-pill online" id="conn-status-pill" title="Backend Server Sync Status">
           <span class="conn-dot"></span>
@@ -93,38 +127,8 @@
           <span class="gps-beacon" id="gps-beacon-indicator"></span>
           <span id="gps-status-text">Acquiring GPS...</span>
         </button>
-
-        <!-- Map Layer Switcher Button -->
-        <div style="position: relative;" id="layer-switcher-wrapper">
-          <button class="glass-btn" id="btn-layer-toggle" title="Switch Map Layer" aria-label="Switch Map Layer">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-              <polyline points="2 17 12 22 22 17"></polyline>
-              <polyline points="2 12 12 17 22 12"></polyline>
-            </svg>
-          </button>
-          <div class="layer-picker-menu" id="layer-picker-menu">
-            <button class="layer-opt-btn active" data-layer="satellite">🛰️ 3D Satellite (Google Earth Style)</button>
-            <button class="layer-opt-btn" data-layer="street">🗺️ Campus Map (Streets & Paths)</button>
-          </div>
-        </div>
-
-        <!-- College Bus Finder Button -->
-        <button class="glass-btn" id="btn-bus-modal" title="Find My College Bus & Parked Bays" aria-label="Find College Bus">
-          <span style="font-size: 15px;">🚌</span>
-        </button>
-
-        <!-- Push Notification Alerts Button -->
-        <button class="glass-btn" id="btn-sms-modal" title="Push Approaching Alerts (Real Firebase Notification System)" aria-label="Push Approaching Alerts">
-          <span style="font-size: 15px;">🔔</span>
-        </button>
-
-        <!-- Dedicated Driver Dashboard Button -->
-        <a href="driver.html" target="_blank" class="glass-btn" id="btn-driver-dashboard" title="Open Driver Dashboard (Live GPS & Parked Spot)" aria-label="Driver Dashboard" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-          <span style="font-size: 15px;">👨‍✈️</span>
-        </a>
       </div>
-    </header>
+    </div>
 
     <!-- Floating Map Controls (Right) -->
     <aside class="map-floating-controls" aria-label="Map Navigation Controls">
@@ -846,10 +850,7 @@
       </div>
     </div>
 
-    <!-- MapLibre GL 3D JavaScript Engine -->
-  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
-
-  <!-- Firebase Registration Logic -->
+    <!-- Firebase Registration Logic -->
   <script type="module">
     import { firebaseConfig, firebaseMessagingKey } from './firebase-config.js';
 

@@ -5,11 +5,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
+import admin from 'firebase-admin';
+import { getApps, initializeApp, cert } from 'firebase-admin/app';
+import { getMessaging } from 'firebase-admin/messaging';
 import {
   notificationService,
   validateAndNormalizeIndianPhone,
   maskPhoneNumber,
-  getTwilioConfigStatus
+  getNotificationConfigStatus
 } from './notification_service.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,6 +21,24 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3500;
 const DB_PATH = path.join(__dirname, 'data', 'rec_transport_database.json');
+
+// --- Firebase Admin Initialization ---
+try {
+  const serviceAccountPath = path.join(__dirname, 'serviceAccountKey.json');
+  if (fs.existsSync(serviceAccountPath)) {
+    const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+    if (getApps().length === 0) {
+      initializeApp({
+        credential: cert(serviceAccount)
+      });
+    }
+    console.log('[Server] Firebase Admin SDK initialized successfully');
+  } else {
+    console.warn('[Server] serviceAccountKey.json not found. Push notifications will be disabled.');
+  }
+} catch (err) {
+  console.error('[Server] Firebase Admin Initialization Error:', err.message);
+}
 
 app.use(cors());
 app.use(express.json());
@@ -96,7 +117,7 @@ function haversineDistanceKm(lat1, lon1, lat2, lon2) {
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
   const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lon1 * Math.PI / 180) *
             Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
@@ -110,6 +131,7 @@ function getStudentProfile(db) {
     db.studentNotificationProfile = {
       name: 'Rithvik S',
       phoneNumber: '+919876543210',
+      fcmToken: null,
       busId: 'rec_bus_10c',
       busNumber: '10C',
       pickupPointId: 'stop_main_gate',
@@ -123,7 +145,7 @@ function getStudentProfile(db) {
 }
 
 /**
- * Evaluates live telemetry for approaching alerts and triggers REAL Twilio SMS if within window.
+ * Evaluates live telemetry for approaching alerts and triggers NOTIFICATION if within window.
  */
 async function checkStudentNotificationsForBus(db, bus, isLive) {
   try {
@@ -139,7 +161,7 @@ async function checkStudentNotificationsForBus(db, bus, isLive) {
 
     // Reset notification state if trip stopped or bus is not live
     if (isLive === false || bus.status !== 'LIVE') {
-      notificationService.resetState(bus.busId, student.phoneNumber, student.pickupPointName);
+      notificationService.resetState(bus.busId, student.phoneNumber || student.fcmToken, student.pickupPointName);
       return;
     }
 
@@ -158,13 +180,17 @@ async function checkStudentNotificationsForBus(db, bus, isLive) {
     const etaMinutes = Number(((distKm / effectiveSpeed) * 60).toFixed(1));
 
     // Evaluate notification rules & deduplication
+    const target = student.fcmToken || student.phoneNumber;
+    const isToken = !!student.fcmToken;
+
     const result = await notificationService.evaluateAndTriggerNotification({
-      phoneNumber: student.phoneNumber,
+      target,
       busId: bus.busId,
       busNumber: bus.busNumber,
       pickupPoint: stop.stopName,
       etaMinutes,
-      studentId: student.name
+      studentId: student.name,
+      isToken
     });
 
     if (result.action === 'SENT_10_MIN' || result.action === 'SENT_5_MIN') {
@@ -174,9 +200,9 @@ async function checkStudentNotificationsForBus(db, bus, isLive) {
         timestamp: new Date().toISOString(),
         pickupPoint: stop.stopName,
         busNumber: bus.busNumber,
-        status: result.details.smsResult?.status || (result.details.smsResult?.success ? 'queued' : 'failed'),
-        messageSid: result.details.smsResult?.messageSid || null,
-        error: result.details.smsResult?.error || null
+        status: result.details.notifResult?.status || (result.details.notifResult?.success ? 'queued' : 'failed'),
+        messageSid: result.details.notifResult?.messageSid || null,
+        error: result.details.notifResult?.error || null
       };
       writeDatabase(db);
 
@@ -187,7 +213,7 @@ async function checkStudentNotificationsForBus(db, bus, isLive) {
         pickupPoint: stop.stopName,
         etaMinutes,
         timestamp: new Date().toISOString(),
-        smsResult: result.details.smsResult,
+        notifResult: result.details.notifResult,
         student: {
           ...student,
           maskedPhone: maskPhoneNumber(student.phoneNumber)
@@ -195,12 +221,11 @@ async function checkStudentNotificationsForBus(db, bus, isLive) {
       });
     }
   } catch (err) {
-    console.error('[SMS Telemetry Hook] Error in notification evaluation:', err.message);
+    console.error('[Notif Telemetry Hook] Error in notification evaluation:', err.message);
   }
 }
 
 // Heartbeat timeout sweeper for server-verified live status (runs every 5 seconds)
-// LIVE -> LAST_KNOWN if no telemetry received for 20 seconds
 setInterval(() => {
   const db = readDatabase();
   let modified = false;
@@ -235,7 +260,7 @@ setInterval(() => {
 // GET /api/status
 app.get('/api/status', (req, res) => {
   const db = readDatabase();
-  const twilioStatus = getTwilioConfigStatus();
+  const notifStatus = getNotificationConfigStatus();
   res.json({
     online: true,
     system: db.system || 'Rajalakshmi Engineering College (REC) Transport System',
@@ -246,10 +271,12 @@ app.get('/api/status', (req, res) => {
     totalRoutes: db.routes.length,
     totalStops: db.stops ? db.stops.length : 0,
     sseConnectedClients: sseClients.size,
-    smsSystem: {
-      twilioConfigured: twilioStatus.configured,
-      missingCredentials: twilioStatus.missing,
-      fromNumber: twilioStatus.fromNumber
+    notificationSystem: {
+      firebaseConfigured: notifStatus.firebase.configured,
+      twilioConfigured: notifStatus.twilio.configured,
+      missingFirebase: notifStatus.firebase.missing,
+      missingTwilio: notifStatus.twilio.missing,
+      fromId: notifStatus.twilio.fromId
     }
   });
 });
@@ -263,7 +290,7 @@ app.get('/api/transport/stream', (req, res) => {
     'Access-Control-Allow-Origin': '*'
   });
 
-  res.write(`event: connected\ndata: ${JSON.stringify({ time: new Date().toISOString(), system: 'REC Transport Live Telemetry Stream' })}\n\n`);
+  res.write(`event: connected\\ndata: ${JSON.stringify({ time: new Date().toISOString(), system: 'REC Transport Live Telemetry Stream' })}\\n\\n`);
   sseClients.add(res);
 
   req.on('close', () => {
@@ -386,14 +413,14 @@ app.get('/api/buses', (req, res) => {
   }
 
   if (routeFilter) {
-    results = results.filter(b => 
+    results = results.filter(b =>
       (b.routeId && b.routeId.toLowerCase().includes(routeFilter)) ||
       (b.routeName && b.routeName.toLowerCase().includes(routeFilter))
     );
   }
 
   if (searchQuery) {
-    results = results.filter(b => 
+    results = results.filter(b =>
       (b.busNumber && b.busNumber.toLowerCase().includes(searchQuery)) ||
       (b.routeName && b.routeName.toLowerCase().includes(searchQuery)) ||
       (b.registrationNumber && b.registrationNumber.toLowerCase().includes(searchQuery)) ||
@@ -618,7 +645,7 @@ app.post('/api/buses/:id/telemetry', (req, res) => {
     bus: db.buses[idx]
   });
 
-  // Evaluate student approaching alerts and trigger REAL SMS if applicable
+  // Evaluate student approaching alerts and trigger NOTIFICATION if applicable
   checkStudentNotificationsForBus(db, db.buses[idx], isLive).catch(err => {
     console.error('[Telemetry] Error in student notification check:', err.message);
   });
@@ -665,16 +692,18 @@ app.get('/api/stops', (req, res) => {
 });
 
 // =========================================================================
-// SMS NOTIFICATION SYSTEM ENDPOINTS
+// NOTIFICATION SYSTEM ENDPOINTS
 // =========================================================================
 
-// GET /api/notifications/config (Returns Twilio configuration status)
+// GET /api/notifications/config (Returns notification configuration status)
 app.get('/api/notifications/config', (req, res) => {
-  const status = getTwilioConfigStatus();
+  const status = getNotificationConfigStatus();
   res.json({
-    configured: status.configured,
-    missing: status.missing,
-    fromNumber: status.fromNumber ? maskPhoneNumber(status.fromNumber) : null
+    firebaseConfigured: status.firebase.configured,
+    twilioConfigured: status.twilio.configured,
+    missingFirebase: status.firebase.missing,
+    missingTwilio: status.twilio.missing,
+    fromNumber: status.twilio.fromId ? maskPhoneNumber(status.twilio.fromId) : null
   });
 });
 
@@ -682,12 +711,13 @@ app.get('/api/notifications/config', (req, res) => {
 app.get('/api/student/notification-profile', (req, res) => {
   const db = readDatabase();
   const profile = getStudentProfile(db);
-  const twilioStatus = getTwilioConfigStatus();
+  const notifStatus = getNotificationConfigStatus();
   res.json({
     ...profile,
     maskedPhone: maskPhoneNumber(profile.phoneNumber),
-    twilioConfigured: twilioStatus.configured,
-    fromNumber: twilioStatus.fromNumber ? maskPhoneNumber(twilioStatus.fromNumber) : null
+    firebaseConfigured: notifStatus.firebase.configured,
+    twilioConfigured: notifStatus.twilio.configured,
+    fromNumber: notifStatus.twilio.fromId ? maskPhoneNumber(notifStatus.twilio.fromId) : null
   });
 });
 
@@ -729,19 +759,37 @@ app.post('/api/student/notification-profile', (req, res) => {
   });
 });
 
-// POST /api/sms/test (Sends a real test SMS via Twilio to verified test number)
+// POST /api/student/register-fcm-token (Saves FCM device token to student profile)
+app.post('/api/student/register-fcm-token', (req, res) => {
+  const db = readDatabase();
+  const { token } = req.body;
+  if (!token) return res.status(400).json({ error: 'fcmToken is required' });
+
+  const profile = getStudentProfile(db);
+  profile.fcmToken = token;
+  writeDatabase(db);
+
+  res.json({ success: true, message: 'FCM token registered successfully' });
+});
+
+// POST /api/sms/test (Sends a real test notification)
 app.post('/api/sms/test', async (req, res) => {
-  const { phoneNumber, busNumber, pickupPoint } = req.body;
-  if (!phoneNumber) {
-    return res.status(400).json({ error: 'phoneNumber is required to test SMS delivery' });
+  const { phoneNumber, busNumber, pickupPoint, isToken, token } = req.body;
+  const target = token || phoneNumber;
+  if (!target) {
+    return res.status(400).json({ error: 'Target (phone or token) is required' });
   }
 
-  const result = await notificationService.sendBusApproachingSMS({
-    phoneNumber,
+  // AUTO-DETECT: If target is long, it's a token, not a phone number
+  const detectedIsToken = isToken || !!token || (target.length > 20);
+
+  const result = await notificationService.sendBusApproachingNotif({
+    target,
     busNumber: busNumber || '10C',
     pickupPoint: pickupPoint || 'Main Campus Entrance Gate (NH 48)',
     alertType: 'TEST',
-    customMessage: `ACIMS Alert: Real test notification verified for Bus ${busNumber || '10C'} approaching ${pickupPoint || 'Main Campus Entrance Gate (NH 48)'}. SMS service is active.`
+    customMessage: `ACIMS Alert: Real test notification verified for Bus ${busNumber || '10C'} approaching ${pickupPoint || 'Main Campus Entrance Gate (NH 48)'}. Notification service is active.`,
+    isToken: detectedIsToken
   });
 
   res.json(result);
@@ -751,20 +799,21 @@ app.post('/api/sms/test', async (req, res) => {
 app.post('/api/sms/simulate-eta', async (req, res) => {
   const db = readDatabase();
   const profile = getStudentProfile(db);
-  const { phoneNumber, busNumber, pickupPoint, sendRealSMS, etaSequence } = req.body;
+  const { phoneNumber, busNumber, pickupPoint, sendRealNotif, etaSequence, isToken, token } = req.body;
 
-  const phone = phoneNumber || profile.phoneNumber;
-  if (!phone) {
-    return res.status(400).json({ error: 'Phone number is required for simulation' });
+  const target = token || phoneNumber || profile.phoneNumber || profile.fcmToken;
+  if (!target) {
+    return res.status(400).json({ error: 'Target is required for simulation' });
   }
 
   const results = await notificationService.simulateEtaProgression({
-    phoneNumber: phone,
+    target,
     busNumber: busNumber || profile.busNumber || '10C',
     busId: profile.busId || 'rec_bus_10c',
     pickupPoint: pickupPoint || profile.pickupPointName || 'Main Campus Entrance Gate (NH 48)',
-    sendRealSMS: Boolean(sendRealSMS),
-    etaSequence: Array.isArray(etaSequence) ? etaSequence : [12, 10, 9, 5, 4]
+    sendRealNotif: Boolean(sendRealNotif),
+    etaSequence: Array.isArray(etaSequence) ? etaSequence : [12, 10, 9, 5, 4],
+    isToken: isToken || !!token
   });
 
   res.json({
@@ -773,7 +822,7 @@ app.post('/api/sms/simulate-eta', async (req, res) => {
   });
 });
 
-// GET /api/notifications/logs (Returns audit log of all SMS activity)
+// GET /api/notifications/logs (Returns audit log of all notification activity)
 app.get('/api/notifications/logs', (req, res) => {
   res.json({
     logs: notificationService.getAuditLog()
@@ -798,10 +847,10 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`[REC Transport Server] Running at http://localhost:${PORT}`);
   console.log(`[REC Transport Server] REST API available at http://localhost:${PORT}/api/buses`);
   console.log(`[REC Transport Server] Real-time SSE stream at http://localhost:${PORT}/api/transport/stream`);
-  const twilioStatus = getTwilioConfigStatus();
-  if (twilioStatus.configured) {
-    console.log(`[SMS Service] Twilio SMS active. Sender: ${twilioStatus.fromNumber}`);
+  const notifStatus = getNotificationConfigStatus();
+  if (notifStatus.firebase.configured) {
+    console.log(`[Notification Service] Firebase Push active.`);
   } else {
-    console.log(`[SMS Service] Twilio credentials not yet configured in .env: ${twilioStatus.missing.join(', ')}`);
+    console.log(`[Notification Service] Firebase not configured: ${notifStatus.firebase.missing.join(', ')}`);
   }
 });

@@ -1,4 +1,7 @@
 import twilio from 'twilio';
+import { getApps, initializeApp, cert } from 'firebase-admin/app';
+import { getMessaging } from 'firebase-admin/messaging';
+import fs from 'node:fs';
 import dotenv from 'dotenv';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,7 +20,7 @@ export function validateAndNormalizeIndianPhone(rawPhone) {
     return { isValid: false, error: 'Phone number is required and must be a string' };
   }
 
-  let cleaned = rawPhone.trim().replace(/[\s\-\(\)\.]/g, '');
+  let cleaned = rawPhone.trim().replace(/[\\s\\-\\(\\)\\.]/g, '');
 
   if (cleaned.startsWith('+')) {
     cleaned = cleaned.substring(1);
@@ -31,7 +34,7 @@ export function validateAndNormalizeIndianPhone(rawPhone) {
     cleaned = cleaned.substring(2);
   }
 
-  if (!/^\d{10}$/.test(cleaned)) {
+  if (!/^\\d{10}$/.test(cleaned)) {
     return {
       isValid: false,
       error: `Invalid phone number format: expected 10 digits for Indian mobile numbers, got ${cleaned.length} digits`
@@ -53,7 +56,7 @@ export function validateAndNormalizeIndianPhone(rawPhone) {
 
 export function maskPhoneNumber(phone) {
   if (!phone || typeof phone !== 'string') return '';
-  const clean = phone.replace(/\s+/g, '');
+  const clean = phone.replace(/\\s+/g, '');
   if (clean.length < 8) return '***';
   const prefix = clean.slice(0, 5);
   const suffix = clean.slice(-3);
@@ -61,19 +64,68 @@ export function maskPhoneNumber(phone) {
 }
 
 /**
- * SMS PROVIDER PATTERN
+ * NOTIFICATION PROVIDER PATTERN
  */
 
-class SmsProvider {
-  async send(phoneNumber, body) {
+class NotificationProvider {
+  async send(target, body, title = 'ACIMS Alert') {
     throw new Error('send() method must be implemented by the provider');
   }
   getConfigStatus() {
-    return { configured: false, missing: [], fromNumber: null };
+    return { configured: false, missing: [], fromId: null };
   }
 }
 
-class TwilioProvider extends SmsProvider {
+class FirebaseProvider extends NotificationProvider {
+  constructor() {
+    super();
+    this._initialized = false;
+  }
+
+  async init() {
+    if (this._initialized) return;
+    try {
+      const serviceAccountPath = path.join(__dirname, 'serviceAccountKey.json');
+      if (!fs.existsSync(serviceAccountPath)) {
+        throw new Error('serviceAccountKey.json not found');
+      }
+      const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+
+      if (getApps().length === 0) {
+        initializeApp({
+          credential: cert(serviceAccount)
+        });
+      }
+      this._initialized = true;
+      console.log('[NotificationService] Firebase Admin SDK Initialized');
+    } catch (err) {
+      console.error('[NotificationService] Firebase Init Error:', err.message);
+    }
+  }
+
+  getConfigStatus() {
+    return { configured: this._initialized, missing: this._initialized ? [] : ['serviceAccountKey.json'], fromId: 'Firebase-Push' };
+  }
+
+  async send(token, body, title = 'ACIMS Alert') {
+    if (!this._initialized) await this.init();
+
+    const message = {
+      notification: { title, body },
+      token: token
+    };
+
+    try {
+      const response = await getMessaging().send(message);
+      return { success: true, messageSid: response, status: 'sent' };
+    } catch (err) {
+      console.error('[FirebaseProvider] Send Error:', err);
+      throw err;
+    }
+  }
+}
+
+class TwilioProvider extends NotificationProvider {
   constructor() {
     super();
     this._client = null;
@@ -98,7 +150,7 @@ class TwilioProvider extends SmsProvider {
     return {
       configured: missing.length === 0,
       missing,
-      fromNumber: fromNumber || null
+      fromId: fromNumber || null
     };
   }
 
@@ -114,7 +166,7 @@ class TwilioProvider extends SmsProvider {
 
     const response = await this._client.messages.create({
       body: body,
-      from: status.fromNumber,
+      from: status.fromId,
       to: phoneNumber
     });
 
@@ -126,14 +178,14 @@ class TwilioProvider extends SmsProvider {
   }
 }
 
-class MockProvider extends SmsProvider {
+class MockProvider extends NotificationProvider {
   getConfigStatus() {
-    return { configured: true, missing: [], fromNumber: '+91-MOCK-SENDER' };
+    return { configured: true, missing: [], fromId: '+91-MOCK-SENDER' };
   }
 
-  async send(phoneNumber, body) {
+  async send(target, body) {
     await new Promise(resolve => setTimeout(resolve, 500));
-    console.log(`[MOCK SMS] To: ${phoneNumber} | Body: ${body}`);
+    console.log(`[MOCK NOTIF] To: ${target} | Body: ${body}`);
     return {
       success: true,
       messageSid: `mock_sid_${Math.random().toString(36).substring(2, 15)}`,
@@ -150,25 +202,31 @@ class NotificationService {
     this.alertStates = new Map();
     this.auditLog = [];
 
-    // FORCE MOCK MODE: This bypasses .env and Twilio entirely for testing
-    const providerType = 'mock';
+    this.providers = {
+      firebase: new FirebaseProvider(),
+      twilio: new TwilioProvider(),
+      mock: new MockProvider()
+    };
 
-    if (providerType === 'mock') {
-      this.provider = new MockProvider();
-      console.log('[NotificationService] FORCE-ENABLED: Using MOCK SMS Provider (no real messages sent)');
-    } else {
-      this.provider = new TwilioProvider();
-      console.log('[NotificationService] Using TWILIO SMS Provider');
-    }
+    // Initialize Firebase provider immediately so status is correct at startup
+    this.providers.firebase.init().catch(err => {
+      console.error('[NotificationService] Initial Firebase setup failed:', err.message);
+    });
+
+    this.activeProviderType = 'mock';
   }
 
-  getTwilioConfigStatus() {
-    return this.provider.getConfigStatus();
+  getProviderStatus() {
+    return {
+      firebase: this.providers.firebase.getConfigStatus(),
+      twilio: this.providers.twilio.getConfigStatus(),
+      mock: this.providers.mock.getConfigStatus()
+    };
   }
 
   logAudit(entry) {
     this.auditLog.unshift({
-      id: `sms_log_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      id: `notif_log_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       timestamp: new Date().toISOString(),
       ...entry
     });
@@ -179,45 +237,47 @@ class NotificationService {
     return [...this.auditLog];
   }
 
-  async sendBusApproachingSMS({
-    phoneNumber,
+  async sendBusApproachingNotif({
+    target,
     busNumber = 'Campus Bus',
     pickupPoint = 'Pickup Point',
     etaMinutes = null,
     alertType = 'CUSTOM',
-    customMessage = null
+    customMessage = null,
+    isToken = false
   }) {
-    const validation = validateAndNormalizeIndianPhone(phoneNumber);
-    if (!validation.isValid) {
-      const err = validation.error;
-      this.logAudit({ busNumber, pickupPoint, etaMinutes, alertType, maskedPhone: maskPhoneNumber(phoneNumber), success: false, error: err });
-      return { success: false, error: err, maskedPhone: maskPhoneNumber(phoneNumber) };
-    }
-
-    const recipientE164 = validation.e164;
-    const maskedRecipient = validation.masked;
-
     let messageBody = '';
+    let title = 'ACIMS Alert';
+
     if (customMessage) {
       messageBody = customMessage;
     } else if (alertType === '10_MIN' || (etaMinutes !== null && etaMinutes <= 10 && etaMinutes > 5)) {
-      messageBody = `ACIMS Alert: Your bus is approximately 10 minutes away from your pickup point. Please be ready.`;
+      messageBody = `Your bus is approximately 10 minutes away from your pickup point. Please be ready.`;
     } else if (alertType === '5_MIN' || (etaMinutes !== null && etaMinutes <= 5)) {
-      messageBody = `ACIMS Alert: Your bus is approximately 5 minutes away. Please proceed to your pickup point.`;
+      messageBody = `Your bus is approximately 5 minutes away. Please proceed to your pickup point.`;
     } else if (etaMinutes !== null) {
-      messageBody = `ACIMS Alert: Bus ${busNumber} is approximately ${Math.round(etaMinutes)} minutes away from ${pickupPoint}. Please be ready.`;
+      messageBody = `Bus ${busNumber} is approximately ${Math.round(etaMinutes)} minutes away from ${pickupPoint}. Please be ready.`;
     } else {
-      messageBody = `ACIMS Alert: Bus ${busNumber} approaching ${pickupPoint}.`;
+      messageBody = `Bus ${busNumber} approaching ${pickupPoint}.`;
     }
 
     try {
-      const result = await this.provider.send(recipientE164, messageBody);
+      let result;
+      if (isToken) {
+        result = await this.providers.firebase.send(target, messageBody, title);
+      } else {
+        const validation = validateAndNormalizeIndianPhone(target);
+        if (!validation.isValid) throw new Error(validation.error);
+
+        const provider = this.activeProviderType === 'mock' ? this.providers.mock : this.providers.twilio;
+        result = await provider.send(validation.e164, messageBody);
+      }
 
       const finalResult = {
         success: result.success,
         messageSid: result.messageSid,
         status: result.status,
-        maskedPhone: maskedRecipient,
+        target: isToken ? 'FCM_TOKEN' : maskPhoneNumber(target),
         messageBody,
         etaMinutes,
         alertType
@@ -226,9 +286,9 @@ class NotificationService {
       this.logAudit({ ...finalResult, error: null });
       return finalResult;
     } catch (err) {
-      const safeErrorMessage = err.message || 'Unknown SMS Provider error';
-      this.logAudit({ busNumber, pickupPoint, etaMinutes, alertType, maskedPhone: maskedRecipient, messageBody, success: false, error: safeErrorMessage });
-      return { success: false, error: safeErrorMessage, maskedPhone: maskedRecipient, alertType, etaMinutes };
+      const safeErrorMessage = err.message || 'Unknown Provider error';
+      this.logAudit({ busNumber, pickupPoint, etaMinutes, alertType, target: isToken ? 'TOKEN' : maskPhoneNumber(target), messageBody, success: false, error: safeErrorMessage });
+      return { success: false, error: safeErrorMessage, target: isToken ? 'TOKEN' : maskPhoneNumber(target), alertType, etaMinutes };
     }
   }
 
@@ -240,18 +300,19 @@ class NotificationService {
   }
 
   async evaluateAndTriggerNotification({
-    phoneNumber,
+    target,
     busId,
     busNumber,
     pickupPoint,
     etaMinutes,
-    studentId = null
+    studentId = null,
+    isToken = false
   }) {
     if (etaMinutes === null || etaMinutes === undefined || isNaN(etaMinutes)) {
       return { action: 'NO_ACTION', details: { reason: 'ETA is invalid or unavailable' } };
     }
 
-    const stateKey = this.getStateKey(busId, studentId || phoneNumber, pickupPoint);
+    const stateKey = this.getStateKey(busId, studentId || target, pickupPoint);
     let state = this.alertStates.get(stateKey);
 
     if (!state) {
@@ -273,8 +334,8 @@ class NotificationService {
     if (etaMinutes <= 10 && etaMinutes > 5) {
       if (!state.tenMinuteSentAt) {
         state.tenMinuteSentAt = Date.now();
-        const sendResult = await this.sendBusApproachingSMS({ phoneNumber, busNumber, pickupPoint, etaMinutes: 10, alertType: '10_MIN' });
-        return { action: 'SENT_10_MIN', details: { etaMinutes, smsResult: sendResult } };
+        const sendResult = await this.sendBusApproachingNotif({ target, busNumber, pickupPoint, etaMinutes: 10, alertType: '10_MIN', isToken });
+        return { action: 'SENT_10_MIN', details: { etaMinutes, notifResult: sendResult } };
       } else {
         return { action: 'SUPPRESSED_10_MIN', details: { etaMinutes, reason: 'Duplicate 10-min alert suppressed' } };
       }
@@ -283,8 +344,8 @@ class NotificationService {
     if (etaMinutes <= 5 && etaMinutes >= 0) {
       if (!state.fiveMinuteSentAt) {
         state.fiveMinuteSentAt = Date.now();
-        const sendResult = await this.sendBusApproachingSMS({ phoneNumber, busNumber, pickupPoint, etaMinutes: 5, alertType: '5_MIN' });
-        return { action: 'SENT_5_MIN', details: { etaMinutes, smsResult: sendResult } };
+        const sendResult = await this.sendBusApproachingNotif({ target, busNumber, pickupPoint, etaMinutes: 5, alertType: '5_MIN', isToken });
+        return { action: 'SENT_5_MIN', details: { etaMinutes, notifResult: sendResult } };
       } else {
         return { action: 'SUPPRESSED_5_MIN', details: { etaMinutes, reason: 'Duplicate 5-min alert suppressed' } };
       }
@@ -308,22 +369,23 @@ class NotificationService {
   }
 
   async simulateEtaProgression({
-    phoneNumber,
+    target,
     busNumber = '10C',
     busId = 'rec_bus_10c',
     pickupPoint = 'Main Campus Entrance Gate (NH 48)',
-    sendRealSMS = false,
-    etaSequence = [12, 10, 9, 5, 4]
+    sendRealNotif = false,
+    etaSequence = [12, 10, 9, 5, 4],
+    isToken = false
   }) {
-    this.resetState(busId, phoneNumber, pickupPoint);
+    this.resetState(busId, target, pickupPoint);
     const simulationResults = [];
 
     for (const eta of etaSequence) {
-      if (sendRealSMS) {
-        const step = await this.evaluateAndTriggerNotification({ phoneNumber, busId, busNumber, pickupPoint, etaMinutes: eta });
-        simulationResults.push({ eta, action: step.action, smsSent: step.action === 'SENT_10_MIN' || step.action === 'SENT_5_MIN', details: step.details });
+      if (sendRealNotif) {
+        const step = await this.evaluateAndTriggerNotification({ target, busId, busNumber, pickupPoint, etaMinutes: eta, isToken });
+        simulationResults.push({ eta, action: step.action, notifSent: step.action === 'SENT_10_MIN' || step.action === 'SENT_5_MIN', details: step.details });
       } else {
-        const stateKey = this.getStateKey(busId, phoneNumber, pickupPoint);
+        const stateKey = this.getStateKey(busId, target, pickupPoint);
         let state = this.alertStates.get(stateKey);
         if (!state) {
           state = { tenMinuteSentAt: null, fiveMinuteSentAt: null, lastEta: eta };
@@ -331,7 +393,7 @@ class NotificationService {
         }
 
         let action = 'NO_ACTION';
-        let smsSent = false;
+        let notifSent = false;
         let details = {};
 
         if (eta > 10) {
@@ -341,26 +403,26 @@ class NotificationService {
           if (!state.tenMinuteSentAt) {
             state.tenMinuteSentAt = Date.now();
             action = 'SENT_10_MIN';
-            smsSent = true;
+            notifSent = true;
             details = { message: `10-minute alert triggered.` };
           } else {
             action = 'SUPPRESSED_10_MIN';
-            smsSent = false;
+            notifSent = false;
             details = { message: `Duplicate 10-minute alert suppressed.` };
           }
         } else if (eta <= 5 && eta >= 0) {
           if (!state.fiveMinuteSentAt) {
             state.fiveMinuteSentAt = Date.now();
             action = 'SENT_5_MIN';
-            smsSent = true;
+            notifSent = true;
             details = { message: `5-minute alert triggered.` };
           } else {
             action = 'SUPPRESSED_5_MIN';
-            smsSent = false;
+            notifSent = false;
             details = { message: `Duplicate 5-minute alert suppressed.` };
           }
         }
-        simulationResults.push({ eta, action, smsSent, details });
+        simulationResults.push({ eta, action, notifSent, details });
       }
     }
     return simulationResults;
@@ -368,7 +430,7 @@ class NotificationService {
 }
 
 export const notificationService = new NotificationService();
-export function getTwilioConfigStatus() {
-  return notificationService.getTwilioConfigStatus();
+export function getNotificationConfigStatus() {
+  return notificationService.getProviderStatus();
 }
 export default notificationService;

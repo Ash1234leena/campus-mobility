@@ -9,8 +9,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+  <script>
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      console.error('Global Error:', msg, 'at', url, ':', lineNo, ':', columnNo, error);
+      return false;
+    };
+  </script>
   <!-- MapLibre GL 3D Engine CSS -->
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
+  <!-- MapLibre GL 3D Engine JS -->
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
   <!-- Core Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 
@@ -35,6 +43,43 @@
           <span>Transport Bus Map</span>
         </button>
       </div>
+
+      <!-- Floating Search & Category Selection Panel -->
+      <section class="search-floating-panel" id="search-panel" aria-label="Search Campus Destinations">
+        <div class="search-input-box">
+          <span class="search-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+          <input
+            type="text"
+            id="search-dest-input"
+            class="search-input"
+            placeholder="Search building or Bus # (e.g. 12, Tambaram)..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search REC Campus Locations"
+          />
+          <button class="clear-search-btn" id="btn-clear-search" style="display: none;" aria-label="Clear Search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <button class="dropdown-toggle-btn" id="btn-dropdown-toggle" title="Browse all campus destinations & buses" aria-label="Toggle Dropdown">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Student Destinations & Buses Dropdown Menu -->
+        <div class="search-results-dropdown" id="search-results-dropdown" role="listbox">
+          <!-- Dynamically injected items -->
+        </div>
+      </section>
 
       <div class="top-actions">
         <!-- Live Connection Status Pill -->
@@ -80,43 +125,6 @@
         </a>
       </div>
     </header>
-
-    <!-- Floating Search & Category Selection Panel -->
-    <section class="search-floating-panel" id="search-panel" aria-label="Search Campus Destinations">
-      <div class="search-input-box">
-        <span class="search-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </span>
-        <input
-          type="text"
-          id="search-dest-input"
-          class="search-input"
-          placeholder="Search building or Bus # (e.g. 12, Tambaram)..."
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Search REC Campus Locations"
-        />
-        <button class="clear-search-btn" id="btn-clear-search" style="display: none;" aria-label="Clear Search">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-        <button class="dropdown-toggle-btn" id="btn-dropdown-toggle" title="Browse all campus destinations & buses" aria-label="Toggle Dropdown">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Student Destinations & Buses Dropdown Menu -->
-      <div class="search-results-dropdown" id="search-results-dropdown" role="listbox">
-        <!-- Dynamically injected items -->
-      </div>
-    </section>
 
     <!-- Floating Map Controls (Right) -->
     <aside class="map-floating-controls" aria-label="Map Navigation Controls">

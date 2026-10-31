@@ -94,13 +94,14 @@ body {
   position: absolute;
   top: calc(12px + var(--safe-top));
   left: 12px;
-  right: 12px;
+  bottom: calc(12px + var(--safe-bottom));
   z-index: 1000;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
   pointer-events: none;
+  width: fit-content;
 }
 
 .brand-badge {
@@ -165,7 +166,8 @@ body {
 .top-actions {
   pointer-events: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 8px;
 }
 
@@ -241,17 +243,11 @@ body {
 
 /* Floating Search & Category Panel */
 .search-floating-panel {
-  position: absolute;
-  top: calc(64px + var(--safe-top));
-  left: 12px;
-  right: 12px;
-  max-width: 500px;
-  margin-inline: auto;
-  z-index: 1000;
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  pointer-events: auto;
+  width: 100%;
 }
 
 .search-input-box {
@@ -1599,14 +1595,15 @@ body {
 
 /* Top View Switcher */
 .nav-view-switcher {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-glass);
-  border-radius: var(--radius-full);
-  padding: 4px;
+  border-radius: var(--radius-md);
+  padding: 6px;
   gap: 4px;
   pointer-events: auto;
   box-shadow: var(--shadow-lg);
@@ -1617,8 +1614,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
   border: none;
   background: transparent;
   color: var(--text-secondary);
@@ -1628,6 +1625,8 @@ body {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .view-switch-btn:hover {

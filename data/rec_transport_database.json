@@ -3,7 +3,7 @@
   "campus": "REC Thandalam Campus",
   "officialWebsite": "https://www.rectransport.com/",
   "mapImage": "assets/rec_thandalam_bus_map_hd.jpg",
-  "lastSyncTimestamp": "2026-10-31T09:03:23.747Z",
+  "lastSyncTimestamp": "2026-10-31T20:04:39.776Z",
   "calibration": {
     "topLeft": {
       "latitude": 13.013,
@@ -22,7 +22,7 @@
       "longitude": 80.0062
     },
     "isVerified": true,
-    "lastCalibratedAt": "2026-10-06T15:26:11.636Z"
+    "lastCalibratedAt": "2026-10-31T18:51:28.806Z"
   },
   "buses": [
     {
@@ -47,16 +47,16 @@
       "isActive": true,
       "mapX": 0.4281,
       "mapY": 0.5723,
-      "parkingBay": "PARKWIZ Bay 10C",
-      "lastLatitude": 13.012475,
-      "lastLongitude": 80.000343,
-      "lastGpsUpdate": "2026-10-20T15:32:18.690Z",
+      "parkingBay": "PARKWIZ North Bay 04",
+      "lastLatitude": 12.923103292188992,
+      "lastLongitude": 80.08905847381472,
+      "lastGpsUpdate": "2026-10-31T19:08:26.022Z",
       "stopLocationId": "GATE-01",
       "createdAt": "2026-10-06T12:54:58.379265+00:00",
-      "updatedAt": "2026-10-20T15:32:18.690Z",
+      "updatedAt": "2026-10-31T19:08:46.053Z",
       "speed": 0,
       "heading": 0,
-      "accuracy": 3
+      "accuracy": 40
     },
     {
       "busId": "rec_bus_15a",
@@ -382,17 +382,20 @@
       "boardingPoints": "Origin: Karima Nagar → Toll Gate → Poonamallee → REC Thandalam",
       "departureTime": "6.45 am",
       "arrivalTime": "07:45 am",
-      "status": "STATIC",
+      "status": "LAST_KNOWN",
       "isActive": true,
       "mapX": 0.906,
       "mapY": 0.451,
       "parkingBay": "Playground South Bay 35B",
-      "lastLatitude": null,
-      "lastLongitude": null,
-      "lastGpsUpdate": null,
+      "lastLatitude": 12.923162986400246,
+      "lastLongitude": 80.08904520950003,
+      "lastGpsUpdate": "2026-10-31T19:08:45.285Z",
       "stopLocationId": "CAFE-02",
       "createdAt": "2026-10-06T12:54:58.379265+00:00",
-      "updatedAt": "2026-10-06T12:54:58.379265+00:00"
+      "updatedAt": "2026-10-31T19:09:06.057Z",
+      "speed": 0,
+      "heading": 0,
+      "accuracy": 40
     },
     {
       "busId": "rec_bus_36c",
@@ -1638,13 +1641,14 @@
     "smsEnabled": true,
     "lastNotification": {
       "alertType": "5_MIN",
-      "etaMinutes": 4.6,
-      "timestamp": "2026-10-20T15:32:18.503Z",
+      "etaMinutes": 0.3,
+      "timestamp": "2026-10-31T18:51:28.593Z",
       "pickupPoint": "Main Campus Entrance Gate (NH 48)",
       "busNumber": "10C",
-      "status": "failed",
-      "messageSid": null,
-      "error": "No Twilio trial phone number is assigned for messaging to this destination number. Please add the 'to' number as a verified recipient."
-    }
+      "status": "sent",
+      "messageSid": "projects/campusmobility-fa67f/messages/9f0cb934-b335-447d-a194-ce288aad4114",
+      "error": null
+    },
+    "fcmToken": "eWmJqyhEjB5QJ3PKJZREDC:APA91bEgvczaVSwRPLwk0knjRrw2_II1go5E2z6yv8GYhgoTnkx2ozzwP3BFUB3Xqu-02zlTP22hJeYcZ26eVi9YzD4X7WkwOFybnYaNoG9anQEYZ3eq2Rw"
   }
 }
